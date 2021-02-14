@@ -6,6 +6,10 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+java/.gradle
+java/build
+
+
 ### STS ###
 .apt_generated
 .classpath
@@ -37,4 +41,4 @@ out/
 ### VS Code ###
 .vscode/
 
-/gradle
+java/gradle
