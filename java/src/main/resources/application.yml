@@ -1,0 +1,49 @@
+spring:
+  # DB
+  database: h2
+  datasource:
+    schema: classpath*:db/${database}/schema.sql
+    data: classpath*:db/${database}/data.sql
+
+  # JPA
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+
+  # Web
+  thymeleaf:
+    mode: HTML
+    # template cache setting
+    cache: false
+    # templates classpath setting
+    prefix: classpath:/templates/root/
+
+  # Internationalization
+  messages:
+    basename: messages/messages
+
+  resources:
+    # Maximum time static resources should be cached
+    cache:
+      cachecontrol:
+        max-age: 12h
+    # static classpath setting
+    static-locations: classpath:/static/root/
+
+
+# Web
+web:
+  ## no image file path
+  noimg-url: /noimg/
+
+
+# Logging
+logging:
+  level:
+    org.springframework: DEBUG
+    org.springframework.web: DEBUG
+
+# QR-Code : http://goqr.me/api/
+qrcode:
+  api-uri: https://api.qrserver.com/v1/create-qr-code/
