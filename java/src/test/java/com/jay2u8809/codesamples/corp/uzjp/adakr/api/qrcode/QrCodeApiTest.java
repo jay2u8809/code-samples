@@ -1,9 +1,8 @@
 package com.jay2u8809.codesamples.corp.uzjp.adakr.api.qrcode;
 
 import com.jay2u8809.codesamples.common.CommonConst;
+import com.jay2u8809.codesamples.common.CommonControllerTest;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -13,10 +12,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class QrCodeApiTest {
-
-    // Logger
-    private final Logger logger = LoggerFactory.getLogger(getClass());
+public class QrCodeApiTest extends CommonControllerTest {
 
     // API URI to generate QRCODE
     private final String qrCodeApiUri = "https://api.qrserver.com/v1/create-qr-code/";
