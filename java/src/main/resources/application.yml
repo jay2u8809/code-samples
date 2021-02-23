@@ -44,6 +44,18 @@ logging:
     org.springframework: DEBUG
     org.springframework.web: DEBUG
 
-# QR-Code : http://goqr.me/api/
-qrcode:
-  api-uri: https://api.qrserver.com/v1/create-qr-code/
+# OpenApi Info
+open-api:
+
+  # QR-Code : http://goqr.me/api/
+  qrcode:
+    api-uri: https://api.qrserver.com/v1/create-qr-code/
+  # NAVER API
+  naver:
+    #NAVER MAP API
+    map:
+      # NAVER MAP GEOCODING API
+      geocoding:
+        api-url: https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode
+        client-id: ID_INFO
+        client-secret: SECRET_INFO
