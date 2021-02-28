@@ -1,3 +1,8 @@
+# Server
+server:
+  port: 8080
+
+# Spring
 spring:
   # DB
   database: h2
@@ -7,9 +12,17 @@ spring:
 
   # JPA
   jpa:
-    hibernate:
+    properties:
+      hibernate:
+        # Query log를 MySql버전으로 표시 https://docs.jboss.org/hibernate/orm/5.4/javadocs/org/hibernate/dialect/package-summary.html, https://055055.tistory.com/83
+        dialect : org.hibernate.dialect.PostgreSQL10Dialect
       ddl-auto: none
     open-in-view: false
+    show_sql: true        # display JPA SQL
+
+  h2:
+    console:
+      enabled;: true
 
   # Web
   thymeleaf:
@@ -23,13 +36,13 @@ spring:
   messages:
     basename: messages/messages
 
-  resources:
+#  resources:
     # Maximum time static resources should be cached
-    cache:
-      cachecontrol:
-        max-age: 12h
+#    cache:
+#      cachecontrol:
+#        max-age: 12h
     # static classpath setting
-    static-locations: classpath:/static/root/
+#    static-locations: classpath:/static/root/
 
 
 # Web
