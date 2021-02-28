@@ -5,7 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jay2u8809.codesamples.common.CommonControllerTest;
-import com.jay2u8809.codesamples.corp.uzjp.adakr.dto.naverapi.map.NaverGeoCodingResultDto;
+import com.jay2u8809.codesamples.corp.uzjp.adakr.api.naverapi.map.dto.NaverGeoCodingResultDto;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

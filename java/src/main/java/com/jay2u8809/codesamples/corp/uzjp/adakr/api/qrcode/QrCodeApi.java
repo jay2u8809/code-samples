@@ -4,21 +4,21 @@ import com.jay2u8809.codesamples.common.CommonConst;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.regex.Pattern;
 
-@Component
+@Service
 public class QrCodeApi {
 
     // Logger
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     // API URI to generate QRCODE
-    @Value("${qrcode.api-uri}")
+    @Value("${open-api.qrcode.api-uri}")
     private String qrCodeApiUri;
 
     // Basic QRCODE image size

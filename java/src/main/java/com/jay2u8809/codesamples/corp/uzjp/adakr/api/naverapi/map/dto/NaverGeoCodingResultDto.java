@@ -1,7 +1,8 @@
-package com.jay2u8809.codesamples.corp.uzjp.adakr.dto.naverapi.map;
+package com.jay2u8809.codesamples.corp.uzjp.adakr.api.naverapi.map.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
  */
 @Getter
 @Setter
+@NoArgsConstructor
 public class NaverGeoCodingResultDto {
 
     // Search result status code (required) : OK -> 200, INVALID_REQUEST -> 400, SYSTEM_ERROR -> 500
