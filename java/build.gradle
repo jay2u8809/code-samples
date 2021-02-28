@@ -1,3 +1,19 @@
+buildscript {
+	ext {
+		springBootVersion = '2.4.2'
+		set('vaadinVersion', "14.4.6")
+	}
+
+	repositories {
+		mavenCentral()
+		jcenter()
+	}
+
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
 plugins {
 	id 'org.springframework.boot' version '2.4.2'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
@@ -20,10 +36,6 @@ repositories {
 	mavenCentral()
 }
 
-ext {
-	set('vaadinVersion', "14.4.6")
-}
-
 dependencies {
 	// Spring Boot
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -40,6 +52,8 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 	// Test
 	implementation 'junit:junit:4.12'
+	// Mustache
+	implementation('org.springframework.boot:spring-boot-starter-mustache')
 }
 
 dependencyManagement {
