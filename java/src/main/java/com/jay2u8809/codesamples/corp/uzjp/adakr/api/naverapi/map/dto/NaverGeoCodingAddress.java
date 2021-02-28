@@ -1,6 +1,7 @@
-package com.jay2u8809.codesamples.corp.uzjp.adakr.dto.naverapi.map;
+package com.jay2u8809.codesamples.corp.uzjp.adakr.api.naverapi.map.dto;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
  */
 @Getter
 @Setter
+@NoArgsConstructor
 //@JsonIgnoreProperties(value = { "addressElements", "distance" })    // Other address information and distance: Not required
 public class NaverGeoCodingAddress {
 
