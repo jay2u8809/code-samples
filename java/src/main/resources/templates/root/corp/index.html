@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="en">
+<head th:replace="corp/uzjp/layout/common_header :: header_parts()">
+  <meta charset="UTF-8">
+  <title>Corp</title>
+</head>
+<body>
+  <div>
+    <ul>
+      <li><a href="/corp/uzjp/adakr/qrcode/entry/">QR CODE</a></li>
+      <li><a href="/corp/uzjp/promaru/html2pdf/entry/">Html to PDF</a></li>
+    </ul>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <th:block th:replace="corp/uzjp/layout/common_footer :: footer_parts()" />
+  </footer>
+</body>
+</html>
