@@ -10,6 +10,8 @@ public class CommonExtends {
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 
+    protected static final String CORP_UZJP_HOME_PATH = "/corp/uzjp";
+
     /**
      * Get the session ID
      * @param request
