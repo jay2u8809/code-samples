@@ -22,7 +22,7 @@ spring:
 
   h2:
     console:
-      enabled;: true
+      enabled: true
 
   # Web
   thymeleaf:
@@ -36,13 +36,9 @@ spring:
   messages:
     basename: messages/messages
 
-#  resources:
-    # Maximum time static resources should be cached
-#    cache:
-#      cachecontrol:
-#        max-age: 12h
+  resources:
     # static classpath setting
-#    static-locations: classpath:/static/root/
+    static-locations: classpath:/static/resources/
 
 
 # Web
