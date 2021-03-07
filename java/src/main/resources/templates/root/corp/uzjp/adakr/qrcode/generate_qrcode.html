@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" >
+<head th:replace="corp/uzjp/layout/common_header :: header_parts()">
+  <meta charset="UTF-8">
+  <title>Generate Qr Code</title>
+</head>
+<body>
+  <div class="col-md-12">
+    <div class="col-md-4">
+      <form id="generateQrCodeForm">
+        <div class="form-group">
+          <label for="input-path">Qr Code Path</label>
+          <input type="text" class="form-control" id="input-path" name="qrcodeUri" placeholder="Input URL" />
+          <input type="text" class="form-control" id="input-size" name="qrcodeSize" placeholder="Input QrCode Size" />
+        </div>
+      </form>
+      <button type="button" class="btn" id="btn-cancel">Cancel</button>
+      <button type="button" class="btn btn-primary" id="btn-generate-qrcode" th:data-url="${formUrl}">Generate</button>
+      <div id="display-qrcode"></div>
+    </div>
+  </div>
+
+  <footer>
+    <th:block th:replace="corp/uzjp/layout/common_footer :: footer_parts()" />
+    <script th:src="@{/js/corp/uzjp/adakr/qrcode/qrcode.js}"></script>
+  </footer>
+</body>
+</html>

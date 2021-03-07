@@ -57,8 +57,8 @@ public class QrCodeApi {
         }
 
         // QRCODE image size setting
-        qrCodeSize = (inputSize == null || inputSize == 0) ? qrCodeSize : inputSize;
-        String size = String.valueOf(qrCodeSize);
+        inputSize = (inputSize == null || inputSize == 0 || 350 < inputSize) ? qrCodeSize : inputSize;
+        String size = String.valueOf(inputSize);
         // QRCODE image size used for URI
         String imageSize = new StringBuilder(size)
                         .append("x")
