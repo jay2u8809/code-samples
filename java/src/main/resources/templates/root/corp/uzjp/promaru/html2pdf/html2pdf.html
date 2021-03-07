@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="en">
+<head th:replace="corp/uzjp/layout/common_header :: header_parts()">
+  <meta charset="UTF-8">
+  <title>HTML to PDF</title>
+</head>
+<body>
+  <div>
+    <button type="button" class="btn btn-primary" id="btn-generate-pdf1">Generate1</button>
+    <button type="button" class="btn btn-primary" id="btn-generate-pdf2">Generate2</button>
+    <button type="button" class="btn btn-primary" id="btn-generate-pdf3">Generate3</button>
+  </div>
+  <table class="table table-horizontal table-bordered" id="pdf_area">
+    <thead class="thead-strong">
+    <tr>
+      <th>Post No.</th>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Update Dt</th>
+    </tr>
+    </thead>
+    <tbody id="tbody">
+      <tr th:each="num, iter : ${#numbers.sequence(1,100)}">
+        <td>[[${num + 1}]]</td>
+        <td>[[${'TITLE' + num}]]</td>
+        <td>[[${'Author' + iter.index}]]</td>
+        <td>[[${'DATE' + iter.index}]]</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Footer -->
+  <footer>
+    <th:block th:replace="corp/uzjp/layout/common_footer :: footer_parts()" />
+    <!-- BlueBird : IE -->
+    <script src="//cdn.jsdelivr.net/npm/bluebird@3.7.2/js/browser/bluebird.js"></script>
+    <!-- Html -> Canvas -->
+    <script src="https://unpkg.com/html2canvas@1.0.0-rc.5/dist/html2canvas.js"></script>
+    <!-- Html, Canvas -> PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+    <!-- html2Canvas, jsPDF -->
+    <script th:src="@{/js/common/library/html2pdf.bundle.js}"></script>
+    <script th:src="@{/js/corp/uzjp/promaru/html2pdf/html2pdf.js}"></script>
+  </footer>
+</body>
+</html>

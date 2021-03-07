@@ -1,3 +1,9 @@
+//==============
+/**
+ * Generate QrCode
+ * @author : J.ian
+ */
+//==============
 
 var QRCODE = {
     init: function() {
