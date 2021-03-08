@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" >
+<head th:replace="corp/uzjp/layout/common_header :: header_parts()">
+  <meta charset="UTF-8">
+  <title>Generate Naver Map</title>
+</head>
+<body>
+<div class="col-md-12">
+  <div class="col-md-4">
+    <form id="generateMapForm">
+      <div class="form-group">
+        <label for="input-address">Naver Map</label>
+        <input type="text" class="form-control" id="input-address" name="address" placeholder="서울 강남구 대치동 942-5번지 삼성빌딩 12층" />
+      </div>
+    </form>
+    <button type="button" class="btn" id="btn-cancel">Cancel</button>
+    <button type="button" class="btn btn-primary" id="btn1-generate-map" th:data-url="${formUrl}">Generate</button>
+    <div id="display-map"></div>
+  </div>
+</div>
+
+<footer>
+  <th:block th:replace="corp/uzjp/layout/common_footer :: footer_parts()" />
+  <!-- Naver Maps Api -->
+  <script type="text/javascript" th:src="@{'https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=' + ${naverMapsClientId} + '&callback=initMap'}"></script>
+  <script th:src="@{/js/corp/uzjp/adakr/naverapi/map/naver_map.js}"></script>
+</footer>
+</body>
+</html>
