@@ -22,7 +22,7 @@ public class QrCodeApi {
     private String qrCodeApiUri;
 
     // Basic QRCODE image size
-    private int qrCodeSize = 100;
+    private final int qrCodeSize = 100;
 
     /**
      * QRCODE generation
