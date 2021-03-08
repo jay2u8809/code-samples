@@ -10,12 +10,13 @@
       <form id="generateQrCodeForm">
         <div class="form-group">
           <label for="input-path">Qr Code Path</label>
-          <input type="text" class="form-control" id="input-path" name="qrcodeUri" placeholder="Input URL" />
-          <input type="text" class="form-control" id="input-size" name="qrcodeSize" placeholder="Input QrCode Size" />
+          <input type="text" class="form-control" id="input-path" name="qrcodeUri" placeholder="https://www.google.com" />
+          <input type="text" class="form-control" id="input-size" name="qrcodeSize" placeholder="100" />
         </div>
       </form>
       <button type="button" class="btn" id="btn-cancel">Cancel</button>
-      <button type="button" class="btn btn-primary" id="btn-generate-qrcode" th:data-url="${formUrl}">Generate</button>
+      <button type="button" class="btn btn-primary" id="btn1-generate-qrcode" th:data-url="${formUrl}">Generate on the server</button>
+      <button type="button" class="btn btn-primary" id="btn2-generate-qrcode">Generate on the client</button>
       <div id="display-qrcode"></div>
     </div>
   </div>

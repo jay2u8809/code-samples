@@ -9,18 +9,31 @@ const QRCODE = {
     init: function() {
         let self = this;
 
-        $('#btn-generate-qrcode').on('click', function() {
+        // Button1
+        $('#btn1-generate-qrcode').on('click', function() {
             self.generate();
         });
+        // Button2
+        $('#btn2-generate-qrcode').on('click', function() {
+
+            let inputPath = document.querySelector('#input-path').value || null;
+            let inputSize = document.querySelector('#input-size').value || null;
+
+            self.generateQrCode(inputPath, inputSize);
+        });
+        // Cancel Button
         $('#btn-cancel').on('click', function() {
             self.cancelInput();
         });
     },
+    /**
+     * Generate Qr code on the server
+     */
     generate: () => {
 
         let inputPath = document.querySelector('#input-path').value || null;
         let inputSize = document.querySelector('#input-size').value || null;
-        let formUrl = document.querySelector('#btn-generate-qrcode').dataset.url || null;
+        let formUrl = document.querySelector('#btn1-generate-qrcode').dataset.url || null;
         let displayQrcode = document.querySelector('#display-qrcode');
 
         if (COMMON_UTILS.isEmpty(inputPath) || COMMON_UTILS.isEmpty(formUrl)) {
@@ -88,6 +101,38 @@ const QRCODE = {
             data.responseText;
         });
 
+    },
+    /**
+     * Generate Qr code on the client
+     */
+    generateQrCode: (inputPath, inputSize) => {
+
+        let displayQrcode = document.querySelector('#display-qrcode');
+
+        if (COMMON_UTILS.isEmpty(inputPath)) {
+            QRCODE.cancelInput();
+            return;
+        }
+
+        if (isNaN(Number(inputSize))) {
+            QRCODE.cancelInput();
+            return;
+        }
+
+        inputSize = COMMON_UTILS.isEmpty(inputSize) ? 100 : inputSize;
+
+        // make parameter
+        let queryString =
+            '?'
+            + '&size=' + inputSize + 'x' + inputSize
+            + '&data=' + inputPath;
+        // encoding parameter
+        queryString = encodeURI(queryString);
+        // Qr Code img url
+        let imgUrl = 'https://api.qrserver.com/v1/create-qr-code/' + queryString;
+        // generate QrCode
+        displayQrcode.innerHTML =
+                            `<img src=${imgUrl} alt='qrcode' />`;
     },
     cancelInput: () => {
 
