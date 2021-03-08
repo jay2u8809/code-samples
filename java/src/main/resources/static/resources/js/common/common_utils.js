@@ -5,7 +5,7 @@
  */
 //==============
 
-var COMMON_UTILS = {
+const COMMON_UTILS = {
 
     /**
      * Null Check Function

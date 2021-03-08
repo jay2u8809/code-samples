@@ -18,7 +18,7 @@ public class QrCodeApiTest extends CommonControllerTest {
     private final String qrCodeApiUri = "https://api.qrserver.com/v1/create-qr-code/";
 
     // Basic QRCODE image size
-    private int qrCodeSize = 100;
+    private final int qrCodeSize = 100;
 
     @Test
     public void generateQrCodeByImageUriTest () {
@@ -70,8 +70,8 @@ public class QrCodeApiTest extends CommonControllerTest {
         }
 
         // QRCODE image size setting
-        qrCodeSize = (inputSize == null || inputSize == 0) ? qrCodeSize : inputSize;
-        String size = String.valueOf(qrCodeSize);
+        inputSize = (inputSize == null || inputSize == 0) ? qrCodeSize : inputSize;
+        String size = String.valueOf(inputSize);
         // QRCODE image size used for URI
         String imageSize = new StringBuilder(size)
                             .append("x")
@@ -83,7 +83,7 @@ public class QrCodeApiTest extends CommonControllerTest {
                 = new StringBuilder()
                 .append(qrCodeApiUri)
                 .append("?")
-                .append("&size=").append(imageSize)
+                .append("size=").append(imageSize)
                 .append("&data=").append(inputUri)
                 ;
 

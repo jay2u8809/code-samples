@@ -5,7 +5,7 @@
  */
 //==============
 
-var QRCODE = {
+const QRCODE = {
     init: function() {
         let self = this;
 

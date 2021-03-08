@@ -6,10 +6,10 @@
 //==============
 
 // PDF File Name
-var orderReceiptFilename = "Sample.pdf"
+const orderReceiptFilename = "Sample.pdf"
 
 // PDF Instance Constructor
-var jsPdfInit = {
+const jsPdfInit = {
     orientation      : 'p',         // "portrait" or "landscape" (or shortcuts "p" or "l")
     unit             : 'mm',        // "mm", "cm", "m", "in" or "px"
     format           : 'a4',        // a4, b5, letter ...
@@ -19,7 +19,7 @@ var jsPdfInit = {
     userUnit         : 1.0,
 };
 
-var HTML2PDF = {
+const HTML2PDF = {
     init: function() {
         let self = this;
 
