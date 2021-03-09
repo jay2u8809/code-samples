@@ -39,7 +39,7 @@ public class QrCodeController extends CommonExtends {
      */
     @PostMapping(value = "/generate/")
     @ResponseBody
-    public ResponseEntity<?> generateQrCode (QrCodeViewEntry qrCodeViewEntry) {
+    public ResponseEntity<?> generateQrCode (@RequestBody QrCodeViewEntry qrCodeViewEntry) {
 
         logger.debug("Input Uri : {}", qrCodeViewEntry.getQrcodeUri());
 
