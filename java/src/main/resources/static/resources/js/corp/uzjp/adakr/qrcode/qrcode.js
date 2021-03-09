@@ -54,8 +54,9 @@ const QRCODE = {
         $.ajax({
             url: formUrl,
             type: 'POST',
-            data: qrCodeViewEntry,
+            contentType: 'application/json; charset=utf-8',
             dataType: 'json',
+            data: JSON.stringify(qrCodeViewEntry),
             beforeSend: () => {
             },
             // Success : 1
