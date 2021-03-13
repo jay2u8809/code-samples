@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" >
+<head th:replace="corp/uzjp/layout/common_header :: header_parts()">
+  <meta charset="UTF-8">
+  <title>Product List</title>
+</head>
+<body>
+<div class="col-md-12">
+    <table class="table table-horizontal table-bordered">
+        <thead class="thead-strong">
+            <tr>
+                <th>Product Sn</th>
+                <th>Product Name</th>
+                <th>Product Code</th>
+                <th>Product productDesc</th>
+                <th>Product Price</th>
+                <th>Product Sale Price</th>
+                <th>Product Use Flag</th>
+            </tr>
+        </thead>
+        <tbody id="tbody">
+            <tr th:each="product, iter : ${products}">
+                <td>[[${product.productSn}]]</td>
+                <td><a th:href="${detailUrl + product.productSn + '/'}">[[${product.productName}]]</a></td>
+                <td>[[${product.productCode}]]</td>
+                <td>[[${product.productDesc}]]</td>
+                <td>[[${product.productPrice}]]</td>
+                <td>[[${product.productSalePrice}]]</td>
+                <td>[[${product.useFlag}]]</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer>
+  <th:block th:replace="corp/uzjp/layout/common_footer :: footer_parts()" />
+  <script th:src="@{/js/corp/uzjp/bs/product/recentview/recent_view.js}"></script>
+</footer>
+</body>
+</html>
