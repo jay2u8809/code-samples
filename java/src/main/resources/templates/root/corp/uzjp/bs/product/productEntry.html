@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" >
+<head th:replace="corp/uzjp/layout/common_header :: header_parts()">
+  <meta charset="UTF-8">
+  <title>Product Entry</title>
+</head>
+<body>
+<div class="col-md-12">
+  <div class="col-md-4">
+    <form id="registerProduct">
+      <div class="form-group">
+        <h2>Product Entry</h2>
+        <label for="input-productName">Product Name</label>
+        <input type="text" class="form-control" id="input-productName" name="productName" placeholder="" />
+        <label for="input-productName">Product Desc</label>
+        <input type="text" class="form-control" id="input-productDesc" name="productDesc" placeholder="" />
+        <label for="input-productName">Product Code</label>
+        <input type="text" class="form-control" id="input-productCode" name="productCode" placeholder="" />
+        <label for="input-productName">Product Price</label>
+        <input type="text" class="form-control" id="input-productPrice" name="productPrice" placeholder="" />
+        <label for="input-productName">Product SalePrice</label>
+        <input type="text" class="form-control" id="input-productSalePrice" name="productSalePrice" placeholder="" />
+      </div>
+    </form>
+    <button type="button" class="btn" id="btn-cancel">Cancel</button>
+    <button type="button" class="btn btn-primary" id="btn1-register-product" th:data-url="${entryUrl}">Register Product</button>
+  </div>
+</div>
+
+<footer>
+  <th:block th:replace="corp/uzjp/layout/common_footer :: footer_parts()" />
+  <script th:src="@{/js/corp/uzjp/bs/product/productEntry.js}"></script>
+</footer>
+</body>
+</html>
