@@ -9184,6 +9184,7 @@ Worker.prototype.toContainer = function toContainer() {
     // Setup root element and inner page height.
     var root = this.prop.container;
     var pxPageHeight = this.prop.pageSize.inner.px.height;
+    var pxPageWidth = this.prop.pageSize.inner.px.width;
 
     // Check all requested modes.
     var modeSrc = [].concat(this.opt.pagebreak.mode);
@@ -9265,9 +9266,13 @@ Worker.prototype.toContainer = function toContainer() {
 
       // After: Create a padding div to fill the remaining page.
       if (rules.after) {
+        var _ratio = clientRect.width / pxPageWidth;
+        var _height = pxPageHeight - ((clientRect.bottom / _ratio) % pxPageHeight);
+        _height *= _ratio;
         var pad = createElement('div', { style: {
             display: 'block',
-            height: pxPageHeight - clientRect.bottom % pxPageHeight + 'px'
+//            height: pxPageHeight - clientRect.bottom % pxPageHeight + 'px'
+            height: _height
           } });
         el.parentNode.insertBefore(pad, el.nextSibling);
       }
