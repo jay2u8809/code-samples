@@ -1,3 +1,8 @@
+### npm 自体のアップデート
+```shell
+    $ npm install -g npm
+```
+
 ### install：モジュールのバージョンを指定してインストールする場合
 ```shell
     $ npm install ejs@2.4.1       // install version 2.4.1
