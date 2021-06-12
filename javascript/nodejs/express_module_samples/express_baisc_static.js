@@ -12,7 +12,7 @@ app.use(express.static(__dirname + "/resources"));
 
 app.use((req, res) => {
     res.writeHead(200, {    "Content-Type": "text/html" });
-    res.end("<img src='/testWallPaper.jpg' width='100%' />");
+    res.end("<img src='/img/testWallPaper.jpg' width='100%' />");
 });
 
 app.listen(52273, () => {
