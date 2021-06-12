@@ -35,3 +35,43 @@ package.jsonファイルとpackage-lock.jsonファイルのバージョンが異
 ```shell
     $ npm ci --only=production    
 ```
+
+### install Express
+```shell
+    $ sudo npm install -g express-generator@4 // mac or linux
+    $ npm install -g express-generator@4      // windows
+```
+
+### generate Express Project
+```shell
+    $ express ProjectName
+```
+
+### install Express Dependencies
+```shell
+    $ cd ProjectName && npm install
+```
+
+### Set DEBUG Variable and start express project
+```shell
+    // mac or linux
+    $ export DEBUG=ProjectName:*
+    $ npm start
+     // windows
+    $ SET DEBUG=ProjectName:* & npm start
+```
+
+### Set NodeEnv Variable and start express project
+```shell
+    // mac or linux
+    $ export NODE_ENV=development  // production
+    $ npm start
+     // windows
+    $ SET NODE_ENV=development     // production
+    $ npm start
+```
+
+### start Express App
+```shell
+    $ node ./bin/www
+```
