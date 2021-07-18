@@ -1,4 +1,4 @@
-package com.jay2u8809.codesamples.individual.codingtests.study.searchandsorting;
+package com.jay2u8809.codesamples.individual.algorithm.study.searchandsorting;
 
 import org.junit.jupiter.api.Test;
 
