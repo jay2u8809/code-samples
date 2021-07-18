@@ -42,3 +42,7 @@ out/
 .vscode/
 
 java/gradle
+
+### NodeJs ###
+**/node_modules/**
+**/dist/**
