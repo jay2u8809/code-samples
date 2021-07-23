@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import {isEmpty} from "../common/common.utils";
+import {isEmpty} from "../../common/common.utils";
 
 @Injectable()
 export class QrcodeService {

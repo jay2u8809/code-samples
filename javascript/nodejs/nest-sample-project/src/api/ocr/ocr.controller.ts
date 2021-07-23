@@ -1,7 +1,7 @@
 import {Controller, Post, UploadedFile, UseInterceptors} from '@nestjs/common';
 import {TesseractService} from "./tesseract/tesseract.service";
 import {FileInterceptor} from "@nestjs/platform-express";
-import {isEmpty} from "../common/common.utils";
+import {isEmpty} from "../../common/common.utils";
 
 @Controller('ocr')
 export class OcrController {
