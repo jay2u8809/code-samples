@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { OcrController } from './ocr/ocr.controller';
 import { OcrModule } from './ocr/ocr.module';
+import { QrcodeModule } from './qrcode/qrcode.module';
 
 @Module({
-  imports: [OcrModule],
+  imports: [OcrModule, QrcodeModule],
   controllers: [AppController],
   providers: [AppService],
 })
