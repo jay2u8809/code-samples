@@ -42,3 +42,11 @@ out/
 .vscode/
 
 java/gradle
+
+### NodeJs ###
+**/node_modules/**
+**/dist/**
+
+### Tesseract.js ###
+*.traineddata
+
