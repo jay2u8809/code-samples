@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import {createWorker} from "tesseract.js";
-import {isEmpty} from "../../common/common.utils";
+import {isEmpty} from "../../../common/common.utils";
 
 @Injectable()
 export class TesseractService {
