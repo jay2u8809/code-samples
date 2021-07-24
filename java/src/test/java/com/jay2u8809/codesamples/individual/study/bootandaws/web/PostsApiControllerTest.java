@@ -110,9 +110,9 @@ public class PostsApiControllerTest {
         // then
         Posts posts = postsList.get(0);
 
-        System.out.println(">>>>>>> Create Date=" + posts.getCreatedDate() + ", modified Date = " + posts.getModifiedDate());
+        System.out.println(">>>>>>> Create Date=" + posts.getCreatedDt() + ", modified Date = " + posts.getModifiedDt());
 
-        assertThat(posts.getCreatedDate()).isAfter(now);
-        assertThat(posts.getModifiedDate()).isAfter(now);
+        assertThat(posts.getCreatedDt()).isAfter(now);
+        assertThat(posts.getModifiedDt()).isAfter(now);
     }
 }

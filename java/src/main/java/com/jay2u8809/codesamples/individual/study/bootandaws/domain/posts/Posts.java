@@ -1,6 +1,6 @@
 package com.jay2u8809.codesamples.individual.study.bootandaws.domain.posts;
 
-import com.jay2u8809.codesamples.individual.study.bootandaws.domain.BaseTimeEntity;
+import com.jay2u8809.codesamples.individual.study.bootandaws.domain.BaseEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity                 // table과 링크될 클래스임을 나타냄, 언더스코어 네이밍 SalesManager.java -> sales_manager table
-public class Posts extends BaseTimeEntity {
+public class Posts extends BaseEntity {
 
     // PK Filed
     @Id
