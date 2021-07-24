@@ -3,7 +3,7 @@ import {MemberService} from "./member.service";
 import {MemberJoinDto} from "./dto/member.join.dto";
 import {isEmpty} from "../../common/common.utils";
 
-@Controller('members')
+@Controller('"/api/v1/member')
 export class MemberController {
   constructor(private readonly memberService: MemberService) {
   }
@@ -15,7 +15,7 @@ export class MemberController {
     //   throw new NotFoundException();
     // }
 
-    const result = await this.memberService.joinMember(data);
+    const result = await this.memberService.saveMember(data);
     if (result) {
       return 'ok';
     } else {

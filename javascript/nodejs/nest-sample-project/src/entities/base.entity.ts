@@ -8,9 +8,9 @@ export abstract class BaseEntity {
   @Column("timestamp with time zone", { name: "created_dt" })
   createdDt: Date;
 
-  @Column("character varying", { name: "updated_by", length: 50 })
-  updatedBy: string;
+  @Column("character varying", { name: "modified_by", length: 50 })
+  modifiedBy: string;
 
-  @Column("timestamp with time zone", { name: "updated_dt" })
-  updatedDt: Date;
+  @Column("timestamp with time zone", { name: "modified_dt" })
+  modifiedDt: Date;
 }
