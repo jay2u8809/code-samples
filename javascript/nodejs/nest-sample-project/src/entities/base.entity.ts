@@ -1,6 +1,6 @@
 import {Column} from "typeorm";
 
-export abstract class CommonEntity {
+export abstract class BaseEntity {
 
   @Column("character varying", { name: "created_by", length: 50 })
   createdBy: string;

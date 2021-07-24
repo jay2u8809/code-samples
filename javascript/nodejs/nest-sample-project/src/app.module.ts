@@ -5,9 +5,10 @@ import { AppService } from './app.service';
 import {Connection} from "typeorm";
 import {TypeOrmModule} from "@nestjs/typeorm";
 import { ApiModule } from './api/api.module';
+import { DomainModule } from './domain/domain.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(), ApiModule],
+  imports: [TypeOrmModule.forRoot(), ApiModule, DomainModule],
   controllers: [AppController],
   providers: [AppService],
 })
