@@ -9,6 +9,6 @@
     "database": "devdb",
     "schema": "dev_schema",
     "synchronize": false,
-    "entities": ["dist/entities/*.js"]
+    "entities": ["./dist/entities/**/*.js"]
   }
 ]

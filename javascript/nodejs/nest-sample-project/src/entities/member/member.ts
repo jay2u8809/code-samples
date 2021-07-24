@@ -1,14 +1,11 @@
 import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
-import {CommonEntity} from "../common/common.entity";
+import {BaseEntity} from "../base.entity";
 
 @Index("member_pkey", ["memberSn"], { unique: true })
 @Entity("member", { schema: "dev_schema" })
-export class MemberEntity extends CommonEntity {
+export class Member extends BaseEntity {
   @PrimaryGeneratedColumn({ type: "bigint", name: "member_sn" })
   memberSn: string;
-
-  @Column("character varying", { name: "mall_id", length: 50 })
-  mallId: string;
 
   @Column("character varying", { name: "member_id", length: 300 })
   memberId: string;
@@ -59,9 +56,6 @@ export class MemberEntity extends CommonEntity {
   @Column("character varying", { name: "email_address", length: 200 })
   emailAddress: string;
 
-  @Column("character varying", { name: "address_code", length: 20 })
-  addressCode: string;
-
   @Column("timestamp with time zone", { name: "member_signup_dt" })
   memberSignupDt: Date;
 
@@ -106,7 +100,11 @@ export class MemberEntity extends CommonEntity {
   })
   finalPasswordChangeDt: Date | null;
 
-  @Column("character varying", { name: "member_status_code", length: 30 })
+  @Column("character varying", {
+    name: "member_status_code",
+    length: 30,
+    default: () => "'Normal'",
+  })
   memberStatusCode: string;
 
   @Column("timestamp with time zone", {
@@ -133,8 +131,8 @@ export class MemberEntity extends CommonEntity {
   @Column("timestamp with time zone", { name: "ac_lock_dt", nullable: true })
   acLockDt: Date | null;
 
-  @Column("character varying", { name: "nickname", length: 50 })
-  nickname: string;
+  @Column("character varying", { name: "nickname", nullable: true, length: 50 })
+  nickname: string | null;
 
   @Column("character varying", {
     name: "country_code",
@@ -174,14 +172,14 @@ export class MemberEntity extends CommonEntity {
   })
   address_4: string | null;
 
-  @Column("character varying", { name: "dob_year", length: 4 })
-  dobYear: string;
+  @Column("character varying", { name: "dob_year", nullable: true, length: 4 })
+  dobYear: string | null;
 
-  @Column("character varying", { name: "dob_month", length: 2 })
-  dobMonth: string;
+  @Column("character varying", { name: "dob_month", nullable: true, length: 2 })
+  dobMonth: string | null;
 
-  @Column("character varying", { name: "dob_day", length: 2 })
-  dobDay: string;
+  @Column("character varying", { name: "dob_day", nullable: true, length: 2 })
+  dobDay: string | null;
 
   @Column("character varying", {
     name: "gender_code",
