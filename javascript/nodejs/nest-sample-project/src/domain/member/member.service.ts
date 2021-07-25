@@ -3,6 +3,7 @@ import {Member} from "../../entities/member/member";
 import {InjectRepository} from "@nestjs/typeorm";
 import {Repository} from "typeorm";
 import {MemberJoinDto, saveMember} from "./dto/member.join.dto";
+import {MemberStatus} from "../../common/code/MemberStatus";
 
 @Injectable()
 export class MemberService {
@@ -10,23 +11,62 @@ export class MemberService {
     @InjectRepository(Member) private memberRepository: Repository<Member>
   ) {}
 
-  async findByEmail(email: string) {
-    // this.memberRepository.createQueryBuilder('member')
-    //   .where()
-    //   .
-    return this.memberRepository.findOne({
-      where: { email },
-      select: ['memberId', 'emailAddress'],
+  /**
+   * Get One Member Info By User ID (All Info)
+   * @param memberId
+   */
+  findById(memberId: string) : Promise<Member> {
+
+    const result: Promise<Member>
+      = this.memberRepository
+            .findOne({
+              where: {memberId}
+            });
+    return result;
+  }
+
+  /**
+   * Get All Members Info
+   */
+  findAllMembers(): Promise<Member[]> {
+
+    this.memberRepository.count({
+      where: {memberStatus: MemberStatus.Normal}
+    }).then(value => console.log(`CNT : ${value}`));
+
+    return this.memberRepository.find({
+      select: ["memberId", "memberSn"],
+      where: { memberStatus: MemberStatus.Normal }
     });
   }
 
-  async saveMember(memberJoinDto: MemberJoinDto): Promise<bigint> {
-    // const member = await this.memberRepository.findOne({ where: { email } });
-    // if (!isEmpty(member)) {
-    //   return null;
-    // }
+  /**
+   * Register Member
+   * @param memberJoinDto
+   */
+   async saveMember(memberJoinDto: MemberJoinDto): Promise<bigint> {
 
-    const savedMember = await this.memberRepository.save(saveMember(memberJoinDto));
+    const savedMember
+      = await this.memberRepository
+                  .save(saveMember(memberJoinDto));
     return savedMember.memberSn;
+  }
+
+  /**
+   * Check Exist Member Info
+   * @param memberId
+   */
+  checkExistMemberById(memberId: string): Promise<boolean> {
+
+    console.log(`Check Exist Member Info By User ID : ${memberId}`);
+
+    const cnt: Promise<number>
+      = this.memberRepository
+            .count({
+              select: ['memberId'],
+              where: { memberId }
+            });
+
+    return cnt.then(value => value <= 0);
   }
 }
