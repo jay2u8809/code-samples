@@ -1,6 +1,6 @@
 import {Body, Controller, Get, NotFoundException, Param, Post} from '@nestjs/common';
 import {MemberService} from "./member.service";
-import {MemberJoinDto} from "./dto/member.join.dto";
+import {MemberJoinRequestDto} from "./dto/member.join.request.dto";
 import {Member} from "../../entities/member/member";
 import {ApiOperation} from "@nestjs/swagger";
 
@@ -8,7 +8,7 @@ import {ApiOperation} from "@nestjs/swagger";
 export class MemberController {
   constructor(private readonly memberService: MemberService) {
   }
-  
+
   @ApiOperation({ summary: 'Get All Members Info'})
   @Get('/all')
   async getAllMembers() : Promise<void | Member[]>{
@@ -19,12 +19,12 @@ export class MemberController {
   @Get('/:memberId')
   async getMember(@Param('memberId') memId) : Promise<void | Member>{
     console.log(`Get Member Info memberId : ${memId}`);
-    return await this.memberService.findById(memId);
+    return await this.memberService.findMemberById(memId);
   }
 
   @ApiOperation({ summary: 'Register One Member Info'})
   @Post('/register/')
-  async registerMember(@Body() data: MemberJoinDto): Promise<string> {
+  async registerMember(@Body() data: MemberJoinRequestDto): Promise<string> {
 
     if (!data) {
       console.log(`REGISTER NEW MEMBER INFO IS EMPTY`);
