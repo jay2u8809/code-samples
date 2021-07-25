@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 @NoArgsConstructor
-public class MemberSaveRequestDto implements Serializable {
+public class MemberJoinRequestDto implements Serializable {
 
     private Long memberSn;
     private String memberId;
@@ -61,12 +61,12 @@ public class MemberSaveRequestDto implements Serializable {
 
         @Override
         public boolean supports(Class<?> clazz) {
-            return MemberSaveRequestDto.class.isAssignableFrom(clazz);
+            return MemberJoinRequestDto.class.isAssignableFrom(clazz);
         }
 
         @Override
         public void validate(Object target, Errors errors) {
-            MemberSaveRequestDto memberSaveRequestDto = (MemberSaveRequestDto) target;
+            MemberJoinRequestDto memberJoinRequestDto = (MemberJoinRequestDto) target;
 
 //            checkMemberName(errors, memberSaveRequestDto.getMemberName1());
         }

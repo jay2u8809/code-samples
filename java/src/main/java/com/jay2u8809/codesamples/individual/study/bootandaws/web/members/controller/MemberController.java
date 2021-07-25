@@ -2,7 +2,7 @@ package com.jay2u8809.codesamples.individual.study.bootandaws.web.members.contro
 
 import com.jay2u8809.codesamples.common.CommonExtends;
 import com.jay2u8809.codesamples.individual.study.bootandaws.service.members.MemberService;
-import com.jay2u8809.codesamples.individual.study.bootandaws.web.members.dto.MemberSaveRequestDto;
+import com.jay2u8809.codesamples.individual.study.bootandaws.web.members.dto.MemberJoinRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,7 +27,7 @@ public class MemberController extends CommonExtends {
 
     private final MemberService memberService;
 
-    private final MemberSaveRequestDto.Validator savedRequestDtoValidator;
+    private final MemberJoinRequestDto.Validator savedRequestDtoValidator;
 
     /**
      * register member data
@@ -36,7 +36,7 @@ public class MemberController extends CommonExtends {
      */
     @PostMapping(value = "/register/check/", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<?> checkRegisterMemberInfo(HttpServletRequest req, @Valid @RequestBody MemberSaveRequestDto saveRequestDto, BindingResult bindingResult) {
+    public ResponseEntity<?> checkRegisterMemberInfo(HttpServletRequest req, @Valid @RequestBody MemberJoinRequestDto joinRequestDto, BindingResult bindingResult) {
 
         // TODO
 
@@ -45,27 +45,27 @@ public class MemberController extends CommonExtends {
 
     @PostMapping(value = "/register/", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<?> registerMember(HttpServletRequest req, @RequestBody MemberSaveRequestDto saveRequestDto) {
+    public ResponseEntity<?> registerMember(HttpServletRequest req, @RequestBody MemberJoinRequestDto joinRequestDto) {
 
-        if (saveRequestDto == null) {
+        if (joinRequestDto == null) {
             logger.error("REGISTER NEW MEMBER INFO IS EMPTY");
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("DATA is Empty");
         }
 
-        logger.debug("REGISTER NEW MEMBER ID : {}", saveRequestDto.getMemberId());
+        logger.debug("REGISTER NEW MEMBER ID : {}", joinRequestDto.getMemberId());
 
-        return ResponseEntity.ok().body(memberService.saveMember(saveRequestDto.saveMember()));
+        return ResponseEntity.ok().body(memberService.saveMember(joinRequestDto));
     }
 
     /**
      * Signup Form Validation
      * @return
      */
-    private Map<String, Object> memberDataValidate(MemberSaveRequestDto saveRequestDto, BindingResult bindingResult) {
+    private Map<String, Object> memberDataValidate(MemberJoinRequestDto joinRequestDto, BindingResult bindingResult) {
 
         LinkedHashMap<String, Object> result = new LinkedHashMap<>();
 
-        this.validate(saveRequestDto, bindingResult, savedRequestDtoValidator);
+        this.validate(joinRequestDto, bindingResult, savedRequestDtoValidator);
         if (bindingResult.hasErrors()) {
             super.bindErrorResult(bindingResult, result);
         }
@@ -81,7 +81,7 @@ public class MemberController extends CommonExtends {
      * @param validators the _validators
      * @return the binding result
      */
-    private BindingResult validate(MemberSaveRequestDto target, BindingResult bindingResult, Validator... validators) {
+    private BindingResult validate(MemberJoinRequestDto target, BindingResult bindingResult, Validator... validators) {
 
         for (Validator validator : validators) {
             validator.validate(target, bindingResult);
