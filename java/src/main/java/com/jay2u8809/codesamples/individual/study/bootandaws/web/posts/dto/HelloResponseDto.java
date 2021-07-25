@@ -1,4 +1,4 @@
-package com.jay2u8809.codesamples.individual.study.bootandaws.web.dto;
+package com.jay2u8809.codesamples.individual.study.bootandaws.web.posts.dto;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.jay2u8809.codesamples.individual.study.bootandaws.domain.member;
+package com.jay2u8809.codesamples.individual.study.bootandaws.domain.members;
 
 import com.jay2u8809.codesamples.common.code.MemberStatus;
 import com.jay2u8809.codesamples.common.code.YN;

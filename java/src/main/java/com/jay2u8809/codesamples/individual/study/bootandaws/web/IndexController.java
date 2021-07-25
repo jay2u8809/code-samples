@@ -1,7 +1,7 @@
 package com.jay2u8809.codesamples.individual.study.bootandaws.web;
 
 import com.jay2u8809.codesamples.individual.study.bootandaws.service.posts.PostsService;
-import com.jay2u8809.codesamples.individual.study.bootandaws.web.dto.PostsResponseDto;
+import com.jay2u8809.codesamples.individual.study.bootandaws.web.posts.dto.PostsResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

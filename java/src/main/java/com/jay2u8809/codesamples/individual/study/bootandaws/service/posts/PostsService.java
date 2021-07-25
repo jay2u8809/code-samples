@@ -2,10 +2,10 @@ package com.jay2u8809.codesamples.individual.study.bootandaws.service.posts;
 
 import com.jay2u8809.codesamples.individual.study.bootandaws.domain.posts.Posts;
 import com.jay2u8809.codesamples.individual.study.bootandaws.domain.posts.PostsRepository;
-import com.jay2u8809.codesamples.individual.study.bootandaws.web.dto.PostsListResponseDto;
-import com.jay2u8809.codesamples.individual.study.bootandaws.web.dto.PostsResponseDto;
-import com.jay2u8809.codesamples.individual.study.bootandaws.web.dto.PostsSaveRequestsDto;
-import com.jay2u8809.codesamples.individual.study.bootandaws.web.dto.PostsUpdateRequestDto;
+import com.jay2u8809.codesamples.individual.study.bootandaws.web.posts.dto.PostsListResponseDto;
+import com.jay2u8809.codesamples.individual.study.bootandaws.web.posts.dto.PostsResponseDto;
+import com.jay2u8809.codesamples.individual.study.bootandaws.web.posts.dto.PostsSaveRequestsDto;
+import com.jay2u8809.codesamples.individual.study.bootandaws.web.posts.dto.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

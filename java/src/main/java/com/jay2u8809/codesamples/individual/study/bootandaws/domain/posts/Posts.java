@@ -1,6 +1,6 @@
 package com.jay2u8809.codesamples.individual.study.bootandaws.domain.posts;
 
-import com.jay2u8809.codesamples.individual.study.bootandaws.domain.BaseEntity;
+import com.jay2u8809.codesamples.common.BaseEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

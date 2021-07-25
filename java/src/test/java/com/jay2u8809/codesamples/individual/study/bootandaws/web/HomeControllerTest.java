@@ -1,6 +1,6 @@
 package com.jay2u8809.codesamples.individual.study.bootandaws.web;
 
-import com.jay2u8809.codesamples.individual.study.bootandaws.web.dto.HelloResponseDto;
+import com.jay2u8809.codesamples.individual.study.bootandaws.web.posts.dto.HelloResponseDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

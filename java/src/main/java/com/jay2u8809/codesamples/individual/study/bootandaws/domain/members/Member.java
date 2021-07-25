@@ -1,10 +1,10 @@
-package com.jay2u8809.codesamples.individual.study.bootandaws.domain.member;
+package com.jay2u8809.codesamples.individual.study.bootandaws.domain.members;
 
+import com.jay2u8809.codesamples.common.BaseEntity;
 import com.jay2u8809.codesamples.common.code.Gender;
 import com.jay2u8809.codesamples.common.dto.EmbeddedAddress;
 import com.jay2u8809.codesamples.common.dto.EmbeddedName;
 import com.jay2u8809.codesamples.common.dto.EmbeddedTel;
-import com.jay2u8809.codesamples.corp.uzjp.bs.domain.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
