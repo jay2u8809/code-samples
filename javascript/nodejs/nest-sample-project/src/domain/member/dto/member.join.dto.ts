@@ -1,5 +1,7 @@
 import {ApiProperty} from "@nestjs/swagger";
 import {IsEmail, IsNotEmpty, IsPhoneNumber, IsString} from "class-validator";
+import {Member, setMemberDefaultFields} from "../../../entities/member/member";
+import {setBaseDefaultFields} from "../../../entities/base.entity";
 
 export class MemberJoinDto {
 
@@ -63,7 +65,7 @@ export class MemberJoinDto {
     example: '',
     description: 'NickName',
   })
-  public nickname: string;
+  public nickName: string;
 
   @IsString()
   @ApiProperty({
@@ -106,4 +108,40 @@ export class MemberJoinDto {
     description: 'phoneNo',
   })
   public phoneNo: string;
+}
+
+/**
+ * 저장할 회원의 데이터 생성
+ * 保存させる会員のデータ生成
+ * @param memberJoinDto
+ */
+export function saveMember(memberJoinDto: MemberJoinDto): Member {
+
+  const member: Member = new Member();
+
+  // Clone
+  Object.assign(member, memberJoinDto);
+
+  // const hashedPassword = await bcrypt.hash(password, 12);
+
+  member.name_1 = memberJoinDto.memberName1;
+  member.name_2 = memberJoinDto.memberName2;
+  member.name_3 = memberJoinDto.memberName3;
+  member.name_4 = memberJoinDto.memberName4;
+  member.emailAddress = memberJoinDto.memberEmail;
+
+  member.nickname = memberJoinDto.nickName;
+  member.zipCode = memberJoinDto.zipCode;
+  member.address_1 = memberJoinDto.address1;
+  member.address_2 = memberJoinDto.address2;
+  member.address_3 = memberJoinDto.address3;
+  member.address_4 = memberJoinDto.address4;
+  member.phoneNo_1 = memberJoinDto.phoneNo;
+
+  // MemberEntity Default Value Setting
+  setMemberDefaultFields(member);
+  // BaseEntity Default Value Setting
+  setBaseDefaultFields(member);
+
+  return member;
 }
