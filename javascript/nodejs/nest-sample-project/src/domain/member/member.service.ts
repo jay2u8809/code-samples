@@ -2,7 +2,7 @@ import {Injectable} from '@nestjs/common';
 import {Member} from "../../entities/member/member";
 import {InjectRepository} from "@nestjs/typeorm";
 import {Repository} from "typeorm";
-import {MemberJoinDto, saveMember} from "./dto/member.join.dto";
+import {MemberJoinRequestDto, saveMember} from "./dto/member.join.request.dto";
 import {MemberStatus} from "../../common/code/MemberStatus";
 
 @Injectable()
@@ -15,14 +15,20 @@ export class MemberService {
    * Get One Member Info By User ID (All Info)
    * @param memberId
    */
-  findById(memberId: string) : Promise<Member> {
+  findMemberById(memberId: string) : Promise<Member> {
 
     const result: Promise<Member>
       = this.memberRepository
             .findOne({
               where: {memberId}
             });
-    return result;
+
+    // TODO then 구문 Test 필요
+    return result.then(value => {
+      if (!value) {
+        return null;
+      }
+    });
   }
 
   /**
@@ -44,11 +50,11 @@ export class MemberService {
    * Register Member
    * @param memberJoinDto
    */
-   async saveMember(memberJoinDto: MemberJoinDto): Promise<bigint> {
+   async saveMember(joinRequestDto: MemberJoinRequestDto): Promise<bigint> {
 
     const savedMember
       = await this.memberRepository
-                  .save(saveMember(memberJoinDto));
+                  .save(saveMember(joinRequestDto));
     return savedMember.memberSn;
   }
 

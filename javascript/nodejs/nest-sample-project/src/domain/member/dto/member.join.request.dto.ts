@@ -3,7 +3,7 @@ import {IsEmail, IsNotEmpty, IsPhoneNumber, IsString} from "class-validator";
 import {Member, setMemberDefaultFields} from "../../../entities/member/member";
 import {setBaseDefaultFields} from "../../../entities/base.entity";
 
-export class MemberJoinDto {
+export class MemberJoinRequestDto {
 
   public memberSn: bigint;
 
@@ -115,28 +115,28 @@ export class MemberJoinDto {
  * 保存させる会員のデータ生成
  * @param memberJoinDto
  */
-export function saveMember(memberJoinDto: MemberJoinDto): Member {
+export function saveMember(joinRequestDto: MemberJoinRequestDto): Member {
 
   const member: Member = new Member();
 
   // Clone
-  Object.assign(member, memberJoinDto);
+  Object.assign(member, joinRequestDto);
 
   // const hashedPassword = await bcrypt.hash(password, 12);
 
-  member.name_1 = memberJoinDto.memberName1;
-  member.name_2 = memberJoinDto.memberName2;
-  member.name_3 = memberJoinDto.memberName3;
-  member.name_4 = memberJoinDto.memberName4;
-  member.emailAddress = memberJoinDto.memberEmail;
+  member.name_1 = joinRequestDto.memberName1;
+  member.name_2 = joinRequestDto.memberName2;
+  member.name_3 = joinRequestDto.memberName3;
+  member.name_4 = joinRequestDto.memberName4;
+  member.emailAddress = joinRequestDto.memberEmail;
 
-  member.nickname = memberJoinDto.nickName;
-  member.zipCode = memberJoinDto.zipCode;
-  member.address_1 = memberJoinDto.address1;
-  member.address_2 = memberJoinDto.address2;
-  member.address_3 = memberJoinDto.address3;
-  member.address_4 = memberJoinDto.address4;
-  member.phoneNo_1 = memberJoinDto.phoneNo;
+  member.nickname = joinRequestDto.nickName;
+  member.zipCode = joinRequestDto.zipCode;
+  member.address_1 = joinRequestDto.address1;
+  member.address_2 = joinRequestDto.address2;
+  member.address_3 = joinRequestDto.address3;
+  member.address_4 = joinRequestDto.address4;
+  member.phoneNo_1 = joinRequestDto.phoneNo;
 
   // MemberEntity Default Value Setting
   setMemberDefaultFields(member);
