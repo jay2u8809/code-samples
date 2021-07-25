@@ -1,0 +1,27 @@
+# Server
+server:
+  port: 9080
+
+# Spring
+spring:
+  # DB
+  database: postgres
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/devdb
+    #    schema: dev-schema
+    username: devuser
+    password: devuser
+    hikari:
+      connectionTimeout: 6000 # 6s
+      leakDetectionThreshold: 20000 # 20s
+      maxLifetime: 1800000 # 30min
+      maximumPoolSize: 3
+  jpa:
+    properties:
+      hibernate:
+        default_schema: dev_schema
+
+  h2:
+    console:
+      enabled: false

@@ -50,6 +50,8 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	// DB
 	runtimeOnly 'com.h2database:h2'
+	// PostgreSQL
+	implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.18'          // https://mvnrepository.com/artifact/org.postgresql/postgresql
 	// Test
 	implementation 'junit:junit:4.12'
 	// Mustache
