@@ -3,6 +3,7 @@ import {Member} from "../../entities/member/member";
 import {InjectRepository} from "@nestjs/typeorm";
 import {Repository} from "typeorm";
 import {MemberJoinDto, saveMember} from "./dto/member.join.dto";
+import {isEmpty} from "../../common/common.utils";
 
 @Injectable()
 export class MemberService {
@@ -10,23 +11,40 @@ export class MemberService {
     @InjectRepository(Member) private memberRepository: Repository<Member>
   ) {}
 
-  async findByEmail(email: string) {
-    // this.memberRepository.createQueryBuilder('member')
-    //   .where()
-    //   .
-    return this.memberRepository.findOne({
-      where: { email },
-      select: ['memberId', 'emailAddress'],
-    });
+  /**
+   * Get One Member Info By User ID (All Info)
+   * @param memberId
+   */
+  findById(memberId: string) : Promise<Member> {
+
+    console.log(`Find By Member Id ${memberId}`);
+    const result: Promise<Member>
+      = this.memberRepository
+            .findOne({
+              where: {memberId}
+            });
+    return result;
   }
 
-  async saveMember(memberJoinDto: MemberJoinDto): Promise<bigint> {
-    // const member = await this.memberRepository.findOne({ where: { email } });
-    // if (!isEmpty(member)) {
-    //   return null;
-    // }
+  /**
+   * Register Member
+   * @param memberJoinDto
+   */
+   async saveMember(memberJoinDto: MemberJoinDto): Promise<bigint> {
+    const memberId = memberJoinDto.memberId;
+    const existId
+      = await this.memberRepository
+                  .findOne({
+                    select: ['memberId'],
+                    where: { memberId }
+                  });
+    if (!isEmpty(existId)) {
+      return null;
+    }
 
-    const savedMember = await this.memberRepository.save(saveMember(memberJoinDto));
+    const savedMember
+      = await this.memberRepository
+                  .save(saveMember(memberJoinDto));
     return savedMember.memberSn;
   }
 }
