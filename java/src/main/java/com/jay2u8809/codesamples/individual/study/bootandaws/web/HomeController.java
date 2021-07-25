@@ -1,7 +1,7 @@
 package com.jay2u8809.codesamples.individual.study.bootandaws.web;
 
 import com.jay2u8809.codesamples.common.CommonExtends;
-import com.jay2u8809.codesamples.individual.study.bootandaws.web.dto.HelloResponseDto;
+import com.jay2u8809.codesamples.individual.study.bootandaws.web.posts.dto.HelloResponseDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;

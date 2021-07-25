@@ -1,9 +1,9 @@
-package com.jay2u8809.codesamples.individual.study.bootandaws.web;
+package com.jay2u8809.codesamples.individual.study.bootandaws.web.posts.controller;
 
 import com.jay2u8809.codesamples.individual.study.bootandaws.domain.posts.Posts;
 import com.jay2u8809.codesamples.individual.study.bootandaws.domain.posts.PostsRepository;
-import com.jay2u8809.codesamples.individual.study.bootandaws.web.dto.PostsSaveRequestsDto;
-import com.jay2u8809.codesamples.individual.study.bootandaws.web.dto.PostsUpdateRequestDto;
+import com.jay2u8809.codesamples.individual.study.bootandaws.web.posts.dto.PostsSaveRequestsDto;
+import com.jay2u8809.codesamples.individual.study.bootandaws.web.posts.dto.PostsUpdateRequestDto;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;

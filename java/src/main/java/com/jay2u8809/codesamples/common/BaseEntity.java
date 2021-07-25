@@ -1,4 +1,4 @@
-package com.jay2u8809.codesamples.corp.uzjp.bs.domain;
+package com.jay2u8809.codesamples.common;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedBy;
@@ -12,8 +12,8 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
-@MappedSuperclass
-@EntityListeners(AuditingEntityListener.class)
+@MappedSuperclass       // JPA Entity 클래스들이 이 클래스를 상속할 경우 필드(created, modified)도 컬럼으로 인식하도록 한다.
+@EntityListeners(AuditingEntityListener.class)  // Auditing 기능을 포함시킴
 public abstract class BaseEntity {
 
     private static final long serialVersionUID = -1L;
@@ -22,7 +22,7 @@ public abstract class BaseEntity {
     @Column(name = "created_by", length = 50, updatable = false)
     private String createdBy;
 
-    @CreatedDate
+    @CreatedDate        // Entity가 생성되어 저장될때 시간이 자동 저장된다.
     @Column(name = "created_dt", length = 50, updatable = false)
     private LocalDateTime createdDt;
 
@@ -30,7 +30,7 @@ public abstract class BaseEntity {
     @Column(name = "modified_by", length = 50)
     private String modifiedBy;
 
-    @LastModifiedDate
+    @LastModifiedDate   // 조회한 Entity의 값을 변경할 때 시간이 자동 저장된다.
     @Column(name = "modified_dt", length = 50)
     private LocalDateTime modifiedDt;
 
