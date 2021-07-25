@@ -2,32 +2,34 @@ package com.jay2u8809.codesamples.individual.study.bootandaws.service.members;
 
 import com.jay2u8809.codesamples.individual.study.bootandaws.domain.members.Member;
 import com.jay2u8809.codesamples.individual.study.bootandaws.domain.members.MemberRepository;
+import com.jay2u8809.codesamples.individual.study.bootandaws.web.members.dto.MemberJoinRequestDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityNotFoundException;
 
 @RequiredArgsConstructor
 @Transactional
 @Service
 public class MemberServiceImpl implements MemberService {
 
-    @Autowired
-    private MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
 
     @Override
-    public Long saveMember(Member saved) {
+    public Member findMemberBySn(Long memberSn) {
         return memberRepository
-                .save(saved)
-                .getMemberSn();
+                .findById(memberSn)
+                .orElse(null);
     }
 
     @Override
-    public Member getMember(Long memberSn) {
+    public Member findMemberById(String memberId) {
+        return memberRepository.findMemberById(memberId);
+    }
+
+    @Override
+    public Long saveMember(MemberJoinRequestDto joinRequestDto) {
         return memberRepository
-                .findById(memberSn)
-                .orElseThrow(() -> new EntityNotFoundException("Member is Not Founded, MemberSn : " + memberSn));
+                .save(joinRequestDto.saveMember())
+                .getMemberSn();
     }
 }
