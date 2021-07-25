@@ -3,7 +3,6 @@ import {Member} from "../../entities/member/member";
 import {InjectRepository} from "@nestjs/typeorm";
 import {Repository} from "typeorm";
 import {MemberJoinDto, saveMember} from "./dto/member.join.dto";
-import {isEmpty} from "../../common/common.utils";
 
 @Injectable()
 export class MemberService {
@@ -17,7 +16,6 @@ export class MemberService {
    */
   findById(memberId: string) : Promise<Member> {
 
-    console.log(`Find By Member Id ${memberId}`);
     const result: Promise<Member>
       = this.memberRepository
             .findOne({
@@ -31,20 +29,28 @@ export class MemberService {
    * @param memberJoinDto
    */
    async saveMember(memberJoinDto: MemberJoinDto): Promise<bigint> {
-    const memberId = memberJoinDto.memberId;
-    const existId
-      = await this.memberRepository
-                  .findOne({
-                    select: ['memberId'],
-                    where: { memberId }
-                  });
-    if (!isEmpty(existId)) {
-      return null;
-    }
 
     const savedMember
       = await this.memberRepository
                   .save(saveMember(memberJoinDto));
     return savedMember.memberSn;
+  }
+
+  /**
+   * Check Exist Member Info
+   * @param memberId
+   */
+  checkExistMemberById(memberId: string): Promise<boolean> {
+
+    console.log(`Check Exist Member Info By User ID : ${memberId}`);
+
+    const cnt: Promise<number>
+      = this.memberRepository
+            .count({
+              select: ['memberId'],
+              where: { memberId }
+            });
+
+    return cnt.then(value => value <= 0);
   }
 }

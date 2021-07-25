@@ -1,7 +1,6 @@
-import {Body, Controller, ForbiddenException, Get, HttpStatus, NotFoundException, Param, Post} from '@nestjs/common';
+import {Body, Controller, Get, NotFoundException, Param, Post} from '@nestjs/common';
 import {MemberService} from "./member.service";
 import {MemberJoinDto} from "./dto/member.join.dto";
-import {isEmpty} from "../../common/common.utils";
 import {Member} from "../../entities/member/member";
 import {ApiOperation} from "@nestjs/swagger";
 
@@ -26,14 +25,16 @@ export class MemberController {
       return `Fail`;
     }
 
-    const member
+    // Check Exist Member Info
+    const isExist
       = await this.memberService
-                  .findById(data.memberId);
-    if (!isEmpty(member)) {
+                  .checkExistMemberById(data.memberId);
+    if (!isExist) {
       throw new NotFoundException(`Already Exist Member ID :  ${data.memberId}`);
     }
 
     console.log(`REGISTER NEW MEMBER ID : ${data.memberId}`);
+    // Save New Member Info
     const savedMemberSn
       = await this.memberService
                   .saveMember(data);
