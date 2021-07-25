@@ -1,6 +1,6 @@
 import {Column} from "typeorm";
 
-export abstract class BaseEntity {
+export class BaseEntity {
 
   @Column("character varying", { name: "created_by", length: 50 })
   createdBy: string;
@@ -13,4 +13,21 @@ export abstract class BaseEntity {
 
   @Column("timestamp with time zone", { name: "modified_dt" })
   modifiedDt: Date;
+}
+
+/**
+ * 기본 정보 설정
+ * デフォルト値設定
+ * @param obj
+ */
+export function setBaseDefaultFields(obj: Object): void {
+
+  if (!(obj && obj instanceof BaseEntity)) {
+    return;
+  }
+
+  obj.createdBy = 'admin';
+  obj.createdDt = new Date();
+  obj.modifiedBy = 'admin';
+  obj.modifiedDt = new Date();
 }

@@ -22,10 +22,22 @@ describe('MemberService', () => {
     it('Save Test', () => {
       const memberJoinDto: MemberJoinDto = new MemberJoinDto();
       memberJoinDto.memberId = 'testID';
-      memberJoinDto.memberPassword = 'asdfqwer12';
-      memberJoinDto.email = 'test@email.com';
-      const saved: Promise<Member> = service.joinMember(memberJoinDto);
-      console.log(`Member Saved : ${saved}`);
+      memberJoinDto.memberPw = 'asdfqwer12';
+      memberJoinDto.memberEmail = 'test@email.com';
+      const savedMemberSn: Promise<bigint> = service.saveMember(memberJoinDto);
+      console.log(`Saved MemberSn : ${savedMemberSn}`);
     });
   });
+});
+
+test('Save Test1', () => {
+  const member: Member = new Member();
+  const memberJoinDto: MemberJoinDto = new MemberJoinDto();
+
+  memberJoinDto.memberId = 'TestID';
+  memberJoinDto.memberEmail = 'testMEail@fdsaf.com';
+  Object.assign(member, memberJoinDto);
+
+  console.log(`MemberJoinDto ID : ${memberJoinDto.memberId}, Member ID : ${member.memberId}`);
+  console.log(`MemberJoinDto Email : ${memberJoinDto.memberEmail}, Member Email : ${member.emailAddress}`);
 });
