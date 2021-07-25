@@ -3,6 +3,7 @@ import {Member} from "../../entities/member/member";
 import {InjectRepository} from "@nestjs/typeorm";
 import {Repository} from "typeorm";
 import {MemberJoinDto, saveMember} from "./dto/member.join.dto";
+import {MemberStatus} from "../../common/code/MemberStatus";
 
 @Injectable()
 export class MemberService {
@@ -22,6 +23,21 @@ export class MemberService {
               where: {memberId}
             });
     return result;
+  }
+
+  /**
+   * Get All Members Info
+   */
+  findAllMembers(): Promise<Member[]> {
+
+    this.memberRepository.count({
+      where: {memberStatus: MemberStatus.Normal}
+    }).then(value => console.log(`CNT : ${value}`));
+
+    return this.memberRepository.find({
+      select: ["memberId", "memberSn"],
+      where: { memberStatus: MemberStatus.Normal }
+    });
   }
 
   /**

@@ -8,6 +8,12 @@ import {ApiOperation} from "@nestjs/swagger";
 export class MemberController {
   constructor(private readonly memberService: MemberService) {
   }
+  
+  @ApiOperation({ summary: 'Get All Members Info'})
+  @Get('/all')
+  async getAllMembers() : Promise<void | Member[]>{
+    return await this.memberService.findAllMembers();
+  }
 
   @ApiOperation({ summary: 'Get One Member Info'})
   @Get('/:memberId')
