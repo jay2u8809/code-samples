@@ -18,3 +18,6 @@
 ```
 - **ormconfig.json**      
 root directory에 위치 해둔다.
+  
+- TypeOrm Generator로 만든 Entity에서 Option의 Default는 단순 표기용, 변경해도 디비에 설정되어 있는 기본값이 세팅된다.        
+
