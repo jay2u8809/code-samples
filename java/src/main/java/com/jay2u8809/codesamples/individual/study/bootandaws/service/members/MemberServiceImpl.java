@@ -4,8 +4,11 @@ import com.jay2u8809.codesamples.individual.study.bootandaws.domain.members.Memb
 import com.jay2u8809.codesamples.individual.study.bootandaws.domain.members.MemberRepository;
 import com.jay2u8809.codesamples.individual.study.bootandaws.web.members.dto.MemberJoinRequestDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Transactional
@@ -16,20 +19,25 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Member findMemberBySn(Long memberSn) {
-        return memberRepository
+        return this.memberRepository
                 .findById(memberSn)
                 .orElse(null);
     }
 
     @Override
     public Member findMemberById(String memberId) {
-        return memberRepository.findMemberById(memberId);
+        return this.memberRepository.findMemberById(memberId);
     }
 
     @Override
-    public Long saveMember(MemberJoinRequestDto joinRequestDto) {
-        return memberRepository
-                .save(joinRequestDto.saveMember())
-                .getMemberSn();
+    public List<Member> findAllMembers() {
+        Sort descSort = Sort.by(Sort.Direction.DESC, "memberSn");
+        return this.memberRepository.findAll(Sort.by(Sort.DEFAULT_DIRECTION, "memberSn"));
+    }
+
+    @Override
+    public Member saveMember(MemberJoinRequestDto joinRequestDto) {
+        return this.memberRepository
+                .save(joinRequestDto.saveMember());
     }
 }
