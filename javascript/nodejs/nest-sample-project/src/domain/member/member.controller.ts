@@ -15,11 +15,18 @@ export class MemberController {
     return await this.memberService.findAllMembers();
   }
 
-  @ApiOperation({ summary: 'Get One Member Info'})
-  @Get('/:memberId')
-  async getMember(@Param('memberId') memId) : Promise<void | Member>{
+  @ApiOperation({ summary: 'Get One Member Info By memberId'})
+  @Get('/id/:memberId')
+  async getMemberById(@Param('memberId') memId: string) : Promise<void | Member>{
     console.log(`Get Member Info memberId : ${memId}`);
     return await this.memberService.findMemberById(memId);
+  }
+
+  @ApiOperation({ summary: 'Get One Member Info By memberSn'})
+  @Get('/sn/:memberSn')
+  async getMemberBySn(@Param('memberSn') memSn: bigint) : Promise<void | Member>{
+    console.log(`Get Member Info memberSn : ${memSn}`);
+    return await this.memberService.findMemberBySn(memSn);
   }
 
   @ApiOperation({ summary: 'Register One Member Info'})
