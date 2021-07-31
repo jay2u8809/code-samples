@@ -3,6 +3,8 @@ package com.jay2u8809.codesamples.individual.study.bootandaws.web.members.contro
 import com.jay2u8809.codesamples.common.CommonExtends;
 import com.jay2u8809.codesamples.individual.study.bootandaws.service.members.MemberService;
 import com.jay2u8809.codesamples.individual.study.bootandaws.web.members.dto.MemberJoinRequestDto;
+import com.jay2u8809.codesamples.individual.study.bootandaws.web.members.dto.MemberJoinResponseDto;
+import com.jay2u8809.codesamples.individual.study.bootandaws.web.members.dto.MembersResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,15 +12,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Controller
@@ -28,6 +29,21 @@ public class MemberController extends CommonExtends {
     private final MemberService memberService;
 
     private final MemberJoinRequestDto.Validator savedRequestDtoValidator;
+
+    @GetMapping(value = "/all/")
+    @ResponseBody
+    public List<MembersResponseDto> getAllMembers(HttpServletRequest req) {
+
+        return this.memberService.findAllMembers().stream()
+                .map(MembersResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/{memberId}/")
+    public MembersResponseDto getMember(@PathVariable String memberId) {
+        logger.debug("Get Member Info - MemberId : {}", memberId);
+        return new MembersResponseDto(this.memberService.findMemberById(memberId));
+    }
 
     /**
      * register member data
@@ -54,11 +70,13 @@ public class MemberController extends CommonExtends {
 
         logger.debug("REGISTER NEW MEMBER ID : {}", joinRequestDto.getMemberId());
 
-        return ResponseEntity.ok().body(memberService.saveMember(joinRequestDto));
+        return ResponseEntity.ok().body(new MemberJoinResponseDto(memberService.saveMember(joinRequestDto)));
     }
 
     /**
      * Signup Form Validation
+     * @param joinRequestDto
+     * @param bindingResult
      * @return
      */
     private Map<String, Object> memberDataValidate(MemberJoinRequestDto joinRequestDto, BindingResult bindingResult) {
