@@ -12,6 +12,18 @@ export class MemberService {
   ) {}
 
   /**
+   * Get One Member Info By Member Sn (All Info)
+   * @param memberSn
+   */
+  findMemberBySn(memberSn: bigint): Promise<Member> {
+    return this.memberRepository
+      .findOne({
+        where: {memberSn}
+      });
+      this.memberRepository.findOneOrFail();
+  }
+
+  /**
    * Get One Member Info By User ID (All Info)
    * @param memberId
    */
@@ -19,9 +31,9 @@ export class MemberService {
 
     const result: Promise<Member>
       = this.memberRepository
-            .findOne({
-              where: {memberId}
-            });
+        .findOne({
+          where: {memberId}
+        });
 
     // TODO then 구문 Test 필요
     return result.then(value => {
@@ -42,7 +54,8 @@ export class MemberService {
 
     return this.memberRepository.find({
       select: ["memberId", "memberSn"],
-      where: { memberStatus: MemberStatus.Normal }
+      where: { memberStatus: MemberStatus.Normal },
+      order: { "memberSn": "ASC" },
     });
   }
 
@@ -53,8 +66,7 @@ export class MemberService {
    async saveMember(joinRequestDto: MemberJoinRequestDto): Promise<bigint> {
 
     const savedMember
-      = await this.memberRepository
-                  .save(saveMember(joinRequestDto));
+      = await this.memberRepository.save(saveMember(joinRequestDto));
     return savedMember.memberSn;
   }
 
@@ -68,10 +80,10 @@ export class MemberService {
 
     const cnt: Promise<number>
       = this.memberRepository
-            .count({
-              select: ['memberId'],
-              where: { memberId }
-            });
+        .count({
+          select: ['memberId'],
+          where: { memberId }
+        });
 
     return cnt.then(value => value <= 0);
   }
