@@ -1,0 +1,11 @@
+1. Terminal, download get-pip.py
+$> curl https://vlog.tion.co.kr/python/get-pip.py -o get-pip.py
+
+2. Execute Py File
+$> python3 get-pip.py
+
+3. Confirm Python Modules
+$> pip list
+
+* Upgrade Pip
+$> sudo pip install -U pip
