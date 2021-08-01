@@ -50,3 +50,7 @@ java/gradle
 ### Tesseract.js ###
 *.traineddata
 
+
+### PyCharm ###
+**/__pycache__/**
+
