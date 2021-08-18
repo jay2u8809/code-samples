@@ -1,10 +1,13 @@
-# Server
+# - Environment Variables : SPRING_PROFILES_ACTIVE= local
+
+# === Server ===
 server:
   port: 9080
 
-# Spring
+
+# === Spring ===
 spring:
-  # DB
+  # === DB ===
   database: postgres
   datasource:
     driver-class-name: org.postgresql.Driver
@@ -17,6 +20,8 @@ spring:
       leakDetectionThreshold: 20000 # 20s
       maxLifetime: 1800000 # 30min
       maximumPoolSize: 3
+
+  # === JPA ===
   jpa:
     properties:
       hibernate:

@@ -1,0 +1,10 @@
+
+type Member {
+    memberSn: Int!,
+    memberId: String!
+}
+
+input GenerateDefaultMemberData {
+    name: String! = "",
+    address: String = "",
+}

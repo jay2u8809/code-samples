@@ -44,8 +44,8 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	// GraphQL
-	implementation 'com.graphql-java:graphql-spring-boot-starter:3.6.0';
-	implementation 'com.graphql-java:graphql-java-tools:3.2.0';
+	implementation 'com.graphql-java:graphql-spring-boot-starter:5.0.2'						// https://mvnrepository.com/artifact/com.graphql-java/graphql-spring-boot-starter
+	implementation 'com.graphql-java:graphql-java-tools:5.2.4'								// https://mvnrepository.com/artifact/com.graphql-java/graphql-java-tools
 	// Vaadin
 	implementation 'com.vaadin:vaadin-spring-boot-starter'
 	// Lombok
@@ -69,4 +69,6 @@ dependencyManagement {
 
 test {
 	useJUnitPlatform()
+	// gradle build --exclude-task :test or gradle build --exclude-task test
+//	exclude '**/*'
 }

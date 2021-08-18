@@ -1,16 +1,17 @@
-# Server
+# === Server ===
 server:
   port: 8080
 
-# Spring
+
+# === Spring ===
 spring:
-  # DB
+  # === DB ===
   database: h2
   datasource:
     schema: classpath*:db/${database}/schema.sql
     data: classpath*:db/${database}/data.sql
 
-  # JPA
+  # === JPA ===
   jpa:
     properties:
       hibernate:
@@ -47,13 +48,33 @@ web:
   noimg-url: /noimg/
 
 
-# Logging
+# === GraphQL Config ===
+#graphql:
+#  servlet:
+#    mapping: /graphql
+#    enabled: true
+#    corsEnabled: true
+#    exception-handlers-enabled: true
+#  tools:
+#    schema-location-pattern: "classpath*:**/*.graphqls"
+##    schema-location-pattern: "**/*.graphqls"
+#  playground:
+#    mapping: /playground
+#    enabled: true
+#    page-title: graphql playground
+#    settings:
+#      editor:
+#        font-size: 13
+
+
+# === Logging ===
 logging:
   level:
     org.springframework: DEBUG
     org.springframework.web: DEBUG
 
-# OpenApi Info
+
+# === OpenApi Info ===
 open-api:
 
   # QR-Code : http://goqr.me/api/
