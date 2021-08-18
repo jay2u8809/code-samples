@@ -1,0 +1,34 @@
+# === Reference Guide ===
+# - https://graphql.org/learn/
+# - https://graphql-kr.github.io/learn/
+# - https://graphql-kr.github.io/learn/schema/
+
+# === Reference ===
+# - https://brunch.co.kr/@springboot/122
+# = https://siyoon210.tistory.com/153
+# = https://myborn.tistory.com/13
+
+# === Desc ===
+# - API Path: localhost:[_PORT_]/graphql
+# - Sample Query
+#   query {
+#       member(memberSn: 22) {
+#           memberSn,
+#           memberId
+#       }
+#   }
+
+schema {
+    query: Query,
+#    mutation: Mutation,
+}
+
+type Query {
+    member(memberSn: Int!): Member!,
+#    allMembers(count: Int, offset: Int): [Member]!,
+}
+
+#type Mutation {
+#    createMember(defaultMemberData: GenerateDefaultMemberData!): Member!,
+#    deleteMemberBySn(memberSn: Int!): Boolean!
+#}
