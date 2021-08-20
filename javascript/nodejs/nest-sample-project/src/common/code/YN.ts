@@ -1,5 +1,5 @@
 export enum YN {
   Y = 'Y',
 
-  N = 'N'
+  N = 'N',
 }

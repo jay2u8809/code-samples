@@ -18,7 +18,10 @@ describe('QrcodeService', () => {
 
   describe('QrCode Generate Test', () => {
     it('generateQrCodeByImageUriTest : SizeIsNotZero', () => {
-      const result = service.generateQrCodeByImageUri('http://www.naver.com/', 80);
+      const result = service.generateQrCodeByImageUri(
+        'http://www.naver.com/',
+        80,
+      );
       console.log(`QRCODE RESULT : ${result}`);
     });
     it('generateQrCodeByImageUriTest : SizeIsZero', () => {
@@ -26,13 +29,18 @@ describe('QrcodeService', () => {
       console.log(`QRCODE RESULT : ${result}`);
     });
     it('generateQrCodeByImageUriTest : SizeIsMinus', () => {
-      const result = service.generateQrCodeByImageUri('http://www.naver.com/', -30);
+      const result = service.generateQrCodeByImageUri(
+        'http://www.naver.com/',
+        -30,
+      );
       console.log(`QRCODE RESULT : ${result}`);
     });
     it('generateQrCodeByImageUriTest : SizeIsOver1000', () => {
-      const result = service.generateQrCodeByImageUri('http://www.naver.com/', 1001);
+      const result = service.generateQrCodeByImageUri(
+        'http://www.naver.com/',
+        1001,
+      );
       console.log(`QRCODE RESULT : ${result}`);
     });
   });
-
 });

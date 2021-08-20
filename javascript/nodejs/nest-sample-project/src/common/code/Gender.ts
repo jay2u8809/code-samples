@@ -15,5 +15,5 @@ export enum Gender {
    * 응답없음
    * 無し
    */
-  Nothing = 'Nothing'
+  Nothing = 'Nothing',
 }

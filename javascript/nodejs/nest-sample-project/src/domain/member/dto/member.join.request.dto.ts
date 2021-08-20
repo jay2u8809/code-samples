@@ -1,10 +1,12 @@
-import {ApiProperty} from "@nestjs/swagger";
-import {IsEmail, IsNotEmpty, IsPhoneNumber, IsString} from "class-validator";
-import {Member, setMemberDefaultFields} from "../../../entities/member/member";
-import {setBaseDefaultFields} from "../../../entities/base.entity";
+import { ApiProperty } from '@nestjs/swagger';
+import { IsEmail, IsNotEmpty, IsPhoneNumber, IsString } from 'class-validator';
+import {
+  Member,
+  setMemberDefaultFields,
+} from '../../../entities/member/member';
+import { setBaseDefaultFields } from '../../../entities/base.entity';
 
 export class MemberJoinRequestDto {
-
   public memberSn: bigint;
 
   @IsString()
@@ -116,7 +118,6 @@ export class MemberJoinRequestDto {
  * @param memberJoinDto
  */
 export function saveMember(joinRequestDto: MemberJoinRequestDto): Member {
-
   const member: Member = new Member();
 
   // Clone
