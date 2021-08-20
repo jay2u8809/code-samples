@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { MemberService } from './member.service';
-import {MemberJoinRequestDto} from "./dto/member.join.request.dto";
-import {Member} from "../../entities/member/member";
+import { MemberJoinRequestDto } from './dto/member.join.request.dto';
+import { Member } from '../../entities/member/member';
 
 describe('MemberService', () => {
   let service: MemberService;
@@ -38,6 +38,10 @@ test('Save Test1', () => {
   joinRequestDto.memberEmail = 'testMEail@fdsaf.com';
   Object.assign(member, joinRequestDto);
 
-  console.log(`MemberJoinDto ID : ${joinRequestDto.memberId}, Member ID : ${member.memberId}`);
-  console.log(`MemberJoinDto Email : ${joinRequestDto.memberEmail}, Member Email : ${member.emailAddress}`);
+  console.log(
+    `MemberJoinDto ID : ${joinRequestDto.memberId}, Member ID : ${member.memberId}`,
+  );
+  console.log(
+    `MemberJoinDto Email : ${joinRequestDto.memberEmail}, Member Email : ${member.emailAddress}`,
+  );
 });

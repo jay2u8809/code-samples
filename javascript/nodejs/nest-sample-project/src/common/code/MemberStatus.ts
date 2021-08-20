@@ -15,5 +15,5 @@ export enum MemberStatus {
    * 탈퇴
    * 退会
    */
-  Withdraw = 'Withdraw'
+  Withdraw = 'Withdraw',
 }
