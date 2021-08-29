@@ -1,14 +1,14 @@
 package com.jay2u8809.codesamples.individual.algorithm.exam.weatherInfo;
 
 import com.jay2u8809.codesamples.common.CommonExtends;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class FindMinNumWithoutZeroTest extends CommonExtends {
 
     private FindMinNumWithoutZero findMinNumWithoutZero;
 
-    @Before
+    @BeforeEach
     public void init() {
         this.findMinNumWithoutZero = new FindMinNumWithoutZero();
     }

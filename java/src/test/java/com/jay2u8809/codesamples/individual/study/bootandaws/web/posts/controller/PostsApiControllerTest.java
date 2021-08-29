@@ -4,9 +4,8 @@ import com.jay2u8809.codesamples.individual.study.bootandaws.domain.posts.Posts;
 import com.jay2u8809.codesamples.individual.study.bootandaws.domain.posts.PostsRepository;
 import com.jay2u8809.codesamples.individual.study.bootandaws.web.posts.dto.PostsSaveRequestsDto;
 import com.jay2u8809.codesamples.individual.study.bootandaws.web.posts.dto.PostsUpdateRequestDto;
-import org.junit.After;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -23,7 +22,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-@RunWith(SpringRunner.class)
+//@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)     // @WebMvcTest의 경우 JPA 기능이 작동하지 않음.
 public class PostsApiControllerTest {
 
@@ -36,7 +35,7 @@ public class PostsApiControllerTest {
     @Autowired
     private PostsRepository postsRepository;
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         postsRepository.deleteAll();
     }

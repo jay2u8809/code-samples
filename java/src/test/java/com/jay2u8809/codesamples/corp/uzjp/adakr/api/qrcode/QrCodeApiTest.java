@@ -2,7 +2,7 @@ package com.jay2u8809.codesamples.corp.uzjp.adakr.api.qrcode;
 
 import com.jay2u8809.codesamples.common.CommonConst;
 import com.jay2u8809.codesamples.common.CommonControllerTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class QrCodeApiTest extends CommonControllerTest {
 
@@ -91,5 +93,30 @@ public class QrCodeApiTest extends CommonControllerTest {
         logger.info("RESULT QR CODE URI : {}", resultUri);
 
         return resultUri;
+    }
+
+    @Test
+    public void generateQrCode() {
+
+        QrCodeApi qrCodeApi = new QrCodeApi();
+
+//        Assert.assertNull("Qr code url is null", qrCodeApi.generateQrCode(null, 10));
+//
+//        Assert.assertNull("Qr code url's len is zero", qrCodeApi.generateQrCode("", 10));
+//
+//        Assert.assertNull("Qr code url is not url", qrCodeApi.generateQrCode(String.valueOf(312321), 10));
+//        Assert.assertNull("Qr code url is not url", qrCodeApi.generateQrCode("QRCODE", 10));
+
+        assertNotNull("Qr code image size is zero", qrCodeApi.generateQrCode("https://www.google.com", 0));
+
+        assertNotNull("Qr code image size is minus number", qrCodeApi.generateQrCode("https://www.google.com", -10));
+
+        assertNotNull("Qr code image size is too big", qrCodeApi.generateQrCode("https://www.google.com", 99999999));
+
+        assertNotNull("Qr code image size is not number", qrCodeApi.generateQrCode("https://www.google.com", Integer.parseInt("number")));
+
+        assertNotNull("Qr code's security url", qrCodeApi.generateQrCode("https://www.google.com", 10));
+
+        assertNotNull("Qr code's not security url", qrCodeApi.generateQrCode("http://www.google.com", 10));
     }
 }
