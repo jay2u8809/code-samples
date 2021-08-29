@@ -56,7 +56,9 @@ dependencies {
 	// PostgreSQL
 	implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.18'          // https://mvnrepository.com/artifact/org.postgresql/postgresql
 	// Test
-	implementation 'junit:junit:4.12'
+//	implementation 'junit:junit:4.12'
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'							// https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
+
 	// Mustache
 	implementation('org.springframework.boot:spring-boot-starter-mustache')
 }
