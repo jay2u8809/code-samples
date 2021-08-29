@@ -6,9 +6,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jay2u8809.codesamples.common.CommonControllerTest;
 import com.jay2u8809.codesamples.corp.uzjp.adakr.api.naverapi.map.dto.NaverGeoCodingResultDto;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -20,6 +19,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class NaverMapApiTest extends CommonControllerTest {
 
@@ -67,12 +68,13 @@ public class NaverMapApiTest extends CommonControllerTest {
     @Value("${open-api.naver.map.geocoding.client-secret}")
     private String geoCodingClientSecret;
 
-    @Before
+    @BeforeEach
     public void setNaverMapApiInfo() {
         this.geoCodingApiUlr = "https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode";
         this.geoCodingClientId = "ID_INFO";
         this.geoCodingClientSecret = "SECRET_INFO";
     }
+
     @Test
     public void naverMapsApiTest() {
 
@@ -145,8 +147,8 @@ public class NaverMapApiTest extends CommonControllerTest {
             logger.error("I/O Exception : {}", e.getMessage());
         }
 
-        Assert.assertNotNull(resultMap);
-        Assert.assertNotNull(naverGeoCodingResultDto);
+        assertNotNull(resultMap);
+        assertNotNull(naverGeoCodingResultDto);
 
         // value : status
         logger.info("STATUS_INFO : {}, {}", resultMap.get("status").toString(), naverGeoCodingResultDto.getStatus());

@@ -1,6 +1,6 @@
 package com.jay2u8809.codesamples.individual.algorithm.exam.ninten;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;

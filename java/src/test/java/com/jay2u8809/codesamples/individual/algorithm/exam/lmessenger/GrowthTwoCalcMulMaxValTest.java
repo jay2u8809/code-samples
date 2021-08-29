@@ -1,14 +1,14 @@
 package com.jay2u8809.codesamples.individual.algorithm.exam.lmessenger;
 
 import com.jay2u8809.codesamples.common.CommonExtends;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class GrowthTwoCalcMulMaxValTest extends CommonExtends {
 
     private GrowthTwoCalcMulMaxVal growthTwoCalcMulMaxVal;
 
-    @Before
+    @BeforeEach
     public void init() {
         this.growthTwoCalcMulMaxVal = new GrowthTwoCalcMulMaxVal();
     }

@@ -1,16 +1,14 @@
 package com.jay2u8809.codesamples.individual.algorithm.exam.yhjpportal;
 
 import com.jay2u8809.codesamples.common.CommonExtends;
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class YhJpPortalOneTest extends CommonExtends {
 
     private YhJpPortalOne yhJpPortalOne;
 
-    @Before
+    @BeforeEach
     public void init() {
         this.yhJpPortalOne = new YhJpPortalOne();
     }
