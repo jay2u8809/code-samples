@@ -1,7 +1,20 @@
 
-type Member {
+type Member implements PersonInfo {
     memberSn: Int!,
-    memberId: String!
+    memberId: String!,
+    memberPw: String,
+    nickName: String,
+    memberName1: String!,
+    memberName2: String!,
+    memberName3: String,
+    memberName4: String,
+    memberEmail: String!,
+    zipCode: String!,
+    address1: String!,
+    address2: String!,
+    address3: String!,
+    address4: String,
+    phoneNo: String!,
 }
 
 input GenerateDefaultMemberData {
