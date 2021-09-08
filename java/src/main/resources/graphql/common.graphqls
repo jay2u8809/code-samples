@@ -5,7 +5,7 @@
 
 schema {
     query: Query,
-#    mutation: Mutation,
+    mutation: Mutation,
 }
 
 type Query {
@@ -14,10 +14,10 @@ type Query {
     allMembers(count: Int, offset: Int): [Member],
 }
 
-#type Mutation {
-#    createMember(defaultMemberData: GenerateDefaultMemberData!): Member!,
-#    deleteMemberBySn(memberSn: Int!): Boolean!
-#}
+type Mutation {
+    createMember(saveMemberInfo: SaveMember!): Member!,
+    deleteMemberBySn(memberSn: Int!): Boolean!,
+}
 
 interface PersonInfo {
     memberName1: String!,

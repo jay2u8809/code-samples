@@ -22,7 +22,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class MemberJoinRequestDto implements Serializable {
 
-    private Long memberSn;
     private String memberId;
     private String memberPw;
     private String memberName1;
