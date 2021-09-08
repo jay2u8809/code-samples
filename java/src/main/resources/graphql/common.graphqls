@@ -9,8 +9,9 @@ schema {
 }
 
 type Query {
-    member(memberSn: Int!): Member!,
-    allMembers(count: Int, offset: Int): [Member]!,
+    memberBySn(memberSn: Int!): Member,
+    memberById(memberId: String!): Member,
+    allMembers(count: Int, offset: Int): [Member],
 }
 
 #type Mutation {

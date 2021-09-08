@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,12 +22,12 @@ public class MemberQueryResolver extends CommonExtends implements GraphQLQueryRe
     private final MemberService memberService;
 
     /**
-     * Get One Member Data
-     * GraphQL Schema Query : member(memberSn: Int!): Member!
+     * Get One Member Data By memberSn
+     * GraphQL Schema Query : memberBySn(memberSn: Int!): Member
      * @param memberSn
      * @return
      */
-    public MemberJoinResponseDto getMember(final long memberSn) {
+    public MemberJoinResponseDto getMemberBySn(final long memberSn) {
         if (memberSn <= 0)  return null;
         logger.debug(" === Query Member's memberSn: {} === ", memberSn);
 
@@ -38,8 +39,25 @@ public class MemberQueryResolver extends CommonExtends implements GraphQLQueryRe
     }
 
     /**
+     * Get One Member Data By memberID
+     * GraphQL Schema Query : memberById(memberId: String!): Member
+     * @param memberId
+     * @return
+     */
+    public MemberJoinResponseDto getMemberById(final String memberId) {
+        if (ObjectUtils.isEmpty(memberId))  return null;
+        logger.debug(" === Query Member's memberID: {} === ", memberId);
+
+        Member member = this.memberService.findMemberById(memberId);
+        if (ObjectUtils.isEmpty(member))    return null;
+        logger.debug(" === Query Member's memberId: {} === ", member.getMemberId());
+
+        return new MemberJoinResponseDto(member);
+    }
+
+    /**
      * Get All Members Data
-     * GraphQL Schema Query : allMembers(count: Int, offset: Int): [Member]!
+     * GraphQL Schema Query : allMembers(count: Int, offset: Int): [Member]
      * @param count
      * @param offset
      * @return
