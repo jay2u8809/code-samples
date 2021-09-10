@@ -18,14 +18,14 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
 
     @Override
-    public Member findMemberBySn(Long memberSn) {
+    public Member findMemberBySn(final Long memberSn) {
         return this.memberRepository
                 .findById(memberSn)
                 .orElse(null);
     }
 
     @Override
-    public Member findMemberById(String memberId) {
+    public Member findMemberById(final String memberId) {
         return this.memberRepository.findMemberById(memberId);
     }
 
@@ -39,5 +39,15 @@ public class MemberServiceImpl implements MemberService {
     public Member saveMember(MemberJoinRequestDto joinRequestDto) {
         return this.memberRepository
                 .save(joinRequestDto.saveMember());
+    }
+
+    @Override
+    public boolean deleteMember(final Long memberSn) {
+        Member member = this.memberRepository.findById(memberSn).orElse(null);
+
+        if (member == null)    return false;
+
+        this.memberRepository.deleteById(memberSn);
+        return true;
     }
 }

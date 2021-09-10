@@ -2,7 +2,7 @@ package com.jay2u8809.codesamples.individual.study.bootandaws.web.members.graphq
 
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import com.jay2u8809.codesamples.common.CommonExtends;
-import com.jay2u8809.codesamples.individual.study.bootandaws.domain.members.MemberRepository;
+import com.jay2u8809.codesamples.individual.study.bootandaws.service.members.MemberService;
 import com.jay2u8809.codesamples.individual.study.bootandaws.web.members.dto.MemberJoinRequestDto;
 import com.jay2u8809.codesamples.individual.study.bootandaws.web.members.dto.MemberJoinResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(rollbackFor = Exception.class)
 public class MemberMutationResolver extends CommonExtends implements GraphQLMutationResolver {
 
-    private final MemberRepository memberRepository;
+    private final MemberService memberService;
 
     /**
      * Save One Member Data
@@ -23,7 +23,7 @@ public class MemberMutationResolver extends CommonExtends implements GraphQLMuta
      * @return Member
      */
     public MemberJoinResponseDto createMember(MemberJoinRequestDto memberDTO) {
-        return new MemberJoinResponseDto(this.memberRepository.save(memberDTO.saveMember()));
+        return new MemberJoinResponseDto(this.memberService.saveMember(memberDTO));
     }
 
     /**
@@ -35,7 +35,7 @@ public class MemberMutationResolver extends CommonExtends implements GraphQLMuta
     public Boolean deleteMemberBySn(final long memberSn) {
         if (memberSn <= 0)  return false;
         logger.debug(" === Mutation Delete Member's memberSn: {} === ", memberSn);
-        // TODO Delete Member Process
-        return true;
+
+        return this.memberService.deleteMember(memberSn);
     }
 }

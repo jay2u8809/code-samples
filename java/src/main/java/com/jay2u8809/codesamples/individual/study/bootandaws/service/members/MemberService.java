@@ -12,17 +12,17 @@ public interface MemberService {
      * Get One Member Info By Member Sn (All Info)
      * @param memberSn
      */
-    default Member findMemberBySn(Long memberSn) {
+    default Member findMemberBySn(final Long memberSn) {
         return new Member();
-    };
+    }
 
     /**
      * Get One Member Info By User ID (All Info)
      * @param memberId
      */
-    default Member findMemberById(String memberId) {
+    default Member findMemberById(final String memberId) {
         return new Member();
-    };
+    }
 
     /**
      * Get All Members Info
@@ -37,7 +37,14 @@ public interface MemberService {
      */
     default Member saveMember(MemberJoinRequestDto joinRequestDto) {
         return new Member();
-    };
+    }
 
-
+    /**
+     * Delete Member
+     * @param memberSn
+     * @return
+     */
+    default boolean deleteMember(final Long memberSn) {
+        return false;
+    }
 }
