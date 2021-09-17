@@ -1,0 +1,32 @@
+
+# project name
+service: nest-sls-sample-project
+
+frameworkVersion: '2'
+
+plugins:
+  - serverless-layers
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+  stage: dev
+  region: ap-northeast-1
+  profile:
+  iam:
+    role:
+
+  deploymentBucket:
+    name:
+
+  environment:
+    DYNAMODB_TABLE:
+
+functions: ${file(./src/settings/functions.yaml)}
+
+resources:
+  - ${file(./src/settings/dynamodb.yaml)}
+
+package:
+  individually: true
