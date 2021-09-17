@@ -41,7 +41,7 @@ out/
 ### VS Code ###
 .vscode/
 
-java/gradle
+**/gradle/**
 
 ### NodeJs ###
 **/node_modules/**
