@@ -1,17 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { Member } from '../../entities/member/member';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import {
   MemberJoinRequestDto,
   saveMember,
 } from './dto/member.join.request.dto';
 import { MemberStatus } from '../../common/code/MemberStatus';
+import { MemberRepository } from './member.repository';
 
 @Injectable()
 export class MemberService {
   constructor(
-    @InjectRepository(Member) private memberRepository: Repository<Member>,
+    @InjectRepository(Member) private memberRepository: MemberRepository,
   ) {}
 
   /**
