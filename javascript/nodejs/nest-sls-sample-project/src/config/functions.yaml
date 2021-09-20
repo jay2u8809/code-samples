@@ -1,0 +1,11 @@
+index:
+  handler: dist/
+  events:
+    - http:
+        method: any
+        path: '/'
+        cors: true
+    - http:
+        method: any
+        path: '{proxy+}'
+        cors: true

@@ -2,12 +2,14 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { MemberService } from './member.service';
 import { MemberJoinRequestDto } from './dto/member.join.request.dto';
 import { Member } from '../../entities/member/member';
+import { MemberRepository } from './member.repository';
 
 describe('MemberService', () => {
   let service: MemberService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [MemberRepository],
       providers: [MemberService],
     }).compile();
 
@@ -23,10 +25,11 @@ describe('MemberService', () => {
       const joinRequestDto: MemberJoinRequestDto = new MemberJoinRequestDto();
       joinRequestDto.memberId = 'testID';
       joinRequestDto.memberPw = 'asdfqwer12';
-      joinRequestDto.memberEmail = 'test@email.com';
-      const savedMemberSn: Promise<bigint> = service.saveMember(joinRequestDto);
+      joinRequestDto.emailAddress = 'test@email.com';
+      const savedMemberSn: Promise<bigint> = service.create(joinRequestDto);
       console.log(`Saved MemberSn : ${savedMemberSn}`);
     });
+    expect(true);
   });
 });
 
@@ -35,13 +38,13 @@ test('Save Test1', () => {
   const joinRequestDto: MemberJoinRequestDto = new MemberJoinRequestDto();
 
   joinRequestDto.memberId = 'TestID';
-  joinRequestDto.memberEmail = 'testMEail@fdsaf.com';
+  joinRequestDto.emailAddress = 'testMEail@fdsaf.com';
   Object.assign(member, joinRequestDto);
 
   console.log(
     `MemberJoinDto ID : ${joinRequestDto.memberId}, Member ID : ${member.memberId}`,
   );
   console.log(
-    `MemberJoinDto Email : ${joinRequestDto.memberEmail}, Member Email : ${member.emailAddress}`,
+    `MemberJoinDto Email : ${joinRequestDto.emailAddress}, Member Email : ${member.emailAddress}`,
   );
 });

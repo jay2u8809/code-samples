@@ -1,5 +1,7 @@
 # How to Use TypeORM
 
+* [TypeORM Tutorial](https://www.tutorialspoint.com/typeorm/typeorm_query_builder.htm)
+
 ## PostgreSQL
 - Install Dependencies
 ```shell

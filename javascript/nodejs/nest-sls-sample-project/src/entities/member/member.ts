@@ -387,10 +387,9 @@ export class Member extends BaseEntity {
  * 会員のデフォルト値設定
  * @param member
  */
-export function setMemberDefaultFields(member: Member): void {
+export const setMemberDefaultFields = (member: Member): void => {
   if (!(member && member instanceof Member)) {
     return;
   }
-
-  member.signupDt = new Date();
-}
+  member.signupDt = new Date(new Date().toISOString());
+};

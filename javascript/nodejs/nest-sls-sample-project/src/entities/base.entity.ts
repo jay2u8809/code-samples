@@ -1,5 +1,7 @@
 import { Column } from 'typeorm';
 
+const ADMIN_ACCOUNT = 'admin';
+
 export class BaseEntity {
   @Column('character varying', { name: 'created_by', length: 50 })
   createdBy: string;
@@ -18,14 +20,20 @@ export class BaseEntity {
  * 기본 정보 설정
  * デフォルト値設定
  * @param obj
+ * @param modifiedBy
  */
-export function setBaseDefaultFields(obj: Object): void {
+export const setBaseDefaultFields = (obj: any, modifiedBy?: string): void => {
   if (!(obj && obj instanceof BaseEntity)) {
     return;
   }
 
-  obj.createdBy = 'admin';
-  obj.createdDt = new Date();
-  obj.modifiedBy = 'admin';
-  obj.modifiedDt = new Date();
-}
+  const date: Date = new Date(new Date().toISOString());
+  if (obj.createdBy && obj.createdDt) {
+    obj.modifiedBy = modifiedBy;
+    obj.modifiedDt = date;
+  }
+  obj.createdBy = ADMIN_ACCOUNT;
+  obj.createdDt = date;
+  obj.modifiedBy = ADMIN_ACCOUNT;
+  obj.modifiedDt = date;
+};
