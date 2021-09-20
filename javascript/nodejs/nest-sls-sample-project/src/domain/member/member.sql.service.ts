@@ -7,22 +7,21 @@ import {
 } from './dto/member.join.request.dto';
 import { MemberStatus } from '../../common/code/MemberStatus';
 import { MemberRepository } from './member.repository';
-import { MemberInterface } from 'src/db/sql/domain/member/member.interface';
 import { getConnection, Connection, getManager } from 'typeorm';
 import { EntityManager } from 'typeorm/entity-manager/EntityManager';
+import { MemberInterface } from '../../db/common/domain/member/member.interface';
 
-const TAG = 'MEMBER_SERVICE';
+const TAG = 'MEMBER_SQL_SERVICE';
 
 @Injectable()
-export class MemberService implements MemberInterface {
-  private readonly conn: Connection;
-  private readonly em: EntityManager;
-
+export class MemberSqlService implements MemberInterface {
   constructor(
     @InjectRepository(Member) private memberRepository: MemberRepository,
+    // private readonly conn: Connection,
+    // private readonly em: EntityManager,
   ) {
-    this.conn = getConnection();
-    this.em = getManager();
+    // this.conn = getConnection();
+    // this.em = getManager();
   }
 
   /**
@@ -53,7 +52,7 @@ export class MemberService implements MemberInterface {
    * Get One Member Info By MemberSn (All Info)
    * @param memberSn
    */
-  async get(memberSn: bigint): Promise<Member> {
+  async get(memberSn: any): Promise<Member> {
     if (!memberSn) return null;
 
     const sn = Number(memberSn);
@@ -199,6 +198,23 @@ export class MemberService implements MemberInterface {
       });
   }
 
+  async isExist(param: any): Promise<boolean> {
+    return await this.memberRepository
+      .count({
+        where: param,
+      })
+      .then((data) => {
+        console.log(TAG, `Exist Member Count : ${data}`);
+        return data > 0;
+      }).catch((err) => {
+        console.log(TAG, `Fail to check exist member data : ${JSON.stringify(err)}`);
+        return null;
+      });
+  }
+
+
+  // ==== private ====
+
   /**
    * Check Exist Member Info By memberSn
    * @param memberSn
@@ -226,20 +242,5 @@ export class MemberService implements MemberInterface {
     };
 
     return await this.isExist(param);
-  }
-
-  // ==== private ====
-  private async isExist(param: any): Promise<boolean> {
-    return await this.memberRepository
-      .count({
-        where: param,
-      })
-      .then((data) => {
-        console.log(TAG, `Exist Member Count : ${data}`);
-        return data > 0;
-      }).catch((err) => {
-        console.log(TAG, `Fail to check exist member data : ${JSON.stringify(err)}`);
-        return null;
-      });
   }
 }

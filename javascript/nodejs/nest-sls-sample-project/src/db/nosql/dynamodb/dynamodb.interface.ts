@@ -1,3 +1,3 @@
-import { BaseInterface } from '../../common/base.interface';
+import { DbNosqlInterface } from '../db.nosql.interface';
 
-export type DynamodbInterface = BaseInterface;
+export type DynamodbInterface = DbNosqlInterface;

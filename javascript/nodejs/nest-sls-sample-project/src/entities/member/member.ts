@@ -15,6 +15,11 @@ export class Member extends BaseEntity {
   memberSn: bigint;
 
   /**
+   * uuid
+   */
+  id: string;
+
+  /**
    * 회원 ID
    * 会員ID
    */

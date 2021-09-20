@@ -1,7 +1,7 @@
 import { Member } from 'src/entities/member/member';
-import { DatabaseInterface } from '../../database.interface';
+import { DbBaseInterface } from '../../db.base.interface';
 
-export interface MemberInterface extends DatabaseInterface {
+export interface MemberInterface extends DbBaseInterface {
   getById(memberId: string): Promise<Member | null>;
 
   getByEmail(email: string): Promise<Member[] | null>;
@@ -10,7 +10,5 @@ export interface MemberInterface extends DatabaseInterface {
 
   getNormalMembers(): Promise<Member[] | null>;
 
-  isExistBySn(memberSn: bigint): Promise<boolean>;
-
-  isExistById(memberId: string): Promise<boolean>;
+  isExist(param: any): Promise<boolean>;
 }

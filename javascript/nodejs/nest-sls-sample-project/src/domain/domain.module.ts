@@ -1,12 +1,14 @@
 import { Module } from '@nestjs/common';
-import { MemberService } from './member/member.service';
+import { MemberSqlService } from './member/member.sql.service';
 import { MemberController } from './member/member.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Member } from '../entities/member/member';
+import { DynamodbService } from '../db/nosql/dynamodb/dynamodb.service';
+import { MemberNosqlService } from './member/member.nosql.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Member])],
-  providers: [MemberService],
+  providers: [MemberSqlService, MemberNosqlService, DynamodbService],
   controllers: [MemberController],
 })
 export class DomainModule {}

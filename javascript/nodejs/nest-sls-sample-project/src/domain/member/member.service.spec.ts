@@ -1,23 +1,27 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { MemberService } from './member.service';
+import { MemberSqlService } from './member.sql.service';
 import { MemberJoinRequestDto } from './dto/member.join.request.dto';
 import { Member } from '../../entities/member/member';
 import { MemberRepository } from './member.repository';
+import { MemberNosqlService } from './member.nosql.service';
 
 describe('MemberService', () => {
-  let service: MemberService;
+  let sqlService: MemberSqlService;
+  let nosqlService: MemberNosqlService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [MemberRepository],
-      providers: [MemberService],
+      providers: [MemberSqlService, MemberNosqlService],
     }).compile();
 
-    service = module.get<MemberService>(MemberService);
+    sqlService = module.get<MemberSqlService>(MemberSqlService);
+    nosqlService = module.get<MemberNosqlService>(MemberNosqlService);
   });
 
   it('should be defined', () => {
-    expect(service).toBeDefined();
+    expect(sqlService).toBeDefined();
+    expect(nosqlService).toBeDefined();
   });
 
   describe('Member Save Test', () => {
@@ -26,7 +30,7 @@ describe('MemberService', () => {
       joinRequestDto.memberId = 'testID';
       joinRequestDto.memberPw = 'asdfqwer12';
       joinRequestDto.emailAddress = 'test@email.com';
-      const savedMemberSn: Promise<bigint> = service.create(joinRequestDto);
+      const savedMemberSn: Promise<bigint> = sqlService.create(joinRequestDto);
       console.log(`Saved MemberSn : ${savedMemberSn}`);
     });
     expect(true);

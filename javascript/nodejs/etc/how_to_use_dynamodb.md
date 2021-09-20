@@ -27,3 +27,14 @@ https://qiita.com/Fujimon_fn/items/66be7b807a8329496899
     import * as AWS from 'aws-sdk';
 ```
 
+* uuid install
+[UUID](https://github.com/uuidjs/uuid#readme)
+```shell
+    $ npm i uuid
+```
+
+```typescript
+    import { v4 as uuidv4 } from 'uuid';
+
+    const id: string = uuidv4();
+```
