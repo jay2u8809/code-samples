@@ -1,14 +1,25 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Put } from '@nestjs/common';
-import { MemberService } from './member.service';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpStatus,
+  Param,
+  Patch,
+  Post,
+  Put,
+} from '@nestjs/common';
+import { MemberSqlService } from './member.sql.service';
 import { MemberJoinRequestDto } from './dto/member.join.request.dto';
 import { Member } from '../../entities/member/member';
 import { ApiOperation } from '@nestjs/swagger';
+import { MemberNosqlService } from './member.nosql.service';
 
 const TAG = 'MEMBER_CONTROLLER';
 
 @Controller('/api/v1/individual/member')
 export class MemberController {
-  constructor(private readonly memberService: MemberService) {}
+  constructor(private readonly memberService: MemberNosqlService) {}
 
   @ApiOperation({ summary: 'Register One Member Info' })
   @Post('/register/')
@@ -19,17 +30,17 @@ export class MemberController {
       console.log(TAG, `REGISTER NEW MEMBER INFO IS EMPTY`);
       return HttpStatus.BAD_REQUEST;
     }
-    const result: bigint = await this.memberService.create(data);
+    const result: bigint | string = await this.memberService.create(data);
     return result ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
   }
 
-  @ApiOperation({ summary: 'Get One Member Info By memberSn' })
-  @Get('/get/:memberSn')
-  async getMemberBySn(
-    @Param('memberSn') memberSn: bigint,
+  @ApiOperation({ summary: 'Get One Member Info By primary key' })
+  @Get('/get/:pkey')
+  async getMember(
+    @Param('pkey') primaryKey: any,
   ): Promise<Member | null> {
-    console.log(TAG, `Get Member Info memberSn : ${memberSn}`);
-    return await this.memberService.get(memberSn);
+    console.log(TAG, `Get Member Info primaryKey : ${primaryKey}`);
+    return await this.memberService.get(primaryKey);
   }
 
   @ApiOperation({ summary: 'Get All Members Info' })
@@ -74,23 +85,23 @@ export class MemberController {
   }
 
   @ApiOperation({ summary: 'Update Members Info' })
-  @Put('/updated/:memberSn')
+  @Put('/updated/:pkey')
   async updatedMember(
-    @Param('memberSn') memberSn: bigint,
+    @Param('pkey') primaryKey: any,
     @Body() data: MemberJoinRequestDto,
   ): Promise<HttpStatus> {
-    console.log(TAG, `Update Members Info memberSn : ${memberSn}`);
+    console.log(TAG, `Update Members Info primaryKey : ${primaryKey}`);
     return (await this.memberService.update(data))
       ? HttpStatus.OK
       : HttpStatus.INTERNAL_SERVER_ERROR;
   }
 
-  @ApiOperation({ summary: 'Delete One Member Info By memberSn' })
-  @Delete('/delete/:memberSn')
-  async deleteMemberBySn(
-    @Param('memberSn') memberSn: bigint,
+  @ApiOperation({ summary: 'Delete One Member Info By primary key' })
+  @Delete('/delete/:pkey')
+  async deleteMember(
+    @Param('pkey') primaryKey: any,
   ): Promise<boolean> {
-    console.log(TAG, `Delete Member Info memberSn : ${memberSn}`);
-    return await this.memberService.delete(memberSn);
+    console.log(TAG, `Delete Member Info primaryKey : ${primaryKey}`);
+    return await this.memberService.delete(primaryKey);
   }
 }

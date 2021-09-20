@@ -2,8 +2,9 @@ http:
   host: 'localhost'
   port: 3000
 
-# Not Used
 db:
+  useSql: false
+  # Not Used
   sql:
     postgres:
       host: 'localhost'

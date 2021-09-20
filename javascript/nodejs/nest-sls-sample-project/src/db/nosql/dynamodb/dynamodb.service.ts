@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import * as AWS from 'aws-sdk';
 import { DynamodbInterface } from './dynamodb.interface';
-import { AwsRegion } from './aws.config';
+import { AwsRegion, QueryResult } from './aws.config';
 
-const TAG = 'DynamoDB_Service';
+const TAG = 'DYNAMODB_SERVICE';
 
 @Injectable()
 export class DynamodbService implements DynamodbInterface {
@@ -33,16 +33,14 @@ export class DynamodbService implements DynamodbInterface {
       });
   }
 
-  async get(
-    param: any,
-  ): Promise<AWS.DynamoDB.DocumentClient.GetItemOutput | null> {
+  async get(param: any): Promise<any | null> {
     return await this.fetch(param, false).catch((err) => {
       console.log(TAG, `Fail to get : ${err}`);
       return null;
     });
   }
 
-  async getAll(params: any): Promise<any[] | null> {
+  async getAll(params: any): Promise<QueryResult[] | null> {
     return await this.fetch(params, true).catch((err) => {
       console.log(TAG, `Fail to getAll : ${err}`);
       return null;
@@ -50,8 +48,8 @@ export class DynamodbService implements DynamodbInterface {
   }
 
   async update(
-    table: string,
     param: any,
+    table?: string,
   ): Promise<AWS.DynamoDB.DocumentClient.UpdateItemOutput | null> {
     if (!table || param) return null;
 
@@ -65,8 +63,8 @@ export class DynamodbService implements DynamodbInterface {
   }
 
   async delete(
-    table: string,
     param: any,
+    table?: string,
   ): Promise<AWS.DynamoDB.DocumentClient.DeleteItemOutput | null> {
     if (!table || param) return null;
 
@@ -83,8 +81,8 @@ export class DynamodbService implements DynamodbInterface {
   private async fetch(
     param: any,
     isScan: boolean,
-  ): Promise<any | any[] | null> {
-    const result: any = {
+  ): Promise<QueryResult | null> {
+    const result: QueryResult = {
       Count: 0,
       Items: [],
     };

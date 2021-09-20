@@ -7,9 +7,13 @@ import {
 import { setBaseDefaultFields } from '../../../entities/base.entity';
 import { plainToClass } from 'class-transformer';
 import { InternalServerErrorException } from '@nestjs/common';
+import { v4 as uuidv4 } from 'uuid';
+import configuration from '../../../config/configuration';
 
 export class MemberJoinRequestDto {
   public memberSn: bigint;
+
+  public id: string;
 
   @IsString()
   @IsNotEmpty()
@@ -123,6 +127,7 @@ export const saveMember = (joinRequestDto: MemberJoinRequestDto): Member => {
 
   const member: Member = plainToClass(Member, {
     ...joinRequestDto,
+    id: configuration().db.useSql ? null : uuidv4(),
     name_1: joinRequestDto.memberName1,
     name_2: joinRequestDto.memberName2,
     name_3: joinRequestDto.memberName3,

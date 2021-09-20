@@ -1,4 +1,4 @@
-export interface BaseInterface {
+export interface DbBaseInterface {
   create(param: any, table?: string): Promise<any | null>;
 
   get(param: any): Promise<any | null>;
