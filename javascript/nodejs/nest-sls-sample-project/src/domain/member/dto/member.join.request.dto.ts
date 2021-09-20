@@ -5,6 +5,8 @@ import {
   setMemberDefaultFields,
 } from '../../../entities/member/member';
 import { setBaseDefaultFields } from '../../../entities/base.entity';
+import { plainToClass } from 'class-transformer';
+import { InternalServerErrorException } from '@nestjs/common';
 
 export class MemberJoinRequestDto {
   public memberSn: bigint;
@@ -59,7 +61,7 @@ export class MemberJoinRequestDto {
     example: 'sample@email.com',
     description: 'Email',
   })
-  public memberEmail: string;
+  public emailAddress: string;
 
   @IsString()
   @IsNotEmpty()
@@ -81,28 +83,28 @@ export class MemberJoinRequestDto {
     example: '',
     description: 'address1',
   })
-  public address1: string;
+  public address_1: string;
 
   @IsString()
   @ApiProperty({
     example: '',
     description: 'address2',
   })
-  public address2: string;
+  public address_2: string;
 
   @IsString()
   @ApiProperty({
     example: '',
     description: 'address3',
   })
-  public address3: string;
+  public address_3: string;
 
   @IsString()
   @ApiProperty({
     example: '',
     description: 'address4',
   })
-  public address4: string;
+  public address_4: string;
 
   @IsPhoneNumber()
   @ApiProperty({
@@ -113,36 +115,24 @@ export class MemberJoinRequestDto {
 }
 
 /**
- * 저장할 회원의 데이터 생성
- * 保存させる会員のデータ生成
- * @param memberJoinDto
+ * Generate saving member data
+ * @param joinRequestDto
  */
-export function saveMember(joinRequestDto: MemberJoinRequestDto): Member {
-  const member: Member = new Member();
+export const saveMember = (joinRequestDto: MemberJoinRequestDto): Member => {
+  // TODO password encryption
 
-  // Clone
-  Object.assign(member, joinRequestDto);
+  const member: Member = plainToClass(Member, {
+    ...joinRequestDto,
+    name_1: joinRequestDto.memberName1,
+    name_2: joinRequestDto.memberName2,
+    name_3: joinRequestDto.memberName3,
+    name_4: joinRequestDto.memberName4,
+    phoneNo_1: joinRequestDto.phoneNo,
+  });
 
-  // const hashedPassword = await bcrypt.hash(password, 12);
-
-  member.name_1 = joinRequestDto.memberName1;
-  member.name_2 = joinRequestDto.memberName2;
-  member.name_3 = joinRequestDto.memberName3;
-  member.name_4 = joinRequestDto.memberName4;
-  member.emailAddress = joinRequestDto.memberEmail;
-
-  member.nickname = joinRequestDto.nickName;
-  member.zipCode = joinRequestDto.zipCode;
-  member.address_1 = joinRequestDto.address1;
-  member.address_2 = joinRequestDto.address2;
-  member.address_3 = joinRequestDto.address3;
-  member.address_4 = joinRequestDto.address4;
-  member.phoneNo_1 = joinRequestDto.phoneNo;
-
-  // MemberEntity Default Value Setting
   setMemberDefaultFields(member);
-  // BaseEntity Default Value Setting
-  setBaseDefaultFields(member);
+  setBaseDefaultFields(member, member.memberId);
 
   return member;
-}
+};
+

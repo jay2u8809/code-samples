@@ -1,0 +1,18 @@
+http:
+  host: 'localhost'
+  port: 3000
+
+# Not Used
+db:
+  sql:
+    postgres:
+      host: 'localhost'
+      port: 5432
+      username: 'devuser'
+      password: 'devuser'
+      database: 'devdb'
+      schema: 'dev_schema'
+
+  nosql:
+    dynamodb:
+      region:

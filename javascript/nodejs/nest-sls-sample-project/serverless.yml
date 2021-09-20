@@ -26,7 +26,7 @@ provider:
 functions: ${file(./src/settings/functions.yaml)}
 
 resources:
-  - ${file(./src/settings/dynamodb.yaml)}
+  - ${file(./src/db/dynamodb/dynamodb.yaml)}
 
 package:
   individually: true
