@@ -1,5 +1,5 @@
 index:
-  handler: dist/
+  handler: dist/lambda/app/app-handler.handler
   events:
     - http:
         method: any

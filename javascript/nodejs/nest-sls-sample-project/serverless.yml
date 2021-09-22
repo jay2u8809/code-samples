@@ -23,10 +23,10 @@ provider:
   environment:
     DYNAMODB_TABLE:
 
-functions: ${file(./src/settings/functions.yaml)}
+functions: ${file(./src/config/functions.yaml)}
 
 resources:
-  - ${file(./src/db/dynamodb/dynamodb.yaml)}
+  - ${file(./src/db/nosql/dynamodb/dynamodb.yaml)}
 
 package:
   individually: true
