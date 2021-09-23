@@ -32,6 +32,8 @@
     "aws-serverless-express": "^3.4.0",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
+    "csv-parser": "^3.0.0",
+    "csv-writer": "^1.6.0",
     "dayjs": "^1.10.7",
     "js-yaml": "^4.1.0",
     "pg": "^8.6.0",

@@ -1,4 +1,4 @@
-export enum YN {
+export enum Yn {
   Y = 'Y',
 
   N = 'N',
