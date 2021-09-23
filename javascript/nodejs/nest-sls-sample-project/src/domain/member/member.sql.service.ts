@@ -5,7 +5,7 @@ import {
   MemberJoinRequestDto,
   saveMember,
 } from './dto/member.join.request.dto';
-import { MemberStatus } from '../../common/code/MemberStatus';
+import { MemberStatus } from '../../common/code/member-status';
 import { MemberRepository } from './member.repository';
 import { getConnection, Connection, getManager } from 'typeorm';
 import { EntityManager } from 'typeorm/entity-manager/EntityManager';

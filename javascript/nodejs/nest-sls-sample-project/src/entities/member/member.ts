@@ -1,8 +1,8 @@
 import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 import { BaseEntity } from '../base.entity';
-import { YN } from '../../common/code/YN';
-import { MemberStatus } from '../../common/code/MemberStatus';
-import { Gender } from '../../common/code/Gender';
+import { Yn } from '../../common/code/yn';
+import { MemberStatus } from '../../common/code/member-status';
+import { Gender } from '../../common/code/gender';
 
 @Index('member_pkey', ['memberSn'], { unique: true })
 @Entity('member', { schema: 'dev_schema' })
@@ -262,7 +262,7 @@ export class Member extends BaseEntity {
     length: 1,
     default: () => "'N'",
   })
-  accountLockYn: YN;
+  accountLockYn: Yn;
 
   /**
    * 계정 잠김 적용 날짜
@@ -314,7 +314,7 @@ export class Member extends BaseEntity {
     length: 1,
     default: () => "'N'",
   })
-  pwResetRequestYn: YN;
+  pwResetRequestYn: Yn;
 
   /**
    * 비밀번호 인증키
@@ -384,7 +384,7 @@ export class Member extends BaseEntity {
     length: 1,
     default: () => "'N'",
   })
-  mailProhibitYn: YN;
+  mailProhibitYn: Yn;
 }
 
 /**
