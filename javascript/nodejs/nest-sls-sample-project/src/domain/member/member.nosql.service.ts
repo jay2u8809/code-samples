@@ -1,6 +1,6 @@
 import { Member } from '../../entities/member/member';
 import { DynamodbService } from '../../db/nosql/dynamodb/dynamodb.service';
-import { AwsDbTable, QueryParam } from '../../db/nosql/dynamodb/aws.config';
+import { AwsDbIndex, AwsDbTable, QueryParam } from '../../db/nosql/dynamodb/aws.config';
 import { MemberJoinRequestDto, saveMember } from './dto/member.join.request.dto';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { MemberInterface } from '../../db/common/domain/member/member.interface';
@@ -15,21 +15,21 @@ export class MemberNosqlService implements MemberInterface {
    * Register Member
    * @param param
    */
-  async create(param: MemberJoinRequestDto): Promise<bigint | string | null> {
-    if (!param) return null;
+  async create(param: MemberJoinRequestDto): Promise<string> {
+    if (!param) return;
 
     const getParam: QueryParam = {
       TableName: AwsDbTable.MEMBER,
-      IndexName: 'memberid-index',
+      IndexName: AwsDbIndex.ID,
+      KeyConditionExpression: '#memberId = :val',
       ExpressionAttributeNames: {
         '#memberId': 'member_id'
       },
       ExpressionAttributeValues: {
         ':val': param.memberId
       },
-      KeyConditionExpression: '#memberId = :val'
     };
-    const isExist: Promise<boolean> = this.isExist(getParam);
+    const isExist: boolean = await this.isExist(getParam);
     if (!isExist) {
       throw new NotFoundException(
         `Already Exist Member ID :  ${param.memberId}`,
@@ -68,7 +68,7 @@ export class MemberNosqlService implements MemberInterface {
         console.log(TAG, `ItemCollectionMetrics SizeEstimateRangeGB : ${data.ItemCollectionMetrics.SizeEstimateRangeGB}`);
       });
 
-    return '';
+    return putParam.Item.id;
   }
 
   /**
@@ -199,7 +199,7 @@ export class MemberNosqlService implements MemberInterface {
         return data.Count > 0;
       }).catch((err) => {
         console.log(TAG, `Fail to check exist member data : ${JSON.stringify(err)}`);
-        return null;
+        return false;
       });
   }
 }
