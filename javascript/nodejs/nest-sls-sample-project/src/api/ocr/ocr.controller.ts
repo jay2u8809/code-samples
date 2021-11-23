@@ -8,11 +8,11 @@ import { TesseractService } from './tesseract/tesseract.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { isEmpty } from '../../common/common.utils';
 
-@Controller('ocr')
+@Controller('/api/v1/ocr')
 export class OcrController {
   constructor(private readonly tesseractService: TesseractService) {}
 
-  @Post('tess/detect')
+  @Post('/tess/detect')
   @UseInterceptors(FileInterceptor('file'))
   async getOcrString(
     @UploadedFile() file: Express.Multer.File,

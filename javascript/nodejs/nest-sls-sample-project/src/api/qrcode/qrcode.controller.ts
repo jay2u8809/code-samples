@@ -1,11 +1,11 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { QrcodeService } from './qrcode.service';
 
-@Controller('qrcode')
+@Controller('/api/v1/qrcode')
 export class QrcodeController {
   constructor(private readonly qrcodeService: QrcodeService) {}
 
-  @Get('generate')
+  @Get('/generate')
   public generateQrCode(
     @Query('path') urlPath: string,
     @Query('size') size: number,

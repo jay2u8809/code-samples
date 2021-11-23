@@ -44,7 +44,7 @@ export class QrcodeService {
     return (
       this.QRCODE_API_URL +
       '?' +
-      '&size=' +
+      'size=' +
       size +
       'x' +
       size +
