@@ -3,6 +3,8 @@ import { AppModule } from './app.module';
 import configuration from './config/configuration';
 import { ValidationPipe } from '@nestjs/common';
 
+const TAG = 'MAIN';
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   // class-validator setting
@@ -10,5 +12,7 @@ async function bootstrap() {
   // configure
   const config = configuration();
   await app.listen(config.http.port);
+  await app.init();
+  console.log(TAG);
 }
 bootstrap();

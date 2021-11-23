@@ -1,12 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, IsPhoneNumber, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsOptional, IsPhoneNumber, IsString } from 'class-validator';
 import {
   Member,
   setMemberDefaultFields,
 } from '../../../entities/member/member';
 import { setBaseDefaultFields } from '../../../entities/base.entity';
 import { plainToClass } from 'class-transformer';
-import { InternalServerErrorException } from '@nestjs/common';
 import { v4 as uuidv4 } from 'uuid';
 import configuration from '../../../config/configuration';
 
@@ -45,6 +44,7 @@ export class MemberJoinRequestDto {
   })
   public memberName2: string;
 
+  @IsOptional()
   @IsString()
   @ApiProperty({
     example: '',
@@ -52,6 +52,7 @@ export class MemberJoinRequestDto {
   })
   public memberName3: string;
 
+  @IsOptional()
   @IsString()
   @ApiProperty({
     example: '',
@@ -75,6 +76,7 @@ export class MemberJoinRequestDto {
   })
   public nickName: string;
 
+  @IsOptional()
   @IsString()
   @ApiProperty({
     example: '',
@@ -82,6 +84,7 @@ export class MemberJoinRequestDto {
   })
   public zipCode: string;
 
+  @IsOptional()
   @IsString()
   @ApiProperty({
     example: '',
@@ -89,6 +92,7 @@ export class MemberJoinRequestDto {
   })
   public address_1: string;
 
+  @IsOptional()
   @IsString()
   @ApiProperty({
     example: '',
@@ -96,6 +100,7 @@ export class MemberJoinRequestDto {
   })
   public address_2: string;
 
+  @IsOptional()
   @IsString()
   @ApiProperty({
     example: '',
@@ -103,6 +108,7 @@ export class MemberJoinRequestDto {
   })
   public address_3: string;
 
+  @IsOptional()
   @IsString()
   @ApiProperty({
     example: '',

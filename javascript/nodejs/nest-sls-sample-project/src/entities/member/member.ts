@@ -1,6 +1,6 @@
 import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 import { BaseEntity } from '../base.entity';
-import { Yn } from '../../common/code/yn';
+import { YN } from '../../common/code/yn';
 import { MemberStatus } from '../../common/code/member-status';
 import { Gender } from '../../common/code/gender';
 
@@ -262,7 +262,7 @@ export class Member extends BaseEntity {
     length: 1,
     default: () => "'N'",
   })
-  accountLockYn: Yn;
+  accountLockYn: YN;
 
   /**
    * 계정 잠김 적용 날짜
@@ -314,7 +314,7 @@ export class Member extends BaseEntity {
     length: 1,
     default: () => "'N'",
   })
-  pwResetRequestYn: Yn;
+  pwResetRequestYn: YN;
 
   /**
    * 비밀번호 인증키
@@ -384,7 +384,7 @@ export class Member extends BaseEntity {
     length: 1,
     default: () => "'N'",
   })
-  mailProhibitYn: Yn;
+  mailProhibitYn: YN;
 }
 
 /**

@@ -10,11 +10,17 @@ import { TestService } from './test/test.service';
 
 @Module({
   imports: [],
-  controllers: [QrcodeController, OcrController],
-  providers: [QrcodeService, TesseractService],
+  controllers: [
+    QrcodeController,
+    OcrController,
     FileController,
     TestController,
+  ],
+  providers: [
+    QrcodeService, 
     CsvService, 
+    TesseractService, 
     TestService
+  ],
 })
 export class ApiModule {}

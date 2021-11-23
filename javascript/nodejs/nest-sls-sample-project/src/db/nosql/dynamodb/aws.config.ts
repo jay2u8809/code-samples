@@ -11,6 +11,10 @@ export enum AwsDbTable {
   MEMBER = 'member',
 }
 
+export enum AwsDbIndex {
+  ID = 'id',
+}
+
 export interface QueryResult {
   Count: number;
   Items: any[];

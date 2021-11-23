@@ -7,7 +7,7 @@ export class FileController {
   constructor(private readonly csvService: CsvService) {}
 
   @Post('/json/convert/csv/')
-  async convertJsonToCsv(@Body() data: any): Promise<any> {
+  public async convertJsonToCsv(@Body() data: any): Promise<any> {
     return this.csvService.convertToCsv(data, DataType.JSON);
   }
 }

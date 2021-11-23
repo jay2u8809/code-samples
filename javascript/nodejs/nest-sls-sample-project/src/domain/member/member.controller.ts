@@ -5,11 +5,9 @@ import {
   Get,
   HttpStatus,
   Param,
-  Patch,
   Post,
   Put,
 } from '@nestjs/common';
-import { MemberSqlService } from './member.sql.service';
 import { MemberJoinRequestDto } from './dto/member.join.request.dto';
 import { Member } from '../../entities/member/member';
 import { ApiOperation } from '@nestjs/swagger';
@@ -30,15 +28,19 @@ export class MemberController {
       console.log(TAG, `REGISTER NEW MEMBER INFO IS EMPTY`);
       return HttpStatus.BAD_REQUEST;
     }
-    const result: bigint | string = await this.memberService.create(data);
-    return result ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
+    try {
+      const result: string = await this.memberService.create(data);
+      console.log(TAG, `Success Create Member: ${result}`);
+      return HttpStatus.OK;
+    } catch(e) {
+      console.log(TAG, e);
+      return HttpStatus.INTERNAL_SERVER_ERROR;
+    }
   }
 
   @ApiOperation({ summary: 'Get One Member Info By primary key' })
   @Get('/get/:pkey')
-  async getMember(
-    @Param('pkey') primaryKey: any,
-  ): Promise<Member | null> {
+  async getMember(@Param('pkey') primaryKey: any): Promise<Member | null> {
     console.log(TAG, `Get Member Info primaryKey : ${primaryKey}`);
     return await this.memberService.get(primaryKey);
   }
@@ -98,9 +100,7 @@ export class MemberController {
 
   @ApiOperation({ summary: 'Delete One Member Info By primary key' })
   @Delete('/delete/:pkey')
-  async deleteMember(
-    @Param('pkey') primaryKey: any,
-  ): Promise<boolean> {
+  async deleteMember(@Param('pkey') primaryKey: any): Promise<boolean> {
     console.log(TAG, `Delete Member Info primaryKey : ${primaryKey}`);
     return await this.memberService.delete(primaryKey);
   }
