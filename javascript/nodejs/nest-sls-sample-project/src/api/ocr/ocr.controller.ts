@@ -14,13 +14,12 @@ export class OcrController {
 
   @Post('/tess/detect')
   @UseInterceptors(FileInterceptor('file'))
-  async getOcrString(
+  public async getOcrString(
     @UploadedFile() file: Express.Multer.File,
   ): Promise<string> {
     if (isEmpty(file) || isEmpty(file.buffer)) {
-      return null;
+      return;
     }
-
     return await this.tesseractService.detectTextFromImageProcess(file.buffer);
   }
 }

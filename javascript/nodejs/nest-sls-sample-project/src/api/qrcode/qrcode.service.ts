@@ -41,15 +41,8 @@ export class QrcodeService {
         : imageSize,
     );
 
-    return (
-      this.QRCODE_API_URL +
-      '?' +
-      'size=' +
-      size +
-      'x' +
-      size +
-      '&data=' +
-      encodedUrl
-    );
+    return this.QRCODE_API_URL +
+      '?' + 'size=' + size + 'x' + size +
+      '&data=' + encodedUrl;
   }
 }
