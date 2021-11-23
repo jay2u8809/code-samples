@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import fs from 'fs';
 import { DataType } from '../../../common/code/data-type';
 
-const csvFilePath: string = __dirname + '/../temp/csv/';
+const csvFilePath: string = __dirname + '/temp/';
 
 const TAG = 'CSV_SERVICE';
 
@@ -19,6 +19,13 @@ export class CsvService {
     try {
       const csvName: string =
         `convert${type}ToCsv_` + new Date().getTime().toString() + '.csv';
+      // check exist directory
+      const isExistFolder: boolean = fs.existsSync(csvFilePath);
+      if (!isExistFolder) {
+        console.log(TAG, 'make directory', csvFilePath);
+        fs.mkdirSync(csvFilePath);
+      }
+      // write csv file
       fs.writeFileSync(csvFilePath + csvName, result.join('\n'));
       console.log(TAG, `CSV FILE NAME: ${csvName}`);
       return true;
