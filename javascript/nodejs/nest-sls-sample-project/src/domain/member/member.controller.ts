@@ -42,14 +42,14 @@ export class MemberController {
   @Get('/get/:pkey')
   async getMember(@Param('pkey') primaryKey: any): Promise<Member | null> {
     console.log(TAG, `Get Member Info primaryKey : ${primaryKey}`);
-    return await this.memberService.get(primaryKey);
+    return this.memberService.get(primaryKey);
   }
 
   @ApiOperation({ summary: 'Get All Members Info' })
   @Get('/all/')
   async getAllMembers(): Promise<Member[] | null> {
     console.log(TAG, `Get All Members`);
-    return await this.memberService.getAll();
+    return this.memberService.getAll();
   }
 
   @ApiOperation({ summary: 'Get One Member Info By memberId' })
@@ -58,7 +58,7 @@ export class MemberController {
     @Param('memberId') memberId: string,
   ): Promise<Member | null> {
     console.log(TAG, `Get Member Info memberId : ${memberId}`);
-    return await this.memberService.getById(memberId);
+    return this.memberService.getById(memberId);
   }
 
   @ApiOperation({ summary: 'Get One Member Info By member email' })
@@ -67,7 +67,7 @@ export class MemberController {
     @Param('email') email: string,
   ): Promise<Member[] | null> {
     console.log(TAG, `Get Member Info memberId By email: ${email}`);
-    return await this.memberService.getByEmail(email);
+    return this.memberService.getByEmail(email);
   }
 
   @ApiOperation({ summary: 'Get One Member Info By member nickname' })
@@ -76,14 +76,14 @@ export class MemberController {
     @Param('nickName') nickName: string,
   ): Promise<Member[] | null> {
     console.log(TAG, `Get Member Info memberId : ${nickName}`);
-    return await this.memberService.getByNickName(nickName);
+    return this.memberService.getByNickName(nickName);
   }
 
   @ApiOperation({ summary: 'Get Normal Status Members Info' })
   @Get('/all/normal/')
   async getNormalMembers(): Promise<Member[] | null> {
     console.log(TAG, `Get Normal Status Members Info`);
-    return await this.memberService.getNormalMembers();
+    return this.memberService.getNormalMembers();
   }
 
   @ApiOperation({ summary: 'Update Members Info' })
@@ -102,6 +102,6 @@ export class MemberController {
   @Delete('/delete/:pkey')
   async deleteMember(@Param('pkey') primaryKey: any): Promise<boolean> {
     console.log(TAG, `Delete Member Info primaryKey : ${primaryKey}`);
-    return await this.memberService.delete(primaryKey);
+    return this.memberService.delete(primaryKey);
   }
 }

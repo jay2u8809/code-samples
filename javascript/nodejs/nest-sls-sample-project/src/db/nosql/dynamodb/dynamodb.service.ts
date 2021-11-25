@@ -27,23 +27,31 @@ export class DynamodbService implements DynamodbInterface {
     return await this.docClient
       .put(param)
       .promise()
-      .catch((err) => {
+      .then((data) => {
+        return data;
+      }).catch((err) => {
         console.log(TAG, `Fail to create : ${err}`);
         return null;
       });
   }
 
   async get(param: any): Promise<any | null> {
-    return await this.fetch(param, false).catch((err) => {
+    return this.fetch(param, false)
+    .then((data) => {
+      return data.Items[0];
+    }).catch((err) => {
       console.log(TAG, `Fail to get : ${err}`);
       return null;
     });
   }
 
-  async getAll(params: any): Promise<QueryResult[] | null> {
-    return await this.fetch(params, true).catch((err) => {
-      console.log(TAG, `Fail to getAll : ${err}`);
-      return null;
+  async getAll(params: any): Promise<any[] | null> {
+    return this.fetch(params, true)
+      .then((data) => {
+        return data.Items;
+      }).catch((err) => {
+        console.log(TAG, `Fail to getAll : ${err}`);
+        return null;
     });
   }
 
@@ -56,7 +64,9 @@ export class DynamodbService implements DynamodbInterface {
     return await this.docClient
       .update(param)
       .promise()
-      .catch((err) => {
+      .then((data) => {
+        return data;
+      }).catch((err) => {
         console.log(TAG, `Fail to update : ${err}`);
         return null;
       });
@@ -71,7 +81,9 @@ export class DynamodbService implements DynamodbInterface {
     return await this.docClient
       .delete(param)
       .promise()
-      .catch((err) => {
+      .then((data) => {
+        return data;
+      }).catch((err) => {
         console.log(TAG, `Fail to delete : ${err}`);
         return null;
       });
@@ -81,7 +93,7 @@ export class DynamodbService implements DynamodbInterface {
   private async fetch(
     param: any,
     isScan: boolean,
-  ): Promise<QueryResult | null> {
+  ): Promise<QueryResult> {
     const result: QueryResult = {
       Count: 0,
       Items: [],
