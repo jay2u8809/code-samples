@@ -1,4 +1,4 @@
-import { isEmpty } from './common.utils';
+import { compareHash, generateHash, isEmpty } from './common.utils';
 
 describe('CommonUtils', () => {
   beforeEach(async () => {
@@ -56,6 +56,22 @@ describe('CommonUtils', () => {
 
       const sizeIsNotZeroBuffer = new Buffer('buffertest', 'utf8');
       expect(isEmpty(sizeIsNotZeroBuffer)).toBeFalsy();
+    });
+  });
+
+  describe.skip('bcrypt test', () => {
+    let hash: string;
+    const pw = 'abcdef1234';
+
+    it('generate hash test', () => {
+      const generated: string = generateHash(pw, 12);
+      hash = generated;
+      console.log(generated);
+    });
+
+    it('compare hash test', () => {
+      const result: boolean = compareHash(pw, hash);
+      console.log(result);
     });
   });
 });
