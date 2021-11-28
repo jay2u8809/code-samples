@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { Member } from '../../entities/member/member';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
@@ -7,7 +11,7 @@ import {
 } from './dto/member.join.request.dto';
 import { MemberStatus } from '../../common/code/member-status';
 import { MemberRepository } from './member.repository';
-import { getConnection, Connection, getManager } from 'typeorm';
+import { getConnection, Connection, getManager, QueryRunner } from 'typeorm';
 import { EntityManager } from 'typeorm/entity-manager/EntityManager';
 import { MemberInterface } from '../../db/common/domain/member/member.interface';
 
@@ -16,11 +20,11 @@ const TAG = 'MEMBER_SQL_SERVICE';
 @Injectable()
 export class MemberSqlService implements MemberInterface {
   constructor(
-    @InjectRepository(Member) private memberRepository: MemberRepository,
-    // private readonly conn: Connection,
+    // @InjectRepository(Member) private em: MemberRepository,
+    // private readonly em: Connection,
     // private readonly em: EntityManager,
   ) {
-    // this.conn = getConnection();
+    // this.em = getConnection();
     // this.em = getManager();
   }
 
@@ -28,23 +32,30 @@ export class MemberSqlService implements MemberInterface {
    * Register Member
    * @param param
    */
-  async create(param: MemberJoinRequestDto): Promise<bigint | null> {
-    if (!param) return null;
+  async create(param: MemberJoinRequestDto): Promise<string> {
+    // 0. check param
+    if (!param)
+      return null;
+    // 1. check exist
+    const isExist: boolean = await this.isExistById(param.memberId);
+    if (isExist)
+      throw new NotFoundException(`Already Exist Member ID:  ${param.memberId}`);
 
-    const isExist: Promise<boolean> = this.isExistById(param.memberId);
-    if (!isExist) {
-      throw new NotFoundException(
-        `Already Exist Member ID :  ${param.memberId}`,
-      );
-    }
+    const em: QueryRunner = getConnection().createQueryRunner();
+    await em.connect();
+    await em.startTransaction();
 
-    return await this.memberRepository
-      .save(saveMember(param))
-      .then((data) => {
-        return data.memberSn;
-      }).catch((err) => {
-        console.log(TAG, `Fail to regiser member: ${JSON.stringify(err)}`);
-        return null;
+    return em.manager
+      .save(Member, saveMember(param))
+      .then(async (data) => {
+        await em.commitTransaction();
+        return String(data.memberSn);
+      }).catch(async (err) => {
+        await em.rollbackTransaction();
+        console.error(TAG, `Fail to register member`);
+        throw new InternalServerErrorException(err.message);
+      }).finally(async () => {
+        await em.release();
       });
   }
 
@@ -53,15 +64,24 @@ export class MemberSqlService implements MemberInterface {
    * @param memberSn
    */
   async get(memberSn: any): Promise<Member> {
-    if (!memberSn) return null;
+    if (!memberSn)
+      return null;
 
     const sn = Number(memberSn);
 
-    return await this.memberRepository.findOne(sn)
-      .catch((err) => {
-      console.log(TAG, `Fail to fetch member data : ${JSON.stringify(err)}`);
-      return null;
-    });
+    const em: QueryRunner = getConnection().createQueryRunner();
+    await em.connect();
+
+    return em.manager
+      .findOne(Member, sn)
+      .then((data) => {
+        return data;
+      }).catch((err) => {
+        console.error(TAG, `Fail to fetch member data`);
+        throw new InternalServerErrorException(err.message);
+      }).finally(async () => {
+        await em.release();
+      });
   }
 
   /**
@@ -70,11 +90,20 @@ export class MemberSqlService implements MemberInterface {
    */
   async getAll(param?: any): Promise<Member[] | null> {
     const query = 'SELECT * FROM dev_schema.MEMBER';
-    return await this.memberRepository.query(query)
-      .catch((err) => {
-      console.log(TAG, `Fail to fetch member data : ${JSON.stringify(err)}`);
-      return null;
-    });
+
+    const em: QueryRunner = getConnection().createQueryRunner();
+    await em.connect();
+
+    return em.manager
+      .query(query)
+      .then((data) => {
+        return data;
+      }).catch((err) => {
+        console.error(TAG, `Fail to fetch member data`);
+        throw new InternalServerErrorException(err.message);
+      }).finally(async () => {
+        await em.release();
+      });
   }
 
   /*
@@ -82,24 +111,34 @@ export class MemberSqlService implements MemberInterface {
    * @param memberId
    */
   async getById(memberId: string): Promise<Member | null> {
-    if (!memberId) return null;
+    if (!memberId)
+      return null;
 
-    return await this.memberRepository
-      .findOne({
+    const em: QueryRunner = getConnection().createQueryRunner();
+    await em.connect();
+
+    return em.manager
+      .findOne(Member, {
         where: {
           memberId: memberId,
         },
       }).catch((err) => {
-        console.log(TAG, `Fail to fetch member data by memberId: ${JSON.stringify(err)}`);
-        return null;
+        console.error(TAG, `Fail to fetch member data by memberId`);
+        throw new InternalServerErrorException(err.message);
+      }).finally(async () => {
+        await em.release();
       });
   }
 
   async getByEmail(email: string): Promise<Member[] | null> {
-    if (!email) return null;
+    if (!email)
+      return null;
 
-    return await this.memberRepository
-      .find({
+    const em: QueryRunner = getConnection().createQueryRunner();
+    await em.connect();
+
+    return em.manager
+      .find(Member, {
         select: ['memberSn', 'memberId'],
         where: {
           emailAddress: email,
@@ -108,16 +147,21 @@ export class MemberSqlService implements MemberInterface {
           memberSn: 'ASC',
         },
       }).catch((err) => {
-        console.log(TAG, `Fail to fetch member data by member email address: ${JSON.stringify(err)}`);
-        return null;
+        console.error(TAG, `Fail to fetch member data by member email address`);
+        throw new InternalServerErrorException(err.message);
+      }).finally(async () => {
+        await em.release();
       });
   }
 
   async getByNickName(nickName: string): Promise<Member[] | null> {
-    if (!nickName) return null;
+    if (!nickName)
+      return null;
 
-    return await this.memberRepository
-      .createQueryBuilder()
+    const em: QueryRunner = getConnection().createQueryRunner();
+    await em.connect();
+
+    return em.manager.createQueryBuilder()
       .select('member')
       .from(Member, 'member')
       .where('member.nickName like :nickName', {
@@ -126,8 +170,10 @@ export class MemberSqlService implements MemberInterface {
       .orderBy('member.memberSn', 'DESC')
       .getMany()
       .catch((err) => {
-        console.log(TAG, `Fail to fetch member data by member nickname: ${JSON.stringify(err,)}`);
-        return null;
+        console.error(TAG, `Fail to fetch member data by member nickname`);
+        throw new InternalServerErrorException(err.message);
+      }).finally(async () => {
+        await em.release();
       });
   }
 
@@ -135,8 +181,11 @@ export class MemberSqlService implements MemberInterface {
    * Get All Members Info
    */
   async getNormalMembers(): Promise<Member[] | null> {
-    return await this.memberRepository
-      .find({
+    const em: QueryRunner = getConnection().createQueryRunner();
+    await em.connect();
+
+    return em.manager
+      .find(Member, {
         select: ['memberId', 'memberSn'],
         where: {
           memberStatus: MemberStatus.Normal,
@@ -145,8 +194,10 @@ export class MemberSqlService implements MemberInterface {
           memberSn: 'ASC',
         },
       }).catch((err) => {
-        console.log(TAG, `Fail to fetch member data by member nickname: ${JSON.stringify(err)}`);
-        return null;
+        console.error(TAG, `Fail to fetch member data by member nickname`);
+        throw new InternalServerErrorException(err.message);
+      }).finally(async () => {
+        await em.release();
       });
   }
 
@@ -155,24 +206,29 @@ export class MemberSqlService implements MemberInterface {
    * @param param
    * @param table
    */
-  async update(
-    param: MemberJoinRequestDto,
-    table?: string,
-  ): Promise<Member | null> {
-    if (!param) return null;
+  async update(param: MemberJoinRequestDto, table?: string): Promise<Member | null> {
+    if (!param)
+      return null;
 
     const member: Member = await this.get(param.memberSn);
     if (!member)
       throw new NotFoundException(`Not Found Member Info : ${param.memberSn}`);
 
-    return await this.memberRepository
-      .save(saveMember(param))
-      .then((data) => {
-        return data;
-      }).catch((err) => {
-        console.log(TAG, `Fail to update member data : ${JSON.stringify(err)}`);
-        return null;
-      });
+    const em: QueryRunner = getConnection().createQueryRunner();
+    await em.connect();
+    await em.startTransaction();
+
+    try {
+      const saved = await em.manager.save(Member, saveMember(param));
+      await em.commitTransaction();
+      return saved;
+    } catch (err) {
+      await em.rollbackTransaction();
+      console.error(TAG, `Fail to update member data`);
+      throw new InternalServerErrorException(err.message);
+    } finally {
+      await em.release();
+    }
   }
 
   /**
@@ -180,38 +236,49 @@ export class MemberSqlService implements MemberInterface {
    * @param memberSn
    */
   async delete(memberSn: bigint): Promise<boolean | null> {
-    if (!memberSn) return false;
+    if (!memberSn)
+      return false;
 
     const isExist = await this.isExistBySn(memberSn);
     if (!isExist)
       throw new NotFoundException(`Not Found Member Info : ${memberSn}`);
 
-    return await this.memberRepository
-      .delete({
+    const em: QueryRunner = getConnection().createQueryRunner();
+    await em.connect();
+    await em.startTransaction();
+
+    return em.manager
+      .delete(Member, {
         memberSn: memberSn,
-      })
-      .then(() => {
+      }).then(async () => {
+        await em.commitTransaction();
         return true;
-      }).catch((err) => {
-        console.log(TAG, `Fail to delete member data: ${JSON.stringify(err)}`);
-        return false;
+      }).catch(async (err) => {
+        await em.rollbackTransaction();
+        console.error(TAG, `Fail to delete member data`);
+        throw new InternalServerErrorException(err.message);
+      }).finally(async () => {
+        await em.release();
       });
   }
 
   async isExist(param: any): Promise<boolean> {
-    return await this.memberRepository
-      .count({
+    const em: QueryRunner = getConnection().createQueryRunner();
+    await em.connect();
+
+    return em.manager
+      .count(Member, {
         where: param,
-      })
-      .then((data) => {
+      }).then((data) => {
         console.log(TAG, `Exist Member Count : ${data}`);
         return data > 0;
       }).catch((err) => {
-        console.log(TAG, `Fail to check exist member data : ${JSON.stringify(err)}`);
-        return null;
+        console.error(TAG, `Fail to check exist member data`);
+        throw new InternalServerErrorException(err.message);
+      }).finally(async () => {
+        await em.release();
       });
   }
-
 
   // ==== private ====
 
@@ -219,28 +286,32 @@ export class MemberSqlService implements MemberInterface {
    * Check Exist Member Info By memberSn
    * @param memberSn
    */
-  async isExistBySn(memberSn: bigint): Promise<boolean> {
-    if (!memberSn) return false;
-
-    const sn: number = Number(memberSn);
+  private async isExistBySn(memberSn: bigint): Promise<boolean> {
+    // 0. check param
+    if (!memberSn)
+      return false;
+    // 1. make query
+    const sn = Number(memberSn);
     const param: any = {
       memberSn: sn,
     };
-
-    return await this.isExist(param);
+    // 2. check exist
+    return this.isExist(param);
   }
 
   /**
    * Check Exist Member Info By memberId
    * @param memberId
    */
-  async isExistById(memberId: string): Promise<boolean> {
-    if (!memberId) return false;
-
+  private async isExistById(memberId: string): Promise<boolean> {
+    // 0. check param
+    if (!memberId)
+      return false;
+    // 1. make query
     const param: any = {
       memberId: memberId,
     };
-
-    return await this.isExist(param);
+    // 2. check exist
+    return this.isExist(param);
   }
 }
