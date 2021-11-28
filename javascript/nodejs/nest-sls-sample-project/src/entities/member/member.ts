@@ -234,7 +234,7 @@ export class Member extends BaseEntity {
    * ニックネム
    */
   @Column('character varying', { name: 'nickname', length: 50 })
-  nickname: string;
+  nickName: string;
 
   /**
    * 마지막 로그인 날짜

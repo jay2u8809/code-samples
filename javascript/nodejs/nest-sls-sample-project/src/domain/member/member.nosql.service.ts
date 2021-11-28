@@ -16,8 +16,9 @@ export class MemberNosqlService implements MemberInterface {
    * @param param
    */
   async create(param: MemberJoinRequestDto): Promise<string> {
+    // 0. check param
     if (!param) return;
-
+    // 1. make check exist query
     const getParam: QueryParam = {
       TableName: AwsDbTable.MEMBER,
       IndexName: AwsDbIndex.ID,
@@ -29,20 +30,21 @@ export class MemberNosqlService implements MemberInterface {
         ':val': param.memberId
       },
     };
+    // 2. check exist
     const isExist: boolean = await this.isExist(getParam);
     if (!isExist) {
       throw new NotFoundException(
         `Already Exist Member ID :  ${param.memberId}`,
       );
     }
-
+    // 3. make query
     const putParam: QueryParam = {
       TableName: AwsDbTable.MEMBER,
       Item: {
         ...saveMember(param),
       },
     };
-
+    // 4. create
     await this.dynamodb.create(putParam)
       .then((data) => {
         console.log(TAG, `Attributes : ${data.Attributes}`);
@@ -76,20 +78,17 @@ export class MemberNosqlService implements MemberInterface {
    * @param id
    */
   async get(id: any): Promise<Member> {
+    // 0. check param
     if (!id) return null;
-
+    // 1. make query
     const param: QueryParam = {
       TableName: AwsDbTable.MEMBER,
       Key: {
         id: id,
       },
     };
-
-    return await this.dynamodb.get(param)
-      .then((data) => {
-        console.log(`Get Member Cnt: ${data.Count}`)
-        return data.Items;
-      });
+    // 2. get data
+    return this.dynamodb.get(param);
   }
 
   /**
@@ -97,14 +96,12 @@ export class MemberNosqlService implements MemberInterface {
    * @param param
    */
   async getAll(param?: any): Promise<Member[] | null> {
+    // 0. make query
     const getParam: QueryParam = {
       TableName: AwsDbTable.MEMBER,
     }
-    return await this.dynamodb.getAll(getParam)
-      .catch((err) => {
-        console.log(TAG, `Fail to fetch member data : ${JSON.stringify(err)}`);
-        return null;
-      });
+    // 1. get data list
+    return this.dynamodb.getAll(getParam);
   }
 
   /*
@@ -112,24 +109,22 @@ export class MemberNosqlService implements MemberInterface {
    * @param memberId
    */
   async getById(memberId: string): Promise<Member | null> {
+    // 0. check param
     if (!memberId) return null;
-
+    // 1. make query
     const getParam: QueryParam = {
       TableName: AwsDbTable.MEMBER,
-      IndexName: 'memberid-index',
+      IndexName: AwsDbIndex.ID,
+      KeyConditionExpression: '#memberId = :val',
       ExpressionAttributeNames: {
         '#memberId': 'member_id'
       },
       ExpressionAttributeValues: {
         ':val': memberId
       },
-      KeyConditionExpression: '#memberId = :val'
     };
-    return await this.dynamodb.get(getParam)
-      .catch((err) => {
-        console.log(TAG, `Fail to fetch member data by memberId: ${JSON.stringify(err)}`);
-        return null;
-      });
+    // 2. get data
+    return this.dynamodb.get(getParam);
   }
 
   async getByEmail(email: string): Promise<Member[] | null> {
@@ -170,30 +165,29 @@ export class MemberNosqlService implements MemberInterface {
    * @param id
    */
   async delete(id: any): Promise<boolean | null> {
+    // 0. check param
     if (!id) return false;
-
+    // 1. make query
     const param: QueryParam = {
       TableName: AwsDbTable.MEMBER,
       Key: {
         id: id,
       },
     };
+    // 2. check exist
     const isExist = await this.isExist(param);
     if (!isExist)
       throw new NotFoundException(`Not Found Member Info : ${id}`);
-
-    return await this.dynamodb.delete(param)
-      .then(() => {
-        return true;
-      }).catch((err) => {
-        console.log(TAG, `Fail to delete member data: ${JSON.stringify(err)}`);
-        return false;
-      });
+    // 3. delete
+    return this.dynamodb.delete(param)
+    .then((data) => {
+      return data !== null;
+    });
   }
 
   async isExist(param: QueryParam): Promise<boolean> {
     if (!param) return false;
-    return await this.dynamodb.get(param)
+    return this.dynamodb.get(param)
       .then((data) => {
         console.log(TAG, `Exist Member Count : ${data.Count}`);
         return data.Count > 0;

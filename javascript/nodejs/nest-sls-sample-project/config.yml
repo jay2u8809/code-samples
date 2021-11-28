@@ -3,7 +3,7 @@ http:
   port: 3000
 
 db:
-  useSql: false
+  useSql: true
   # Not Used
   sql:
     postgres:

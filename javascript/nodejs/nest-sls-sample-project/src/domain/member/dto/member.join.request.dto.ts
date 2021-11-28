@@ -1,5 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, IsOptional, IsPhoneNumber, IsString } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsOptional,
+  IsPhoneNumber,
+  IsString,
+} from 'class-validator';
 import {
   Member,
   setMemberDefaultFields,
@@ -8,6 +14,7 @@ import { setBaseDefaultFields } from '../../../entities/base.entity';
 import { plainToClass } from 'class-transformer';
 import { v4 as uuidv4 } from 'uuid';
 import configuration from '../../../config/configuration';
+import { generateHash } from '../../../common/common.utils';
 
 export class MemberJoinRequestDto {
   public memberSn: bigint;
@@ -116,7 +123,7 @@ export class MemberJoinRequestDto {
   })
   public address_4: string;
 
-  @IsPhoneNumber()
+  // @IsPhoneNumber()
   @ApiProperty({
     example: '',
     description: 'phoneNo',
@@ -139,6 +146,7 @@ export const saveMember = (joinRequestDto: MemberJoinRequestDto): Member => {
     name_3: joinRequestDto.memberName3,
     name_4: joinRequestDto.memberName4,
     phoneNo_1: joinRequestDto.phoneNo,
+    pwVerifyKey: generateHash(joinRequestDto.memberPw),
   });
 
   setMemberDefaultFields(member);
@@ -146,4 +154,3 @@ export const saveMember = (joinRequestDto: MemberJoinRequestDto): Member => {
 
   return member;
 };
-
