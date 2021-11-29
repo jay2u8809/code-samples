@@ -166,8 +166,7 @@ export class MemberSqlService implements MemberInterface {
       .from(Member, 'member')
       .where('member.nickName like :nickName', {
         nickName: nickName,
-      })
-      .orderBy('member.memberSn', 'DESC')
+      }).orderBy('member.memberSn', 'DESC')
       .getMany()
       .catch((err) => {
         console.error(TAG, `Fail to fetch member data by member nickname`);
