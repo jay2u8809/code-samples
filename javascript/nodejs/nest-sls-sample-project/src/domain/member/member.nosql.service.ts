@@ -4,6 +4,7 @@ import { AwsDbIndex, AwsDbTable, QueryParam } from '../../db/nosql/dynamodb/aws.
 import { MemberJoinRequestDto, saveMember } from './dto/member.join.request.dto';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { MemberInterface } from '../../db/common/domain/member/member.interface';
+import { plainToClass } from 'class-transformer';
 
 const TAG = 'MEMBER_NOSQL_SERVICE';
 
@@ -17,7 +18,8 @@ export class MemberNosqlService implements MemberInterface {
    */
   async create(param: MemberJoinRequestDto): Promise<string> {
     // 0. check param
-    if (!param) return;
+    if (!param) 
+      return null;
     // 1. make check exist query
     const getParam: QueryParam = {
       TableName: AwsDbTable.MEMBER,
@@ -40,9 +42,9 @@ export class MemberNosqlService implements MemberInterface {
     // 3. make query
     const putParam: QueryParam = {
       TableName: AwsDbTable.MEMBER,
-      Item: {
+      Item: plainToClass(Member, {
         ...saveMember(param),
-      },
+      }),
     };
     // 4. create
     await this.dynamodb.create(putParam)
@@ -77,9 +79,10 @@ export class MemberNosqlService implements MemberInterface {
    * Get One Member Info By id (All Info)
    * @param id
    */
-  async get(id: any): Promise<Member> {
+  async get(id: string): Promise<Member> {
     // 0. check param
-    if (!id) return null;
+    if (!id) 
+      return null;
     // 1. make query
     const param: QueryParam = {
       TableName: AwsDbTable.MEMBER,
@@ -95,7 +98,7 @@ export class MemberNosqlService implements MemberInterface {
    * Get All Members
    * @param param
    */
-  async getAll(param?: any): Promise<Member[] | null> {
+  async getAll(): Promise<Member[] | null> {
     // 0. make query
     const getParam: QueryParam = {
       TableName: AwsDbTable.MEMBER,
@@ -128,14 +131,14 @@ export class MemberNosqlService implements MemberInterface {
   }
 
   async getByEmail(email: string): Promise<Member[] | null> {
-    if (!email) return null;
-
+    if (!email) 
+      return null;
     return null;
   }
 
   async getByNickName(nickName: string): Promise<Member[] | null> {
-    if (!nickName) return null;
-
+    if (!nickName) 
+      return null;
     return null;
   }
 
@@ -151,12 +154,9 @@ export class MemberNosqlService implements MemberInterface {
    * @param param
    * @param table
    */
-  async update(
-    param: MemberJoinRequestDto,
-    table?: string,
-  ): Promise<Member | null> {
-    if (!param) return null;
-
+  async update(param: MemberJoinRequestDto): Promise<Member | null> {
+    if (!param) 
+      return null;
     return null;
   }
 
@@ -164,9 +164,10 @@ export class MemberNosqlService implements MemberInterface {
    * Delete Member Info By memberSn
    * @param id
    */
-  async delete(id: any): Promise<boolean | null> {
+  async delete(id: string): Promise<boolean | null> {
     // 0. check param
-    if (!id) return false;
+    if (!id) 
+      return false;
     // 1. make query
     const param: QueryParam = {
       TableName: AwsDbTable.MEMBER,
@@ -186,8 +187,10 @@ export class MemberNosqlService implements MemberInterface {
   }
 
   async isExist(param: QueryParam): Promise<boolean> {
-    if (!param) return false;
-    return this.dynamodb.get(param)
+    if (!param) 
+      return false;
+    return this.dynamodb
+      .get(param)
       .then((data) => {
         console.log(TAG, `Exist Member Count : ${data.Count}`);
         return data.Count > 0;

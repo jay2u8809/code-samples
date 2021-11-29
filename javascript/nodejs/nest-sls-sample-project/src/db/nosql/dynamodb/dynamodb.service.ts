@@ -20,71 +20,62 @@ export class DynamodbService implements DynamodbInterface {
 
   async create(
     param: any,
-    table?: string,
   ): Promise<AWS.DynamoDB.DocumentClient.PutItemOutput | null> {
-    if (!table || param) return null;
-
     return await this.docClient
       .put(param)
       .promise()
       .then((data) => {
         return data;
       }).catch((err) => {
-        console.log(TAG, `Fail to create : ${err}`);
+        console.error(TAG, `Fail to create : ${err}`);
         return null;
       });
   }
 
   async get(param: any): Promise<any | null> {
-    return this.fetch(param, false)
+    return await this.fetch(param, false)
     .then((data) => {
       return data.Items[0];
     }).catch((err) => {
-      console.log(TAG, `Fail to get : ${err}`);
+      console.error(TAG, `Fail to get : ${err}`);
       return null;
     });
   }
 
   async getAll(params: any): Promise<any[] | null> {
-    return this.fetch(params, true)
+    return await this.fetch(params, true)
       .then((data) => {
         return data.Items;
       }).catch((err) => {
-        console.log(TAG, `Fail to getAll : ${err}`);
+        console.error(TAG, `Fail to getAll : ${err}`);
         return null;
     });
   }
 
   async update(
     param: any,
-    table?: string,
   ): Promise<AWS.DynamoDB.DocumentClient.UpdateItemOutput | null> {
-    if (!table || param) return null;
-
     return await this.docClient
       .update(param)
       .promise()
       .then((data) => {
         return data;
       }).catch((err) => {
-        console.log(TAG, `Fail to update : ${err}`);
+        console.error(TAG, `Fail to update : ${err}`);
         return null;
       });
   }
 
   async delete(
     param: any,
-    table?: string,
   ): Promise<AWS.DynamoDB.DocumentClient.DeleteItemOutput | null> {
-    if (!table || param) return null;
-
     return await this.docClient
       .delete(param)
       .promise()
       .then((data) => {
         return data;
       }).catch((err) => {
-        console.log(TAG, `Fail to delete : ${err}`);
+        console.error(TAG, `Fail to delete : ${err}`);
         return null;
       });
   }
