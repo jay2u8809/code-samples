@@ -2,42 +2,60 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { MemberSqlService } from './member.sql.service';
 import { MemberJoinRequestDto } from './dto/member.join.request.dto';
 import { Member } from '../../entities/member/member';
-import { MemberRepository } from './member.repository';
-import { MemberNosqlService } from './member.nosql.service';
+import { createConnections, getConnection } from 'typeorm';
 
 describe('MemberService', () => {
   let sqlService: MemberSqlService;
-  let nosqlService: MemberNosqlService;
+
+  beforeAll(async () => {
+    await createConnections();
+  });
+
+  afterAll(async () => {
+    const defaultConnection = getConnection('default');
+    await defaultConnection.close();
+  });
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [MemberRepository],
-      providers: [MemberSqlService, MemberNosqlService],
+      providers: [MemberSqlService],
     }).compile();
 
     sqlService = module.get<MemberSqlService>(MemberSqlService);
-    nosqlService = module.get<MemberNosqlService>(MemberNosqlService);
   });
 
-  it('should be defined', () => {
+  it.skip('should be defined', () => {
     expect(sqlService).toBeDefined();
-    expect(nosqlService).toBeDefined();
   });
 
-  describe('Member Save Test', () => {
-    it('Save Test', () => {
-      const joinRequestDto: MemberJoinRequestDto = new MemberJoinRequestDto();
-      joinRequestDto.memberId = 'testID';
-      joinRequestDto.memberPw = 'asdfqwer12';
-      joinRequestDto.emailAddress = 'test@email.com';
-      const savedMemberSn: Promise<bigint> = sqlService.create(joinRequestDto);
-      console.log(`Saved MemberSn : ${savedMemberSn}`);
+  describe.skip('Member SQL Test', () => {
+    it('getAll Test', async () => {
+      const results: Member[] = await sqlService.getAll();
+      const len: number = results.filter(
+        (member) => member.memberId !== undefined,
+      ).length;
+      expect(results.length).toEqual(len);
     });
-    expect(true);
+
+    it('get Test', async () => {
+      const param = '';
+      const result: Member = await sqlService.get(param);
+      console.log(result.memberId);
+      expect(result.memberSn).toEqual(String(param));
+    });
+
+    it('getByEmail Test', async () => {
+      const param = '';
+      const results: Member[] = await sqlService.getByEmail(param);
+      const len: number = results.filter(
+        (member) => member.memberId !== undefined,
+      ).length;
+      expect(results.length).toEqual(len);
+    });
   });
 });
 
-test('Save Test1', () => {
+test.skip('Save Test1', () => {
   const member: Member = new Member();
   const joinRequestDto: MemberJoinRequestDto = new MemberJoinRequestDto();
 

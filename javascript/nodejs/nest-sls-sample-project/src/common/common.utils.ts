@@ -47,3 +47,17 @@ export const compareHash = (pw: string, hash: string): boolean => {
   console.log('COMPARE HASH RESULT: ', result);
   return result;
 };
+
+export const transferFromRaw = (raw: any): any => {
+  const result: any = {};
+  Object.keys(raw).map((key) => {
+    const before: string[] = key.split('_');
+    let after = before[0];
+    for (let i = 1; i < before.length; i++) {
+      const name = before[i].charAt(0).toUpperCase() + before[i].substr(1);
+      after += name;
+    }
+    result[after] = raw[key];
+  });
+  return result;
+};
