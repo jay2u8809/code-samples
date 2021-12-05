@@ -61,6 +61,7 @@ $ npm run test:cov
 
 ## TypeOrm Entity-manager-api
 [Documents](https://orkhan.gitbook.io/typeorm/docs/entity-manager-api)
+[TypeOrmDocs](https://typeorm.biunav.com/en/select-query-builder.html#getting-values-using-querybuilder)
 
 ## Support
 

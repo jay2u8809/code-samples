@@ -11,7 +11,7 @@ const config: TypeOrmModuleOptions = {
   password: 'devuser',  // process.env.DB_PASSWORD,
   database: 'devdb',    // process.env.DB_DATABASE,
   schema: 'dev_schema',
-  entities: ['../../../dist/entities/**/*.js'],
+  entities: [__dirname + '/../../entities/**/*.ts'],
   migrations: [__dirname + '/migrations/*.ts'],
   cli: { migrationsDir: 'migrations' },
   autoLoadEntities: true,

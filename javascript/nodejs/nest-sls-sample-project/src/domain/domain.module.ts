@@ -17,6 +17,6 @@ import { AuthService } from './auth/auth.service';
     DynamodbService,
     AuthService,
   ],
-  exports: [TypeOrmModule],
+  exports: [MemberSqlService],
 })
 export class DomainModule {}

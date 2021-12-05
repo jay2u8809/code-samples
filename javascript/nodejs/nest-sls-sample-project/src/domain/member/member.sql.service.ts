@@ -11,9 +11,11 @@ import {
 } from './dto/member.join.request.dto';
 import { MemberStatus } from '../../common/code/member-status';
 import { MemberRepository } from './member.repository';
-import { getConnection, Connection, getManager, QueryRunner } from 'typeorm';
+import { getConnection, Connection, getManager, QueryRunner, Repository, getRepository } from 'typeorm';
 import { EntityManager } from 'typeorm/entity-manager/EntityManager';
 import { MemberInterface } from '../../db/common/domain/member/member.interface';
+import { plainToClass } from 'class-transformer';
+import { transferFromRaw } from '../../common/common.utils';
 
 const TAG = 'MEMBER_SQL_SERVICE';
 
@@ -89,16 +91,12 @@ export class MemberSqlService implements MemberInterface {
    * @param param
    */
   async getAll(param?: any): Promise<Member[] | null> {
-    const query = 'SELECT * FROM dev_schema.MEMBER';
-
     const em: QueryRunner = getConnection().createQueryRunner();
     await em.connect();
 
     return em.manager
-      .query(query)
-      .then((data) => {
-        return data;
-      }).catch((err) => {
+      .find(Member)
+      .catch((err) => {
         console.error(TAG, `Fail to fetch member data`);
         throw new InternalServerErrorException(err.message);
       }).finally(async () => {
@@ -137,15 +135,14 @@ export class MemberSqlService implements MemberInterface {
     const em: QueryRunner = getConnection().createQueryRunner();
     await em.connect();
 
+    const raw = 'SELECT member_sn, member_id, email_address FROM dev_schema.MEMBER WHERE email_address = $1 ORDER BY member_sn ASC ';
     return em.manager
-      .find(Member, {
-        select: ['memberSn', 'memberId'],
-        where: {
-          emailAddress: email,
-        },
-        order: {
-          memberSn: 'ASC',
-        },
+      .query(raw, [email])
+      .then((items) => {
+        return items.map((item) => {
+          const transferred = transferFromRaw(item);
+          return plainToClass(Member, transferred);
+        });
       }).catch((err) => {
         console.error(TAG, `Fail to fetch member data by member email address`);
         throw new InternalServerErrorException(err.message);
