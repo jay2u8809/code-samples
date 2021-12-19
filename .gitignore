@@ -46,6 +46,8 @@ out/
 ### NodeJs ###
 **/node_modules/**
 **/dist/**
+.dynamodb
+package-lock.json
 
 ### Tesseract.js ###
 *.traineddata

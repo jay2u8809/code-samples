@@ -63,6 +63,16 @@ $ npm run test:cov
 [Documents](https://orkhan.gitbook.io/typeorm/docs/entity-manager-api)
 [TypeOrmDocs](https://typeorm.biunav.com/en/select-query-builder.html#getting-values-using-querybuilder)
 
+## DynamoDB
+[Local DynamoDB Setting](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html)
+[Local DynamoDB Youtube](https://www.youtube.com/watch?v=ZHMHQmCLakA&t=4s)
+[Youtube Desc](https://www.rahulpnath.com/blog/aws_dynamodb_local/)
+[Error - DynamoDB Local is not available for stage](https://github.com/99x/serverless-dynamodb-local/issues/225)
+
+## Local Serverless
+[Flow](https://qiita.com/noralife/items/e36621ddd0e5b8ff4447)
+[Serverless Official Docs](https://www.serverless.com/framework/docs/providers/aws/guide/resources/#configuration)
+
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
