@@ -34,25 +34,23 @@ export class DynamodbService implements DynamodbInterface {
       });
   }
 
-  async get(param: any): Promise<any | null> {
+  async get(param: any): Promise<any> {
     return await this.fetch(param, false)
       .then((data) => {
-        return data.Items[0];
+        return data;
       })
       .catch((err) => {
         console.error(TAG, `Fail to get : ${err}`);
-        return null;
       });
   }
 
-  async getAll(params: any): Promise<any[] | null> {
+  async getAll(params: any): Promise<any> {
     return await this.fetch(params, true)
       .then((data) => {
-        return data.Items;
+        return data;
       })
       .catch((err) => {
         console.error(TAG, `Fail to getAll : ${err}`);
-        return null;
       });
   }
 
@@ -90,15 +88,17 @@ export class DynamodbService implements DynamodbInterface {
   private async fetch(param: any, isScan: boolean): Promise<QueryResult> {
     const result: QueryResult = {
       Count: 0,
+      ScannedCount: 0,
       Items: [],
     };
 
     const value: any = isScan
       ? await this.docClient.scan(param).promise()
-      : await this.docClient.get(param).promise();
+      : await this.docClient.query(param).promise();
 
     result.Items.push(...value.Items);
     result.Count = result.Items.length;
+    result.ScannedCount = value.ScannedCount;
 
     return result;
   }

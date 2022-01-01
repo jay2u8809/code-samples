@@ -33,7 +33,7 @@
 ### 3-2. Aws cli를 이용하는 방법 
 - 더미 테이블 데이터 입력 
 ```shell
-    $ aws dynamodb create-table --cli-input-json file://${PATH}/create_member_table.json --endpoint-url http://localhost:8000
+    $ aws dynamodb create-table --cli-input-json file://${PATH}/member_table.json --endpoint-url http://localhost:8000
 ```
 
 - 초기 더미 데이터 입력

@@ -8,12 +8,12 @@
   ],
   "KeySchema": [
     {
-      "AttributeName": "id",
-      "KeyType": "HASH"
+      "KeyType": "HASH",
+      "AttributeName": "id"
     }
   ],
   "ProvisionedThroughput": {
-    "ReadCapacityUnits": 5,
+    "ReadCapacityUnits": 10,
     "WriteCapacityUnits": 5
   }
 }
