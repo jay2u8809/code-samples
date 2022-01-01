@@ -27,7 +27,8 @@ export class DynamodbService implements DynamodbInterface {
       .promise()
       .then((data) => {
         return data;
-      }).catch((err) => {
+      })
+      .catch((err) => {
         console.error(TAG, `Fail to create : ${err}`);
         return null;
       });
@@ -35,22 +36,24 @@ export class DynamodbService implements DynamodbInterface {
 
   async get(param: any): Promise<any | null> {
     return await this.fetch(param, false)
-    .then((data) => {
-      return data.Items[0];
-    }).catch((err) => {
-      console.error(TAG, `Fail to get : ${err}`);
-      return null;
-    });
+      .then((data) => {
+        return data.Items[0];
+      })
+      .catch((err) => {
+        console.error(TAG, `Fail to get : ${err}`);
+        return null;
+      });
   }
 
   async getAll(params: any): Promise<any[] | null> {
     return await this.fetch(params, true)
       .then((data) => {
         return data.Items;
-      }).catch((err) => {
+      })
+      .catch((err) => {
         console.error(TAG, `Fail to getAll : ${err}`);
         return null;
-    });
+      });
   }
 
   async update(
@@ -61,7 +64,8 @@ export class DynamodbService implements DynamodbInterface {
       .promise()
       .then((data) => {
         return data;
-      }).catch((err) => {
+      })
+      .catch((err) => {
         console.error(TAG, `Fail to update : ${err}`);
         return null;
       });
@@ -75,17 +79,15 @@ export class DynamodbService implements DynamodbInterface {
       .promise()
       .then((data) => {
         return data;
-      }).catch((err) => {
+      })
+      .catch((err) => {
         console.error(TAG, `Fail to delete : ${err}`);
         return null;
       });
   }
 
   // === private ===
-  private async fetch(
-    param: any,
-    isScan: boolean,
-  ): Promise<QueryResult> {
+  private async fetch(param: any, isScan: boolean): Promise<QueryResult> {
     const result: QueryResult = {
       Count: 0,
       Items: [],

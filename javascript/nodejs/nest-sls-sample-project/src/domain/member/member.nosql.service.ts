@@ -1,7 +1,14 @@
 import { Member } from '../../entities/member/member';
 import { DynamodbService } from '../../db/nosql/dynamodb/dynamodb.service';
-import { AwsDbIndex, AwsDbTable, QueryParam } from '../../db/nosql/dynamodb/aws.config';
-import { MemberJoinRequestDto, saveMember } from './dto/member.join.request.dto';
+import {
+  AwsDbIndex,
+  AwsDbTable,
+  QueryParam,
+} from '../../db/nosql/dynamodb/config/aws.config';
+import {
+  MemberJoinRequestDto,
+  saveMember,
+} from './dto/member.join.request.dto';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { MemberInterface } from '../../db/common/domain/member/member.interface';
 import { plainToClass } from 'class-transformer';
@@ -18,18 +25,19 @@ export class MemberNosqlService implements MemberInterface {
    */
   async create(param: MemberJoinRequestDto): Promise<string> {
     // 0. check param
-    if (!param) 
+    if (!param) {
       return null;
+    }
     // 1. make check exist query
     const getParam: QueryParam = {
       TableName: AwsDbTable.MEMBER,
       IndexName: AwsDbIndex.ID,
       KeyConditionExpression: '#memberId = :val',
       ExpressionAttributeNames: {
-        '#memberId': 'member_id'
+        '#memberId': 'member_id',
       },
       ExpressionAttributeValues: {
-        ':val': param.memberId
+        ':val': param.memberId,
       },
     };
     // 2. check exist
@@ -47,30 +55,83 @@ export class MemberNosqlService implements MemberInterface {
       }),
     };
     // 4. create
-    await this.dynamodb.create(putParam)
-      .then((data) => {
-        console.log(TAG, `Attributes : ${data.Attributes}`);
-        console.log(TAG, `ConsumedCapacity : ${data.ConsumedCapacity}`);
-        console.log(TAG, `ConsumedCapacity TableName : ${data.ConsumedCapacity.TableName}`);
-        console.log(TAG, `ConsumedCapacity CapacityUnits : ${data.ConsumedCapacity.CapacityUnits}`);
-        console.log(TAG, `ConsumedCapacity ReadCapacityUnits : ${data.ConsumedCapacity.ReadCapacityUnits}`);
-        console.log(TAG, `ConsumedCapacity WriteCapacityUnits : ${data.ConsumedCapacity.WriteCapacityUnits}`);
-        console.log(TAG, `ConsumedCapacity Table : ${data.ConsumedCapacity.Table}`);
-        console.log(TAG, `ConsumedCapacity Table ReadCapacityUnits : ${data.ConsumedCapacity.Table.ReadCapacityUnits}`);
-        console.log(TAG, `ConsumedCapacity Table WriteCapacityUnits : ${data.ConsumedCapacity.Table.WriteCapacityUnits}`);
-        console.log(TAG, `ConsumedCapacity Table CapacityUnits : ${data.ConsumedCapacity.Table.CapacityUnits}`);
-        console.log(TAG, `ConsumedCapacity LocalSecondaryIndexes : ${data.ConsumedCapacity.LocalSecondaryIndexes}`);
-        console.log(TAG, `ConsumedCapacity LocalSecondaryIndexes ReadCapacityUnits : ${data.ConsumedCapacity.LocalSecondaryIndexes.ReadCapacityUnits}`);
-        console.log(TAG, `ConsumedCapacity LocalSecondaryIndexes WriteCapacityUnits : ${data.ConsumedCapacity.LocalSecondaryIndexes.WriteCapacityUnits}`);
-        console.log(TAG, `ConsumedCapacity LocalSecondaryIndexes CapacityUnits : ${data.ConsumedCapacity.LocalSecondaryIndexes.CapacityUnits}`);
-        console.log(TAG, `ConsumedCapacity GlobalSecondaryIndexes : ${data.ConsumedCapacity.GlobalSecondaryIndexes}`);
-        console.log(TAG, `ConsumedCapacity GlobalSecondaryIndexes ReadCapacityUnits : ${data.ConsumedCapacity.GlobalSecondaryIndexes.ReadCapacityUnits}`);
-        console.log(TAG, `ConsumedCapacity GlobalSecondaryIndexes WriteCapacityUnits : ${data.ConsumedCapacity.GlobalSecondaryIndexes.WriteCapacityUnits}`);
-        console.log(TAG, `ConsumedCapacity GlobalSecondaryIndexes CapacityUnits : ${data.ConsumedCapacity.GlobalSecondaryIndexes.CapacityUnits}`);
-        console.log(TAG, `ItemCollectionMetrics : ${data.ItemCollectionMetrics}`);
-        console.log(TAG, `ItemCollectionMetrics ItemCollectionKey : ${data.ItemCollectionMetrics.ItemCollectionKey}`);
-        console.log(TAG, `ItemCollectionMetrics SizeEstimateRangeGB : ${data.ItemCollectionMetrics.SizeEstimateRangeGB}`);
-      });
+    await this.dynamodb.create(putParam).then((data) => {
+      console.log(TAG, `Attributes : ${data.Attributes}`);
+      console.log(TAG, `ConsumedCapacity : ${data.ConsumedCapacity}`);
+      console.log(
+        TAG,
+        `ConsumedCapacity TableName : ${data.ConsumedCapacity.TableName}`,
+      );
+      console.log(
+        TAG,
+        `ConsumedCapacity CapacityUnits : ${data.ConsumedCapacity.CapacityUnits}`,
+      );
+      console.log(
+        TAG,
+        `ConsumedCapacity ReadCapacityUnits : ${data.ConsumedCapacity.ReadCapacityUnits}`,
+      );
+      console.log(
+        TAG,
+        `ConsumedCapacity WriteCapacityUnits : ${data.ConsumedCapacity.WriteCapacityUnits}`,
+      );
+      console.log(
+        TAG,
+        `ConsumedCapacity Table : ${data.ConsumedCapacity.Table}`,
+      );
+      console.log(
+        TAG,
+        `ConsumedCapacity Table ReadCapacityUnits : ${data.ConsumedCapacity.Table.ReadCapacityUnits}`,
+      );
+      console.log(
+        TAG,
+        `ConsumedCapacity Table WriteCapacityUnits : ${data.ConsumedCapacity.Table.WriteCapacityUnits}`,
+      );
+      console.log(
+        TAG,
+        `ConsumedCapacity Table CapacityUnits : ${data.ConsumedCapacity.Table.CapacityUnits}`,
+      );
+      console.log(
+        TAG,
+        `ConsumedCapacity LocalSecondaryIndexes : ${data.ConsumedCapacity.LocalSecondaryIndexes}`,
+      );
+      console.log(
+        TAG,
+        `ConsumedCapacity LocalSecondaryIndexes ReadCapacityUnits : ${data.ConsumedCapacity.LocalSecondaryIndexes.ReadCapacityUnits}`,
+      );
+      console.log(
+        TAG,
+        `ConsumedCapacity LocalSecondaryIndexes WriteCapacityUnits : ${data.ConsumedCapacity.LocalSecondaryIndexes.WriteCapacityUnits}`,
+      );
+      console.log(
+        TAG,
+        `ConsumedCapacity LocalSecondaryIndexes CapacityUnits : ${data.ConsumedCapacity.LocalSecondaryIndexes.CapacityUnits}`,
+      );
+      console.log(
+        TAG,
+        `ConsumedCapacity GlobalSecondaryIndexes : ${data.ConsumedCapacity.GlobalSecondaryIndexes}`,
+      );
+      console.log(
+        TAG,
+        `ConsumedCapacity GlobalSecondaryIndexes ReadCapacityUnits : ${data.ConsumedCapacity.GlobalSecondaryIndexes.ReadCapacityUnits}`,
+      );
+      console.log(
+        TAG,
+        `ConsumedCapacity GlobalSecondaryIndexes WriteCapacityUnits : ${data.ConsumedCapacity.GlobalSecondaryIndexes.WriteCapacityUnits}`,
+      );
+      console.log(
+        TAG,
+        `ConsumedCapacity GlobalSecondaryIndexes CapacityUnits : ${data.ConsumedCapacity.GlobalSecondaryIndexes.CapacityUnits}`,
+      );
+      console.log(TAG, `ItemCollectionMetrics : ${data.ItemCollectionMetrics}`);
+      console.log(
+        TAG,
+        `ItemCollectionMetrics ItemCollectionKey : ${data.ItemCollectionMetrics.ItemCollectionKey}`,
+      );
+      console.log(
+        TAG,
+        `ItemCollectionMetrics SizeEstimateRangeGB : ${data.ItemCollectionMetrics.SizeEstimateRangeGB}`,
+      );
+    });
 
     return putParam.Item.id;
   }
@@ -81,8 +142,9 @@ export class MemberNosqlService implements MemberInterface {
    */
   async get(id: string): Promise<Member> {
     // 0. check param
-    if (!id) 
+    if (!id) {
       return null;
+    }
     // 1. make query
     const param: QueryParam = {
       TableName: AwsDbTable.MEMBER,
@@ -102,7 +164,7 @@ export class MemberNosqlService implements MemberInterface {
     // 0. make query
     const getParam: QueryParam = {
       TableName: AwsDbTable.MEMBER,
-    }
+    };
     // 1. get data list
     return this.dynamodb.getAll(getParam);
   }
@@ -113,17 +175,19 @@ export class MemberNosqlService implements MemberInterface {
    */
   async getById(memberId: string): Promise<Member | null> {
     // 0. check param
-    if (!memberId) return null;
+    if (!memberId) {
+      return null;
+    }
     // 1. make query
     const getParam: QueryParam = {
       TableName: AwsDbTable.MEMBER,
       IndexName: AwsDbIndex.ID,
       KeyConditionExpression: '#memberId = :val',
       ExpressionAttributeNames: {
-        '#memberId': 'member_id'
+        '#memberId': 'member_id',
       },
       ExpressionAttributeValues: {
-        ':val': memberId
+        ':val': memberId,
       },
     };
     // 2. get data
@@ -131,14 +195,16 @@ export class MemberNosqlService implements MemberInterface {
   }
 
   async getByEmail(email: string): Promise<Member[] | null> {
-    if (!email) 
+    if (!email) {
       return null;
+    }
     return null;
   }
 
   async getByNickName(nickName: string): Promise<Member[] | null> {
-    if (!nickName) 
+    if (!nickName) {
       return null;
+    }
     return null;
   }
 
@@ -155,8 +221,9 @@ export class MemberNosqlService implements MemberInterface {
    * @param table
    */
   async update(param: MemberJoinRequestDto): Promise<Member | null> {
-    if (!param) 
+    if (!param) {
       return null;
+    }
     return null;
   }
 
@@ -166,8 +233,9 @@ export class MemberNosqlService implements MemberInterface {
    */
   async delete(id: string): Promise<boolean | null> {
     // 0. check param
-    if (!id) 
+    if (!id) {
       return false;
+    }
     // 1. make query
     const param: QueryParam = {
       TableName: AwsDbTable.MEMBER,
@@ -177,25 +245,30 @@ export class MemberNosqlService implements MemberInterface {
     };
     // 2. check exist
     const isExist = await this.isExist(param);
-    if (!isExist)
+    if (!isExist) {
       throw new NotFoundException(`Not Found Member Info : ${id}`);
+    }
     // 3. delete
-    return this.dynamodb.delete(param)
-    .then((data) => {
+    return this.dynamodb.delete(param).then((data) => {
       return data !== null;
     });
   }
 
   async isExist(param: QueryParam): Promise<boolean> {
-    if (!param) 
+    if (!param) {
       return false;
+    }
     return this.dynamodb
       .get(param)
       .then((data) => {
         console.log(TAG, `Exist Member Count : ${data.Count}`);
         return data.Count > 0;
-      }).catch((err) => {
-        console.log(TAG, `Fail to check exist member data : ${JSON.stringify(err)}`);
+      })
+      .catch((err) => {
+        console.log(
+          TAG,
+          `Fail to check exist member data : ${JSON.stringify(err)}`,
+        );
         return false;
       });
   }
