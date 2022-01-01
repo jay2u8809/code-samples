@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import * as AWS from 'aws-sdk';
 import { DynamodbInterface } from './dynamodb.interface';
-import { AwsRegion, QueryResult } from './aws.config';
+import { AwsRegion, QueryResult } from './config/aws.config';
 
 const TAG = 'DYNAMODB_SERVICE';
 
@@ -15,6 +15,7 @@ export class DynamodbService implements DynamodbInterface {
       httpOptions: {
         timeout: 5000,
       },
+      endpoint: 'http://localhost:8000',
     });
   }
 
