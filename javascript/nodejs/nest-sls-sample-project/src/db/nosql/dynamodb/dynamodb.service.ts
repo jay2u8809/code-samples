@@ -19,9 +19,7 @@ export class DynamodbService implements DynamodbInterface {
     });
   }
 
-  async create(
-    param: any,
-  ): Promise<AWS.DynamoDB.DocumentClient.PutItemOutput | null> {
+  async create(param: any): Promise<AWS.DynamoDB.DocumentClient.PutItemOutput> {
     return await this.docClient
       .put(param)
       .promise()
@@ -30,7 +28,20 @@ export class DynamodbService implements DynamodbInterface {
       })
       .catch((err) => {
         console.error(TAG, `Fail to create : ${err}`);
-        return null;
+        return undefined;
+      });
+  }
+
+  async getOneById(param: any): Promise<any> {
+    return await this.docClient
+      .get(param)
+      .promise()
+      .then((data) => {
+        return data.Item;
+      })
+      .catch((err) => {
+        console.error(TAG, `Fail to getOneById : ${err}`);
+        return undefined;
       });
   }
 
@@ -41,22 +52,24 @@ export class DynamodbService implements DynamodbInterface {
       })
       .catch((err) => {
         console.error(TAG, `Fail to get : ${err}`);
+        return undefined;
       });
   }
 
-  async getAll(params: any): Promise<any> {
+  async getAll(params: any): Promise<any[] | any> {
     return await this.fetch(params, true)
       .then((data) => {
         return data;
       })
       .catch((err) => {
         console.error(TAG, `Fail to getAll : ${err}`);
+        return undefined;
       });
   }
 
   async update(
     param: any,
-  ): Promise<AWS.DynamoDB.DocumentClient.UpdateItemOutput | null> {
+  ): Promise<AWS.DynamoDB.DocumentClient.UpdateItemOutput> {
     return await this.docClient
       .update(param)
       .promise()
@@ -65,13 +78,13 @@ export class DynamodbService implements DynamodbInterface {
       })
       .catch((err) => {
         console.error(TAG, `Fail to update : ${err}`);
-        return null;
+        return undefined;
       });
   }
 
   async delete(
     param: any,
-  ): Promise<AWS.DynamoDB.DocumentClient.DeleteItemOutput | null> {
+  ): Promise<AWS.DynamoDB.DocumentClient.DeleteItemOutput> {
     return await this.docClient
       .delete(param)
       .promise()
@@ -80,7 +93,7 @@ export class DynamodbService implements DynamodbInterface {
       })
       .catch((err) => {
         console.error(TAG, `Fail to delete : ${err}`);
-        return null;
+        return undefined;
       });
   }
 
@@ -99,6 +112,9 @@ export class DynamodbService implements DynamodbInterface {
     result.Items.push(...value.Items);
     result.Count = result.Items.length;
     result.ScannedCount = value.ScannedCount;
+    if (param.Limit) {
+      result.Items.splice(~~param.Limit);
+    }
 
     return result;
   }

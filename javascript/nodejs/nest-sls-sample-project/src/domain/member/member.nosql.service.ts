@@ -12,6 +12,7 @@ import {
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { MemberInterface } from '../../db/common/domain/member/member.interface';
 import { plainToClass } from 'class-transformer';
+import { MemberStatus } from '../../common/code/member-status';
 
 const TAG = 'MEMBER_NOSQL_SERVICE';
 
@@ -26,12 +27,12 @@ export class MemberNosqlService implements MemberInterface {
   async create(param: MemberJoinRequestDto): Promise<string> {
     // 0. check param
     if (!param) {
-      return null;
+      return;
     }
     // 1. make check exist query
     const getParam: QueryParam = {
-      TableName: AwsDbTable.MEMBER,
-      IndexName: AwsDbIndex.ID,
+      TableName: AwsDbTable.TEST_MEMBER,
+      IndexName: AwsDbIndex.MEMBER_ID,
       KeyConditionExpression: '#memberId = :val',
       ExpressionAttributeNames: {
         '#memberId': 'member_id',
@@ -49,7 +50,7 @@ export class MemberNosqlService implements MemberInterface {
     }
     // 3. make query
     const putParam: QueryParam = {
-      TableName: AwsDbTable.MEMBER,
+      TableName: AwsDbTable.TEST_MEMBER,
       Item: plainToClass(Member, {
         ...saveMember(param),
       }),
@@ -143,76 +144,165 @@ export class MemberNosqlService implements MemberInterface {
   async get(id: string): Promise<Member> {
     // 0. check param
     if (!id) {
-      return null;
+      return;
     }
     // 1. make query
     const param: QueryParam = {
-      TableName: AwsDbTable.MEMBER,
+      TableName: AwsDbTable.TEST_MEMBER,
       Key: {
         id: id,
       },
     };
     // 2. get data
-    return this.dynamodb.get(param);
+    const data: any = await this.dynamodb.getOneById(param);
+    if (!data) {
+      return;
+    }
+    return plainToClass(Member, data);
   }
 
   /**
    * Get All Members
    * @param param
    */
-  async getAll(): Promise<Member[] | null> {
+  async getAll(): Promise<Member[]> {
     // 0. make query
     const getParam: QueryParam = {
-      TableName: AwsDbTable.MEMBER,
+      TableName: AwsDbTable.TEST_MEMBER,
+      FilterExpression: `#memberStatus = :val`,
+      ExpressionAttributeNames: {
+        '#memberStatus': 'memberStatus',
+      },
+      ExpressionAttributeValues: {
+        ':val': MemberStatus.Normal,
+      },
     };
     // 1. get data list
-    return this.dynamodb.getAll(getParam);
+    const data: any = await this.dynamodb.getAll(getParam);
+    if (data.Coumt <= 0) {
+      return;
+    }
+    return data.Items.map((item) => {
+      return plainToClass(Member, item);
+    });
   }
 
   /*
    * Get One Member Info By User ID (All Info)
    * @param memberId
    */
-  async getById(memberId: string): Promise<Member | null> {
+  async getById(memberId: string): Promise<Member> {
     // 0. check param
     if (!memberId) {
-      return null;
+      return;
     }
     // 1. make query
     const getParam: QueryParam = {
-      TableName: AwsDbTable.MEMBER,
-      IndexName: AwsDbIndex.ID,
+      TableName: AwsDbTable.TEST_MEMBER,
+      IndexName: AwsDbIndex.MEMBER_ID,
       KeyConditionExpression: '#memberId = :val',
+      FilterExpression: '#memberStatus = :status',
       ExpressionAttributeNames: {
-        '#memberId': 'member_id',
+        '#memberId': 'memberId',
+        '#memberStatus': 'memberStatus',
       },
       ExpressionAttributeValues: {
         ':val': memberId,
+        ':status': MemberStatus.Normal,
       },
     };
     // 2. get data
-    return this.dynamodb.get(getParam);
+    const data: any = await this.dynamodb.get(getParam);
+    if (data.Count <= 0) {
+      return;
+    }
+    return plainToClass(Member, data.Items[0]);
   }
 
-  async getByEmail(email: string): Promise<Member[] | null> {
+  async getByEmail(email: string): Promise<Member[]> {
+    // 0. check param
     if (!email) {
-      return null;
+      return;
     }
-    return null;
+    // 1. make query
+    const getParam: QueryParam = {
+      TableName: AwsDbTable.TEST_MEMBER,
+      IndexName: AwsDbIndex.EMAIL,
+      KeyConditionExpression: '#emailAddress = :val',
+      FilterExpression: '#memberStatus = :status',
+      ExpressionAttributeNames: {
+        '#emailAddress': 'emailAddress',
+        '#memberStatus': 'memberStatus',
+      },
+      ExpressionAttributeValues: {
+        ':val': email,
+        ':status': MemberStatus.Normal,
+      },
+    };
+    // 2. get data
+    const data: any = await this.dynamodb.get(getParam);
+    if (data.Count <= 0) {
+      return;
+    }
+    return data.Items.map((item) => {
+      return plainToClass(Member, item);
+    });
   }
 
-  async getByNickName(nickName: string): Promise<Member[] | null> {
+  async getByNickName(nickName: string): Promise<Member[]> {
+    // 0. check param
     if (!nickName) {
-      return null;
+      return;
     }
-    return null;
+    // 1. make query
+    const getParam: QueryParam = {
+      TableName: AwsDbTable.TEST_MEMBER,
+      IndexName: AwsDbIndex.NICKNAME,
+      KeyConditionExpression: '#nickName = :val',
+      FilterExpression: '#memberStatus = :status',
+      ExpressionAttributeNames: {
+        '#nickName': 'nickName',
+        '#memberStatus': 'memberStatus',
+      },
+      ExpressionAttributeValues: {
+        ':val': nickName,
+        ':status': MemberStatus.Normal,
+      },
+    };
+    // 2. get data
+    const data: any = await this.dynamodb.get(getParam);
+    if (data.Count <= 0) {
+      return;
+    }
+    return data.Items.map((d) => {
+      return plainToClass(Member, d);
+    });
   }
 
   /**
    * Get All Members Info
    */
-  async getNormalMembers(): Promise<Member[] | null> {
-    return null;
+  async getNormalMembers(): Promise<Member[]> {
+    // 1. make query
+    const getParam: QueryParam = {
+      TableName: AwsDbTable.TEST_MEMBER,
+      IndexName: AwsDbIndex.MEMBER_STATUS,
+      KeyConditionExpression: '#memberStatus = :val',
+      ExpressionAttributeNames: {
+        '#memberStatus': 'memberStatus',
+      },
+      ExpressionAttributeValues: {
+        ':val': MemberStatus.Normal,
+      },
+    };
+    // 2. get data
+    const data: any = await this.dynamodb.get(getParam);
+    if (data.Count <= 0) {
+      return;
+    }
+    return data.Items.map((d) => {
+      return plainToClass(Member, d);
+    });
   }
 
   /**
@@ -220,25 +310,25 @@ export class MemberNosqlService implements MemberInterface {
    * @param param
    * @param table
    */
-  async update(param: MemberJoinRequestDto): Promise<Member | null> {
+  async update(param: MemberJoinRequestDto): Promise<Member> {
     if (!param) {
-      return null;
+      return;
     }
-    return null;
+    return;
   }
 
   /**
    * Delete Member Info By memberSn
    * @param id
    */
-  async delete(id: string): Promise<boolean | null> {
+  async delete(id: string): Promise<boolean> {
     // 0. check param
     if (!id) {
       return false;
     }
     // 1. make query
     const param: QueryParam = {
-      TableName: AwsDbTable.MEMBER,
+      TableName: AwsDbTable.TEST_MEMBER,
       Key: {
         id: id,
       },
@@ -250,7 +340,7 @@ export class MemberNosqlService implements MemberInterface {
     }
     // 3. delete
     return this.dynamodb.delete(param).then((data) => {
-      return data !== null;
+      return data !== undefined;
     });
   }
 

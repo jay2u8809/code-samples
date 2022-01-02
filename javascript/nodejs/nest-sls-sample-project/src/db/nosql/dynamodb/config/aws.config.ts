@@ -47,4 +47,5 @@ export interface QueryParam {
   FilterExpression?: string;
   ProjectionExpression?: string;
   RequestItems?: any;
+  Limit?: number;
 }
