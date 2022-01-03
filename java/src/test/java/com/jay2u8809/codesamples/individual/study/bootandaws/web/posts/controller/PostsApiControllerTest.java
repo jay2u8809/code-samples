@@ -40,32 +40,32 @@ public class PostsApiControllerTest {
         postsRepository.deleteAll();
     }
 
-    @Test
-    public void register_posts() throws Exception {
-
-        // given
-        String title = "TITLE";
-        String content = "CONTENT";
-
-        PostsSaveRequestsDto requestsDto = PostsSaveRequestsDto.builder()
-                                                                .title(title)
-                                                                .content(content)
-                                                                .author("LEE")
-                                                                .build();
-
-        String url = "http://localhost:" + port + "/api/v1/posts/";
-
-        // when
-        ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url, requestsDto, Long.class);
-
-        //then
-        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(responseEntity.getBody()).isGreaterThan(0L);
-
-        List<Posts> all = postsRepository.findAll();
-        assertThat(all.get(0).getTitle()).isEqualTo(title);
-        assertThat(all.get(0).getContent()).isEqualTo(content);
-    }
+//    @Test
+//    public void register_posts() throws Exception {
+//
+//        // given
+//        String title = "TITLE";
+//        String content = "CONTENT";
+//
+//        PostsSaveRequestsDto requestsDto = PostsSaveRequestsDto.builder()
+//                                                                .title(title)
+//                                                                .content(content)
+//                                                                .author("LEE")
+//                                                                .build();
+//
+//        String url = "http://localhost:" + port + "/api/v1/posts/";
+//
+//        // when
+//        ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url, requestsDto, Long.class);
+//
+//        //then
+//        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+//        assertThat(responseEntity.getBody()).isGreaterThan(0L);
+//
+//        List<Posts> all = postsRepository.findAll();
+//        assertThat(all.get(0).getTitle()).isEqualTo(title);
+//        assertThat(all.get(0).getContent()).isEqualTo(content);
+//    }
 
     @Test
     public void update_posts() throws Exception {

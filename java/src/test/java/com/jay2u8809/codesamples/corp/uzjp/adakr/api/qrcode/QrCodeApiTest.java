@@ -3,6 +3,7 @@ package com.jay2u8809.codesamples.corp.uzjp.adakr.api.qrcode;
 import com.jay2u8809.codesamples.common.CommonConst;
 import com.jay2u8809.codesamples.common.CommonControllerTest;
 import org.junit.jupiter.api.Test;
+import org.springframework.util.Assert;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -97,26 +98,17 @@ public class QrCodeApiTest extends CommonControllerTest {
 
     @Test
     public void generateQrCode() {
-
         QrCodeApi qrCodeApi = new QrCodeApi();
 
-//        Assert.assertNull("Qr code url is null", qrCodeApi.generateQrCode(null, 10));
-//
-//        Assert.assertNull("Qr code url's len is zero", qrCodeApi.generateQrCode("", 10));
-//
-//        Assert.assertNull("Qr code url is not url", qrCodeApi.generateQrCode(String.valueOf(312321), 10));
-//        Assert.assertNull("Qr code url is not url", qrCodeApi.generateQrCode("QRCODE", 10));
+        assertNull(qrCodeApi.generateQrCodeByImageUri(null, 10), "Qr code url is null");
+        assertNull(qrCodeApi.generateQrCodeByImageUri("", 10), "Qr code url's len is zero");
+        assertNull(qrCodeApi.generateQrCodeByImageUri(String.valueOf(312321), 10), "Qr code url is not url");
+        assertNull(qrCodeApi.generateQrCodeByImageUri("QRCODE", 10), "Qr code url is not url");
 
-        assertNotNull("Qr code image size is zero", qrCodeApi.generateQrCode("https://www.google.com", 0));
-
-        assertNotNull("Qr code image size is minus number", qrCodeApi.generateQrCode("https://www.google.com", -10));
-
-        assertNotNull("Qr code image size is too big", qrCodeApi.generateQrCode("https://www.google.com", 99999999));
-
-        assertNotNull("Qr code image size is not number", qrCodeApi.generateQrCode("https://www.google.com", Integer.parseInt("number")));
-
-        assertNotNull("Qr code's security url", qrCodeApi.generateQrCode("https://www.google.com", 10));
-
-        assertNotNull("Qr code's not security url", qrCodeApi.generateQrCode("http://www.google.com", 10));
+        assertNotNull(qrCodeApi.generateQrCodeByImageUri("http://www.google.com", 10), "Qr code's not security url");
+        assertNotNull(qrCodeApi.generateQrCodeByImageUri("https://www.google.com", 0), "Qr code image size is zero");
+        assertNotNull(qrCodeApi.generateQrCodeByImageUri("https://www.google.com", -10), "Qr code image size is minus number");
+        assertNotNull(qrCodeApi.generateQrCodeByImageUri("https://www.google.com", 99999999), "Qr code image size is too big");
+        assertNotNull(qrCodeApi.generateQrCodeByImageUri("https://www.google.com", 10), "Qr code's security url");
     }
 }

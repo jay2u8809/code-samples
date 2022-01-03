@@ -38,13 +38,14 @@ public class QrCodeApi {
 
         if (inputUri == null || inputUri.length() == 0) {
             logger.debug("inputUri is Null");
-            return resultUri;
+            return null;
         }
 
         // check URI Expression
-        if (Pattern.compile(CommonConst.REGEX_URL).matcher(inputUri).matches()) {
+        boolean isMatches = Pattern.matches(CommonConst.REGEX_URL, inputUri);
+        if (!isMatches) {
             logger.info("inputUri is Not URI");
-            return resultUri;
+            return null;
         }
 
         // UTF8 Encoding
@@ -53,11 +54,11 @@ public class QrCodeApi {
             logger.debug("ENCODING URI : {}", inputUri);
         } catch (UnsupportedEncodingException e) {
             logger.error("Fail to UTF-8 Encoding : {}", inputUri);
-            return resultUri;
+            return null;
         }
 
         // QRCODE image size setting
-        inputSize = (inputSize == null || inputSize == 0 || 350 < inputSize) ? qrCodeSize : inputSize;
+        inputSize = (inputSize == null || inputSize <= 0 || 350 < inputSize) ? qrCodeSize : inputSize;
         String size = String.valueOf(inputSize);
         // QRCODE image size used for URI
         String imageSize = new StringBuilder(size)
