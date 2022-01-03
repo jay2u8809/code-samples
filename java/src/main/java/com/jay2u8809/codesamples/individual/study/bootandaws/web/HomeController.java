@@ -4,13 +4,15 @@ import com.jay2u8809.codesamples.common.CommonExtends;
 import com.jay2u8809.codesamples.individual.study.bootandaws.web.posts.dto.HelloResponseDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-@Controller("individual.study.bootandaws.!A!HomeController")
+@Controller("individual.study.bootandaws.web.HomeController")
+@RequestMapping(value = "/individual/study/bootandaws/")
 public class HomeController extends CommonExtends {
 
-    @GetMapping("/individual/study/bootandaws/test/")
+    @GetMapping("test/")
     @ResponseBody
     public String hello() {
         return "Hello";

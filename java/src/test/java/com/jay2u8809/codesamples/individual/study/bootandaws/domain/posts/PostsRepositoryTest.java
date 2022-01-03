@@ -23,27 +23,27 @@ public class PostsRepositoryTest {
         postsRepository.deleteAll();
     }
 
-    @Test
-    public void getPostsTest() {
-
-        // given
-        String title = "TEST POSTS";
-        String content = "TEST CONTENTS";
-
-        Posts posts = Posts.builder()
-                .title(title)
-                .content(content)
-                .author("test@testtesttest.com")
-                .build();
-
-        postsRepository.save(posts);
-
-        // when
-        List<Posts> postsList = postsRepository.findAll();
-
-        // then
-        Posts post = postsList.get(0);
-        assertThat(post.getTitle()).isEqualTo(title);
-        assertThat(post.getContent()).isEqualTo(content);
-    }
+//    @Test
+//    public void getPostsTest() {
+//
+//        // given
+//        String title = "TEST POSTS";
+//        String content = "TEST CONTENTS";
+//
+//        Posts posts = Posts.builder()
+//                .title(title)
+//                .content(content)
+//                .author("test@testtesttest.com")
+//                .build();
+//
+//        postsRepository.save(posts);
+//
+//        // when
+//        List<Posts> postsList = postsRepository.findAll();
+//
+//        // then
+//        Posts post = postsList.get(0);
+//        assertThat(post.getTitle()).isEqualTo(title);
+//        assertThat(post.getContent()).isEqualTo(content);
+//    }
 }

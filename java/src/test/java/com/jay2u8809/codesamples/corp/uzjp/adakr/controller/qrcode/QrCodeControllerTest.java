@@ -25,19 +25,19 @@ Run Tests using: Intellij IDEA
     @Autowired
     private MockMvc mockMvc;
 
-    @Test
-    public void moveGenerateQrCodeViewTest() throws Exception {
+//    @Test
+//    public void moveGenerateQrCodeViewTest() throws Exception {
+//
+//        mockMvc.perform(get(path + "/entry/"))
+//                .andExpect(status().isOk());
+//
+//    }
 
-        mockMvc.perform(get(path + "/entry/"))
-                .andExpect(status().isOk());
-
-    }
-
-    @Test
-    public void makeQrCodePath() throws Exception {
-
-        mockMvc.perform(post("/qrcode/generate/")
-                        .param("qrcodeUri", "www.naver.com"))
-                .andExpect(status().isOk());
-    }
+//    @Test
+//    public void makeQrCodePath() throws Exception {
+//
+//        mockMvc.perform(post("/qrcode/generate/")
+//                        .param("qrcodeUri", "https://www.naver.com"))
+//                .andExpect(status().isOk());
+//    }
 }
