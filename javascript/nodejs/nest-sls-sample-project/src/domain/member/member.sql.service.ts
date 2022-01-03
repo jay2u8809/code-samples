@@ -90,7 +90,7 @@ export class MemberSqlService implements MemberInterface {
    * Get All Members
    * @param param
    */
-  async getAll(param?: any): Promise<Member[] | null> {
+  async getAll(param?: any): Promise<Member[]> {
     const em: QueryRunner = getConnection().createQueryRunner();
     await em.connect();
 
