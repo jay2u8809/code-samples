@@ -12,6 +12,8 @@ import {
 import { TestService } from './test.service';
 import { RequestDto } from './dto/request.dto';
 
+const TAG = 'TEST_SERVICE';
+
 @Controller('/api/v1/test')
 export class TestController {
   constructor(private readonly testService: TestService) {}
@@ -30,8 +32,13 @@ export class TestController {
 
   @Get('/get')
   async testGetQuery(@Query('userId') data: any): Promise<any> {
-    console.log(data);
-    return data;
+    console.log(TAG, `Get Something: ${data}`);
+    return this.testService.get(data);
+  }
+  @Get('/getAll')
+  async testGetAllQuery(): Promise<any> {
+    console.log(TAG, `GET Everything`);
+    return this.testService.getAll();
   }
 
   @Put('/put/')

@@ -9,14 +9,27 @@ export enum AwsRegion {
 
 export enum AwsDbTable {
   MEMBER = 'member',
+  TEST = 'students',
+
+  TEST_MEMBER = 'dummy_member',
 }
 
 export enum AwsDbIndex {
-  ID = 'id',
+  MEMBER_ID = 'memberId-index',
+  EMAIL = 'emailAddress-index',
+  NICKNAME = 'nickName-index',
+  MEMBER_STATUS = 'memberStatus-index',
 }
 
 export interface QueryResult {
+  /*
+    Filter 후 데이터 수
+   */
   Count: number;
+  /*
+    Filter 전 데이터 수
+   */
+  ScannedCount: number;
   Items: any[];
 }
 
@@ -34,4 +47,5 @@ export interface QueryParam {
   FilterExpression?: string;
   ProjectionExpression?: string;
   RequestItems?: any;
+  Limit?: number;
 }

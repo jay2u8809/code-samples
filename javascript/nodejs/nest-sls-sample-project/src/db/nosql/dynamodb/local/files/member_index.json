@@ -1,0 +1,95 @@
+{
+  "TableName": "dummy_member",
+  "AttributeDefinitions": [
+    {
+      "AttributeName": "memberId",
+      "AttributeType": "S"
+    },
+    {
+      "AttributeName": "emailAddress",
+      "AttributeType": "S"
+    },
+    {
+      "AttributeName": "nickName",
+      "AttributeType": "S"
+    },
+    {
+      "AttributeName": "memberStatus",
+      "AttributeType": "S"
+    }
+  ],
+  "GlobalSecondaryIndexUpdates": [
+    {
+      "Create": {
+        "IndexName": "memberId-index",
+        "KeySchema": [
+          {
+            "AttributeName": "memberId",
+            "KeyType": "HASH"
+          }
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 10,
+          "WriteCapacityUnits": 5
+        },
+        "Projection": {
+          "ProjectionType": "ALL"
+        }
+      }
+    },
+    {
+      "Create": {
+        "IndexName": "emailAddress-index",
+        "KeySchema": [
+          {
+            "AttributeName": "emailAddress",
+            "KeyType": "HASH"
+          }
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 10,
+          "WriteCapacityUnits": 5
+        },
+        "Projection": {
+          "ProjectionType": "ALL"
+        }
+      }
+    },
+    {
+      "Create": {
+        "IndexName": "nickName-index",
+        "KeySchema": [
+          {
+            "AttributeName": "nickName",
+            "KeyType": "HASH"
+          }
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 10,
+          "WriteCapacityUnits": 5
+        },
+        "Projection": {
+          "ProjectionType": "ALL"
+        }
+      }
+    },
+    {
+      "Create": {
+        "IndexName": "memberStatus-index",
+        "KeySchema": [
+          {
+            "AttributeName": "memberStatus",
+            "KeyType": "HASH"
+          }
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 10,
+          "WriteCapacityUnits": 5
+        },
+        "Projection": {
+          "ProjectionType": "ALL"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,172 @@
+{
+  "dummy_member": [
+    {
+      "PutRequest": {
+        "Item": {
+          "id": { "S": "abcd-123456-efgh-1234" },
+          "memberId": { "S": "testID1" },
+          "memberPw": { "S": "e4e8a6e0f94409408b8bcce5d7757e5b648cbcab13b3570db1d0e4b95c79094c"},
+          "name_1": { "S": "testUserName1"},
+          "name_2": { "S": "testUserName2"},
+          "name_3": { "S": "testUserName3"},
+          "name_4": { "S": "testUserName4"},
+          "phoneNo_1": { "S": "0312345678"},
+          "zipCode": { "S": "12345"},
+          "address_1": { "S": "Tokyo"},
+          "address_2": { "S": "MinatoKu"},
+          "address_3": { "S": "Test2cyoume"},
+          "address_4": { "S": "TestMansion"},
+          "emailAddress": { "S": "testUser1@email.com"},
+          "genderCode": { "S": "Nothing"},
+          "memberStatus": { "S": "Normal"},
+          "nickName": { "S": "NickNameTest1"},
+          "signupDt": { "S": "2021-07-24T15:23:13.571Z"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": { "S": "abcd-123456-efgh-1235" },
+          "memberId": { "S": "testID2" },
+          "memberPw": { "S": "e4e8a6e0f94409408b8bcce5d7757e5b648cbcab13b3570db1d0e4b95c79094c"},
+          "name_1": { "S": "testUserName1"},
+          "name_2": { "S": "testUserName2"},
+          "name_3": { "S": "testUserName3"},
+          "name_4": { "S": "testUserName4"},
+          "phoneNo_1": { "S": "0312345678"},
+          "zipCode": { "S": "12345"},
+          "address_1": { "S": "Tokyo"},
+          "address_2": { "S": "MinatoKu"},
+          "address_3": { "S": "Test2cyoume"},
+          "address_4": { "S": "TestMansion"},
+          "emailAddress": { "S": "testUser2@email.com"},
+          "genderCode": { "S": "Nothing"},
+          "memberStatus": { "S": "Normal"},
+          "nickName": { "S": "NickNameTest2"},
+          "signupDt": { "S": "2021-07-24T15:23:13.571Z"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": { "S": "abcd-123456-efgh-1236" },
+          "memberId": { "S": "testID3" },
+          "memberPw": { "S": "e4e8a6e0f94409408b8bcce5d7757e5b648cbcab13b3570db1d0e4b95c79094c"},
+          "name_1": { "S": "testUserName1"},
+          "name_2": { "S": "testUserName2"},
+          "name_3": { "S": "testUserName3"},
+          "name_4": { "S": "testUserName4"},
+          "phoneNo_1": { "S": "0312345678"},
+          "zipCode": { "S": "12345"},
+          "address_1": { "S": "Tokyo"},
+          "address_2": { "S": "MinatoKu"},
+          "address_3": { "S": "Test2cyoume"},
+          "address_4": { "S": "TestMansion"},
+          "emailAddress": { "S": "testUser3@email.com"},
+          "genderCode": { "S": "Nothing"},
+          "memberStatus": { "S": "Normal"},
+          "nickName": { "S": "NickNameTest3"},
+          "signupDt": { "S": "2021-07-24T15:23:13.571Z"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": { "S": "abcd-123456-efgh-1237" },
+          "memberId": { "S": "testID4" },
+          "memberPw": { "S": "e4e8a6e0f94409408b8bcce5d7757e5b648cbcab13b3570db1d0e4b95c79094c"},
+          "name_1": { "S": "testUserName1"},
+          "name_2": { "S": "testUserName2"},
+          "name_3": { "S": "testUserName3"},
+          "name_4": { "S": "testUserName4"},
+          "phoneNo_1": { "S": "0312345678"},
+          "zipCode": { "S": "12345"},
+          "address_1": { "S": "Tokyo"},
+          "address_2": { "S": "MinatoKu"},
+          "address_3": { "S": "Test2cyoume"},
+          "address_4": { "S": "TestMansion"},
+          "emailAddress": { "S": "testUser4@email.com"},
+          "genderCode": { "S": "Nothing"},
+          "memberStatus": { "S": "Normal"},
+          "nickName": { "S": "NickNameTest4"},
+          "signupDt": { "S": "2021-07-24T15:23:13.571Z"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": { "S": "abcd-123456-efgh-1238" },
+          "memberId": { "S": "testID5" },
+          "memberPw": { "S": "e4e8a6e0f94409408b8bcce5d7757e5b648cbcab13b3570db1d0e4b95c79094c"},
+          "name_1": { "S": "testUserName1"},
+          "name_2": { "S": "testUserName2"},
+          "name_3": { "S": "testUserName3"},
+          "name_4": { "S": "testUserName4"},
+          "phoneNo_1": { "S": "0312345678"},
+          "zipCode": { "S": "12345"},
+          "address_1": { "S": "Tokyo"},
+          "address_2": { "S": "MinatoKu"},
+          "address_3": { "S": "Test2cyoume"},
+          "address_4": { "S": "TestMansion"},
+          "emailAddress": { "S": "testUser5@email.com"},
+          "genderCode": { "S": "Nothing"},
+          "memberStatus": { "S": "Normal"},
+          "nickName": { "S": "NickNameTest5"},
+          "signupDt": { "S": "2021-07-24T15:23:13.571Z"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": { "S": "abcd-123456-efgh-1239" },
+          "memberId": { "S": "testID6" },
+          "memberPw": { "S": "e4e8a6e0f94409408b8bcce5d7757e5b648cbcab13b3570db1d0e4b95c79094c"},
+          "name_1": { "S": "testUserName1"},
+          "name_2": { "S": "testUserName2"},
+          "name_3": { "S": "testUserName3"},
+          "name_4": { "S": "testUserName4"},
+          "phoneNo_1": { "S": "0312345678"},
+          "zipCode": { "S": "12345"},
+          "address_1": { "S": "Tokyo"},
+          "address_2": { "S": "MinatoKu"},
+          "address_3": { "S": "Test2cyoume"},
+          "address_4": { "S": "TestMansion"},
+          "emailAddress": { "S": "testUser6@email.com"},
+          "genderCode": { "S": "Nothing"},
+          "memberStatus": { "S": "Normal"},
+          "nickName": { "S": "NickNameTest6"},
+          "signupDt": { "S": "2021-07-24T15:23:13.571Z"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": { "S": "abcd-123456-efgh-1240" },
+          "memberId": { "S": "testID7" },
+          "memberPw": { "S": "e4e8a6e0f94409408b8bcce5d7757e5b648cbcab13b3570db1d0e4b95c79094c"},
+          "name_1": { "S": "testUserName1"},
+          "name_2": { "S": "testUserName2"},
+          "name_3": { "S": "testUserName3"},
+          "name_4": { "S": "testUserName4"},
+          "phoneNo_1": { "S": "0312345678"},
+          "zipCode": { "S": "12345"},
+          "address_1": { "S": "Tokyo"},
+          "address_2": { "S": "MinatoKu"},
+          "address_3": { "S": "Test2cyoume"},
+          "address_4": { "S": "TestMansion"},
+          "emailAddress": { "S": "testUser7@email.com"},
+          "genderCode": { "S": "Nothing"},
+          "memberStatus": { "S": "Normal"},
+          "nickName": { "S": "NickNameTest7"},
+          "signupDt": { "S": "2021-07-24T15:23:13.571Z"}
+        }
+      }
+    }
+  ]
+}

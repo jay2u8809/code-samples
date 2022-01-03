@@ -6,7 +6,7 @@ frameworkVersion: '2'
 
 plugins:
   - serverless-offline
-  - serverless-dynamodb-local
+#  - serverless-dynamodb-local
 #  - serverless-layers
 
 custom:
@@ -22,7 +22,7 @@ provider:
   lambdaHashingVersion: 20201221
   stage: dev
   region: ap-northeast-1
-  profile: fake-profile
+  profile: default
   iam:
     role: fake-role
 

@@ -7,6 +7,7 @@ import { TestController } from './test/test.controller';
 import { FileController } from './file/file.controller';
 import { CsvService } from './file/csv/csv.service';
 import { TestService } from './test/test.service';
+import { DynamodbService } from '../db/nosql/dynamodb/dynamodb.service';
 
 @Module({
   imports: [],
@@ -17,10 +18,11 @@ import { TestService } from './test/test.service';
     TestController,
   ],
   providers: [
-    QrcodeService, 
-    CsvService, 
-    TesseractService, 
-    TestService
+    QrcodeService,
+    CsvService,
+    TesseractService,
+    TestService,
+    DynamodbService,
   ],
 })
 export class ApiModule {}
