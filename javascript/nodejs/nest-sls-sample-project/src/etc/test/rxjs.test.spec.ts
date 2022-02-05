@@ -1,5 +1,7 @@
 import { Observable, from, of } from 'rxjs';
 
+const TAG = 'RXJS_TEST';
+
 describe('RxJs Test', () => {
   // beforeEach(() => {
   // });
@@ -19,16 +21,16 @@ describe('RxJs Test', () => {
         .subscribe({
           next: (value) => {
             if (value instanceof Array) {
-              console.log('ARRY', value);
+              console.log(TAG, 'array', value);
             } else {
-              console.log('Not Arry', value);
+              console.log(TAG, 'not Array', value);
             }
           },
           error: (error) => {
-            console.error(error);
+            console.error(TAG, error);
           },
           complete: () => {
-            console.log('completed');
+            console.log(TAG, 'completed');
           },
         })
         .unsubscribe();
@@ -39,14 +41,14 @@ describe('RxJs Test', () => {
         next: console.log,
         error: console.error,
         complete: () => {
-          console.log('complete!');
+          console.log(TAG, 'complete!');
         },
       });
     });
 
     it('from test', async () => {
       // Array
-      from([0, 2, 3]).subscribe((value) => console.log(value));
+      from([0, 2, 3]).subscribe((value) => console.log(TAG, value));
       // Map
       from(
         new Map([
@@ -54,10 +56,10 @@ describe('RxJs Test', () => {
           ['key2', 'value2'],
           ['key3', 'value3'],
         ]),
-      ).subscribe((value) => console.log(value));
+      ).subscribe((value) => console.log(TAG, value));
       // Promise
       from(Promise.resolve([100, 200])).subscribe((value) =>
-        console.log(value),
+        console.log(TAG, value),
       );
     });
   });
