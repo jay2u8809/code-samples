@@ -1,10 +1,12 @@
+import { DayjsUtil } from '../../common/Dayjs.util';
 import { Observable, from, of } from 'rxjs';
 
 const TAG = 'RXJS_TEST';
 
 describe('RxJs Test', () => {
-  // beforeEach(() => {
-  // });
+  beforeEach(() => {
+    console.log(TAG, DayjsUtil.koreaDate().toISOString());
+  });
 
   // https://medium.com/@kangsuroro2907/rxjs%EB%9E%80-2-operators-43eadd21eea0?p=43eadd21eea0
   describe('RxJs Test', () => {
