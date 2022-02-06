@@ -1,10 +1,8 @@
-import csvParser = require('csv-parser');
-import csvWriter = require('csv-writer');
+import csv from 'csv-parser';
 import fs from 'fs';
 import { DayjsUtil } from '../../common/Dayjs.util';
 import dayjs from 'dayjs';
 import { createObjectCsvWriter as createCsvWriter } from 'csv-writer';
-import neatCsv from 'neat-csv';
 
 const TAG = 'CSV_FILE_TEST';
 
@@ -114,8 +112,6 @@ describe('Csv File Test', () => {
     });
   });
 
-  describe('Read/Write Csv Stream Test', () => {});
-
   describe('Csv Parser and NeatCsv Test', () => {
     /**
      * refs
@@ -123,15 +119,63 @@ describe('Csv File Test', () => {
      * https://www.npmjs.com/package/csv-parser
      * https://github.com/mafintosh/csv-parser#options
      */
-    it('Neat Csv Test', async () => {
-      const dummy = generateArrayDummy();
-      const raw: string[] = dummy.map((d) => {
-        return `${d.id},${d.email}${Separator.LF}`;
-      });
-      const data = await neatCsv(raw.join(Separator.LF));
-      console.log(TAG, data);
+    it.skip('Csv Parser Test - Write', async () => {
+      // get data
+      const data = generateArrayDummy(30);
+      // make csv data
+      const csv = generateCsvData(data);
+      console.log(TAG, 'csv-file', csv);
+      // write file
+      fileName = `${csvFilePath}write_csv_file_object_${date}.csv`;
+      const writeStream = fs.createWriteStream(fileName, 'utf8');
+      writeStream.write(csv);
+      writeStream.end();
+      expect(true);
     });
 
+    it.only('Csv Parser Test - Read', async () => {
+      fileName = `${csvFilePath}write_csv_file_object_${date}.csv`;
+      console.log(TAG, 'read-file-name', fileName);
+      const exist = fs.existsSync(fileName);
+      if (!exist) {
+        console.log(TAG, 'not-found-file', exist);
+        expect(false);
+        return;
+      }
+      // write stream
+      const wStream = fs.createWriteStream(
+        `${csvFilePath}write_csv_file_object_new_${date}.csv`,
+        'utf8',
+      );
+      // read stream
+      // 처리 우선 순위 : mapHeaders < headers
+      fs.createReadStream(fileName)
+        .on('error', (err) => console.error(TAG, 'ERROR', err))
+        .pipe(
+          csv({
+            headers: false,
+            // headers: ['Id', 'Nickname', 'Email', 'CreatedAt'],
+            // mapHeaders: ({ header, index }) => header.toUpperCase(),
+          }),
+        )
+        .on('data', (row) => {
+          const num = ~~row[0].split('-')[1];
+          // const num = ~~row['Id'].split('-')[1];
+          if (num % 2 !== 0) {
+            return;
+          }
+          // add data
+          wStream.write(`${row[0]},${row[1]},${row[2]}${Separator.LF}`);
+          // wStream.write(
+          //   `${row['Id']},${row['Nickname']},${row['Email']}${Separator.LF}`,
+          // );
+        })
+        .on('end', async () => {
+          // finish write stream
+          wStream.end();
+          expect(true);
+        });
+    });
   });
   describe('Csv Writer Test', () => {
     /**
@@ -213,7 +257,7 @@ describe('Csv File Test', () => {
         id: `id-${idx}`,
         nickname: `nickname${idx}`,
         email: `emailtest${idx}@testmail${idx}.com`,
-        createdAt: dayjs().format('YYYY-MM-DD-mm-dd'),
+        createdAt: dayjs().format('YYYY-MM-DD'),
       };
       result.push(obj);
     }
