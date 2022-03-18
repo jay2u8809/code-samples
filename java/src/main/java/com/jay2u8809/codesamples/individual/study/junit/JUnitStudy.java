@@ -8,7 +8,14 @@ public class JUnitStudy {
 
     private int limit;
 
+    public JUnitStudy() {
+        this.status = MemberStatus.Normal;
+    }
+
     public JUnitStudy(int limit) {
+        if(limit < 0) {
+            throw new IllegalArgumentException("limit >= 0");
+        }
         this.limit = limit;
     }
 
