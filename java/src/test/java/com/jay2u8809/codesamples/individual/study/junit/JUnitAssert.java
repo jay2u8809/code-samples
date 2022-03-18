@@ -1,6 +1,8 @@
 package com.jay2u8809.codesamples.individual.study.junit;
 
 import com.jay2u8809.codesamples.common.code.MemberStatus;
+import com.jay2u8809.codesamples.individual.study.junit.domain.JUnitStudy;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
