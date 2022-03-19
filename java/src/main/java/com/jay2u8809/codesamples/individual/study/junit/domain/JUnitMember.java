@@ -6,4 +6,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class JUnitMember {
+
+    private String uuid;
+
+    private String memberId;
+
+    private String email;
 }

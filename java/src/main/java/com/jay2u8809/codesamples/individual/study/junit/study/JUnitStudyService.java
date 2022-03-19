@@ -10,18 +10,27 @@ public class JUnitStudyService {
 
     private final JUnitMemberService memberService;
 
-    private final JUnitStudyRepository repository;
+    private final JUnitStudyRepository studyRepository;
 
     public JUnitStudyService(JUnitMemberService memberService, JUnitStudyRepository repository) {
         assert memberService != null;
         assert repository != null;
         this.memberService = memberService;
-        this.repository = repository;
+        this.studyRepository = repository;
     }
 
-    public JUnitStudy createNewStudy(Long memberId, JUnitStudy study) {
-        Optional<JUnitMember> member = memberService.findByMemberId(memberId);
+    public JUnitStudy createNewStudy(String memberId, JUnitStudy study) {
+        Optional<JUnitMember> member = this.memberService.findByMemberId(memberId);
         study.setOwner(member.orElseThrow(() -> new IllegalArgumentException("Member doesn't exist for id: " + memberId)));
-        return repository.save(study);
+        this.memberService.notify(study);
+        this.memberService.saveNotifyHistory(study);
+        return this.studyRepository.save(study);
+    }
+
+    public JUnitStudy openStudy(JUnitStudy study) {
+        study.open();
+        JUnitStudy openStudy = this.studyRepository.save(study);
+        this.memberService.notify(openStudy);
+        return openStudy;
     }
 }
