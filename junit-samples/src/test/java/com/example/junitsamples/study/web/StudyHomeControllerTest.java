@@ -1,4 +1,4 @@
-package com.example.junitsamples.web;
+package com.example.junitsamples.study.web;
 
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -22,8 +22,8 @@ import static org.junit.Assert.*;
  *   Service, Component, Repository 등의 어노테이션 사용 불가능
  */
 @RunWith(SpringRunner.class)
-@WebMvcTest(controllers = HomeController.class)
-public class HomeControllerTest {
+@WebMvcTest(controllers = com.example.junitsamples.web.StudyHomeController.class)
+public class StudyHomeControllerTest {
 
     /**
      * MockMvc
