@@ -2,6 +2,7 @@ package com.example.junitsamples.study.service.posts;
 
 import com.example.junitsamples.study.domain.posts.Posts;
 import com.example.junitsamples.study.domain.posts.PostsRepository;
+import com.example.junitsamples.study.web.dto.PostsListResponseDto;
 import com.example.junitsamples.study.web.dto.PostsResponseDto;
 import com.example.junitsamples.study.web.dto.PostsSaveRequestDto;
 import com.example.junitsamples.study.web.dto.PostsUpdateRequestDto;
@@ -9,6 +10,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Spring 에서 Bean 을 주입받는 3가지 방법
@@ -55,5 +59,27 @@ public class PostsService {
                 .orElseThrow(() -> new IllegalArgumentException("This post does not exist. id=" + id));
 
         return new PostsResponseDto(posts);
+    }
+
+    /**
+     * @Transactional(readOnly = true)
+     *   트랜잭션의 범위는 유지하고 select 기능만 남겨두기 때문에 select 속도가 개선된다.
+     *   등록, 수정, 삭제 기능이 전혀 없는 서비스 메소드에서 사용하는 것이 좋다.
+     *   https://willseungh0.tistory.com/75
+     */
+    @Transactional(readOnly = true)
+    public List<PostsListResponseDto> findAllDesc() {
+        return this.postsRepository.findAllDesc().stream()
+                .map(PostsListResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        Posts posts = this.postsRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("This post does not exist. id=" + id));
+
+        this.postsRepository.delete(posts);
+//        this.postsRepository.deleteById(id);
     }
 }

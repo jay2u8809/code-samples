@@ -30,7 +30,7 @@ public class PostsRepositoryTest extends CommonExtends {
 
     @After
     public void cleanUp() {
-        postsRepository.deleteAll();
+        this.postsRepository.deleteAll();
     }
 
     @Test
@@ -76,6 +76,28 @@ public class PostsRepositoryTest extends CommonExtends {
         log.info(">>>> createdDt= {}, updatedDt= {}", post.getCreatedDt(), post.getUpdatedDt());
         assertThat(post.getCreatedDt()).isAfter(now);
         assertThat(post.getUpdatedDt()).isAfter(now);
+    }
 
+    @Test
+    public void findAllDesc_test() {
+        // given
+        String title = "Test Title";
+        String content = "Test Contents";
+        LocalDateTime now = LocalDateTime.of(2022, 3, 22, 0, 0, 0);
+        log.info("now date= {}", now);
+        for (int i = 0; i < 10; i++) {
+            this.postsRepository.save(Posts.builder()
+                    .title(title + i)
+                    .content(content + i)
+                    .author("test" + i + "@test.com")
+                    .build());
+        }
+
+        // when
+        List<Posts> postsList = this.postsRepository.findAllDesc();
+
+        // then
+        assertThat(postsList.size()).isNotZero();
+        postsList.forEach(f -> assertThat(f.getUpdatedDt()).isAfter(now));
     }
 }

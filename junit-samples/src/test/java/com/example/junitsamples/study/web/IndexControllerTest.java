@@ -20,11 +20,29 @@ public class IndexControllerTest extends CommonExtends {
 
     @Test
     public void index_test() {
+        // given
+        String url = ApiEndPoint.IndexController.BASIC;
+        log.info(">>>> index_test() - request url: {}", url);
+
         // when
-        String body = this.restTemplate.getForObject(ApiEndPoint.IndexController.BASIC, String.class);
-        log.info(">>>> request body: {}", body);
+        String htmlBody = this.restTemplate.getForObject(ApiEndPoint.IndexController.BASIC, String.class);
+        log.info(">>>> index_test() - request body: {}", htmlBody);
 
         // then
-        assertThat(body).contains("Start Spring boot web service");
+        assertThat(htmlBody).contains("Start Spring boot web service");
+    }
+
+    @Test
+    public void post_save_test() {
+        // given
+        String url = ApiEndPoint.IndexController.POSTS_SAVE;
+        log.info(">>>> post_save_test() - request url: {}", url);
+
+        // when
+        String htmlBody = this.restTemplate.getForObject(url, String.class);
+        log.info(">>>> post_save_test() - request body: {}", htmlBody);
+
+        // then
+        assertThat(htmlBody).contains("Register Post");
     }
 }

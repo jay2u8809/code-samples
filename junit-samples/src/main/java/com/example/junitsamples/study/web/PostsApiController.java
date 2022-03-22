@@ -18,7 +18,7 @@ public class PostsApiController {
 
     @PostMapping(value = ApiEndPoint.PostApiController.SAVE)
     public Long save(@RequestBody PostsSaveRequestDto requestDto) {
-        log.debug("save post: {}, {}", requestDto.getTitle(), requestDto.getAuthor());
+        log.info("save post: {}, {}", requestDto.getTitle(), requestDto.getAuthor());
         return this.postsService.save(requestDto);
     }
 
@@ -30,7 +30,14 @@ public class PostsApiController {
 
     @GetMapping(value = ApiEndPoint.PostApiController.FIND_BY_ID)
     public PostsResponseDto findById(@PathVariable Long id) {
-        log.debug("find post by id: {}", id);
+        log.info("find post by id: {}", id);
         return this.postsService.findById(id);
+    }
+
+    @DeleteMapping(value = ApiEndPoint.PostApiController.DELETE)
+    public Long delete(@PathVariable Long id) {
+        log.info("delete post by id: {}", id);
+        this.postsService.delete(id);
+        return id;
     }
 }

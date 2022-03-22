@@ -24,10 +24,12 @@ public interface ApiEndPoint {
         public static final String SAVE = BASIC;
         public static final String UPDATE = BASIC + "/{id}";
         public static final String FIND_BY_ID = BASIC + "/{id}";
+        public static final String DELETE = BASIC + "/{id}";
     }
 
     class IndexController {
-        public static final String BASIC = "/";
-        public static final String POSTS_SAVE = "/posts/save";
+        public static final String BASIC = "/posts";
+        public static final String POSTS_SAVE = BASIC + "/save";
+        public static final String POSTS_UPDATE = BASIC + "/update" + "/{id}";
     }
 }
