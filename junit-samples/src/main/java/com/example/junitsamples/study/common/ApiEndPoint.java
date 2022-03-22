@@ -16,7 +16,7 @@ public interface ApiEndPoint {
 
     class StudyHomeController {
         public static final String HELLO = ApiVersion.V1 + "/hello";
-        public static final String HELLO_DTO = ApiVersion.V1 + "/hello/dto";
+        public static final String HELLO_DTO = HELLO + "/dto";
     }
 
     class PostApiController {
@@ -24,5 +24,10 @@ public interface ApiEndPoint {
         public static final String SAVE = BASIC;
         public static final String UPDATE = BASIC + "/{id}";
         public static final String FIND_BY_ID = BASIC + "/{id}";
+    }
+
+    class IndexController {
+        public static final String BASIC = "/";
+        public static final String POSTS_SAVE = "/posts/save";
     }
 }

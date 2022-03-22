@@ -37,6 +37,8 @@ dependencies {
     // util
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+    // mustache
+    implementation 'org.springframework.boot:spring-boot-starter-mustache:2.6.4'
 }
 
 /*
