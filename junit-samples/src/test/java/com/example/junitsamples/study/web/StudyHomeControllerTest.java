@@ -1,10 +1,14 @@
 package com.example.junitsamples.study.web;
 
+import com.example.junitsamples.study.common.ApiEndPoint;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -20,7 +24,12 @@ import static org.junit.Assert.*;
  *   Web(Spring MVC) 에 집중할 수 있는 어노테이션
  *   Controller, ControllerAdvice 등의 어노테이션 사용 가능
  *   Service, Component, Repository 등의 어노테이션 사용 불가능
+ * error: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jpaAuditingHandler': Cannot resolve reference to bean 'jpaMappingContext' while setting constructor argument; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jpaMappingContext': Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: JPA metamodel must not be empty!
+ *   원인: test 중에 데이터베이스를 사용하지 않아서 스프링이 발생시키는 예외
+ *         main method 가 있는 클래스에 @EnableJpaAuditing 를 추가하고 부터 발생했다
+ *   해결: @MockBean(JpaMetamodelMappingContext.class) 어노테이션을 Mock test 클래스에 추가, https://stackoverflow.com/questions/41250177/getting-at-least-one-jpa-metamodel-must-be-present-with-webmvctest
  */
+@MockBean(JpaMetamodelMappingContext.class)
 @RunWith(SpringRunner.class)
 @WebMvcTest(controllers = com.example.junitsamples.study.web.StudyHomeController.class)
 public class StudyHomeControllerTest {
@@ -38,7 +47,7 @@ public class StudyHomeControllerTest {
     public void hello() throws Exception {
         String hello = "hello";
 
-        mvc.perform(MockMvcRequestBuilders.get("/hello"))
+        mvc.perform(MockMvcRequestBuilders.get(ApiEndPoint.StudyHomeController.HELLO))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string(hello));
     }
@@ -53,7 +62,7 @@ public class StudyHomeControllerTest {
          *   localhost:8080/hello/dto?name=hello&amount=1000
          * jsonPath(): JSON 응답값을 필드별로 검증할 수 있음, $ 를 기준으로 필드명을 명시한다.
          */
-        mvc.perform(MockMvcRequestBuilders.get("/hello/dto").param("name", name).param("amount", String.valueOf(amount)))
+        mvc.perform(MockMvcRequestBuilders.get(ApiEndPoint.StudyHomeController.HELLO_DTO).param("name", name).param("amount", String.valueOf(amount)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name", Matchers.is(name)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.amount", Matchers.is(amount)));
