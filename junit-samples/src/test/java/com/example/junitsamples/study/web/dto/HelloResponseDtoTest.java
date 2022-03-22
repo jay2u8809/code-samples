@@ -1,7 +1,6 @@
-package com.example.junitsamples.web.dto;
+package com.example.junitsamples.study.web.dto;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

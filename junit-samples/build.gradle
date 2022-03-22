@@ -28,8 +28,13 @@ repositories {
 
 // 프로젝트 개발에 필요한 의존성들을 선언
 dependencies {
+    // spring boot starter
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // db
+    runtimeOnly 'com.h2database:h2'
+    // util
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 }

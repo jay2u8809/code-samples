@@ -13,16 +13,16 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import static org.junit.Assert.*;
 
 /**
- * RunWith 어노테이션
+ * @RunWith
  *   테스트 시, JUnit 에 내장된 실행자 외의 다른 실행자를 실행 (SpringRunner 실행자)
  *   스프링 부트 테스트와 JUnit 사이의 연결자 역할
- * WebMvcTest 어노테이션
+ * @WebMvcTest
  *   Web(Spring MVC) 에 집중할 수 있는 어노테이션
  *   Controller, ControllerAdvice 등의 어노테이션 사용 가능
  *   Service, Component, Repository 등의 어노테이션 사용 불가능
  */
 @RunWith(SpringRunner.class)
-@WebMvcTest(controllers = com.example.junitsamples.web.StudyHomeController.class)
+@WebMvcTest(controllers = com.example.junitsamples.study.web.StudyHomeController.class)
 public class StudyHomeControllerTest {
 
     /**
