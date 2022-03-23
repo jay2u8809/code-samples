@@ -1,5 +1,6 @@
 package com.example.junitsamples.study.config.auth.dto;
 
+import com.example.junitsamples.study.common.code.SnsProvider;
 import com.example.junitsamples.study.domain.user.Role;
 import com.example.junitsamples.study.domain.user.User;
 import lombok.Builder;
@@ -37,6 +38,9 @@ public class OAuthAttributes {
      * @return
      */
     public static OAuthAttributes of(String registrationId, String userNameAttributeName, Map<String, Object> attributes) {
+        if (SnsProvider.NAVER.getKey().equals(registrationId)) {
+            return ofNaver("id", attributes);
+        }
         return ofGoogle(userNameAttributeName, attributes);
     }
 
@@ -45,6 +49,17 @@ public class OAuthAttributes {
                 .name((String) attributes.get("name"))
                 .email((String) attributes.get("email"))
                 .picture((String) attributes.get("picture"))
+                .attributes(attributes)
+                .nameAttributeKey(userNameAttributeName)
+                .build();
+    }
+
+    private static OAuthAttributes ofNaver(String userNameAttributeName, Map<String, Object> attributes) {
+        Map<String, Object> response = (Map<String, Object>) attributes.get("response");
+        return OAuthAttributes.builder()
+                .name((String) attributes.get("name"))
+                .email((String) attributes.get("email"))
+                .picture((String) attributes.get("profile_image"))
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
