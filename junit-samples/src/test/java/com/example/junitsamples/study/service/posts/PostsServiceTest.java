@@ -35,7 +35,7 @@ public class PostsServiceTest extends CommonExtends {
     private Posts beforeSaved;
 
     @Before
-    public void tearUp() {
+    public void setUp() {
         String title = "New Posts";
         String content = "New Content";
         String author = "New Author";

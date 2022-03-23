@@ -48,7 +48,7 @@ public class PostsApiControllerTest extends CommonExtends {
     private Posts beforeSaved;
 
     @Before
-    public void tearUp() throws Exception {
+    public void setUp() throws Exception {
         String title = "title";
         String content = "content";
         beforeSaved = this.postsRepository.save(Posts.builder()
