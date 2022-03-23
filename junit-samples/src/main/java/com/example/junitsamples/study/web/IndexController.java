@@ -1,6 +1,7 @@
 package com.example.junitsamples.study.web;
 
 import com.example.junitsamples.study.common.ApiEndPoint;
+import com.example.junitsamples.study.config.auth.LoginUser;
 import com.example.junitsamples.study.config.auth.dto.SessionUser;
 import com.example.junitsamples.study.service.posts.PostsService;
 import com.example.junitsamples.study.web.dto.PostsResponseDto;
@@ -21,9 +22,10 @@ public class IndexController {
     private final HttpSession httpSession;
 
     @GetMapping(value = ApiEndPoint.IndexController.BASIC)
-    public String index(Model model) {
+    public String index(Model model, @LoginUser SessionUser user) {
         model.addAttribute("posts", this.postsService.findAllDesc());
-        SessionUser user = (SessionUser) this.httpSession.getAttribute("user");
+        // 파라미터(@LoginUser SessionUser user) 로 인해 불필요한 처리
+//        SessionUser user = (SessionUser) this.httpSession.getAttribute("user");
         if (user != null) {
             model.addAttribute("userName", user.getName());
         }
