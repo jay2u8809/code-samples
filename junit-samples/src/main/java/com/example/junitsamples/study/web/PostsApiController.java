@@ -29,7 +29,7 @@ public class PostsApiController {
     }
 
     @GetMapping(value = ApiEndPoint.PostApiController.FIND_BY_ID)
-    public PostsResponseDto findById(@PathVariable Long id) {
+    public PostsResponseDto findById(@PathVariable("id") Long id) {
         log.info("find post by id: {}", id);
         return this.postsService.findById(id);
     }

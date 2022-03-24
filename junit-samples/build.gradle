@@ -35,6 +35,8 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     // spring session jdbc
     implementation 'org.springframework.session:spring-session-jdbc'
+    // spring-security-test
+    testImplementation 'org.springframework.security:spring-security-test'
     // db
     runtimeOnly 'com.h2database:h2'
     // util

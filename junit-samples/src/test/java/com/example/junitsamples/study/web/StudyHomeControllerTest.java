@@ -1,6 +1,7 @@
 package com.example.junitsamples.study.web;
 
 import com.example.junitsamples.study.common.ApiEndPoint;
+import com.example.junitsamples.study.config.auth.SecurityConfig;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,7 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.stereotype.Component;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -22,7 +27,8 @@ import static org.junit.Assert.*;
  *   스프링 부트 테스트와 JUnit 사이의 연결자 역할
  * @WebMvcTest
  *   Web(Spring MVC) 에 집중할 수 있는 어노테이션
- *   Controller, ControllerAdvice 등의 어노테이션 사용 가능
+ *   WebSecurityConfigurerAdapter, WebMvcConfigurer 등을 스캔
+ *   Controller, ControllerAdvice 등의 어노테이션을 스캔, 사용 가능
  *   Service, Component, Repository 등의 어노테이션 사용 불가능
  * error: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jpaAuditingHandler': Cannot resolve reference to bean 'jpaMappingContext' while setting constructor argument; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jpaMappingContext': Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: JPA metamodel must not be empty!
  *   원인: test 중에 데이터베이스를 사용하지 않아서 스프링이 발생시키는 예외
@@ -31,7 +37,8 @@ import static org.junit.Assert.*;
  */
 @MockBean(JpaMetamodelMappingContext.class)
 @RunWith(SpringRunner.class)
-@WebMvcTest(controllers = com.example.junitsamples.study.web.StudyHomeController.class)
+@WebMvcTest(controllers = com.example.junitsamples.study.web.StudyHomeController.class,
+            excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SecurityConfig.class))
 public class StudyHomeControllerTest {
 
     /**
@@ -44,6 +51,7 @@ public class StudyHomeControllerTest {
     private MockMvc mvc;
 
     @Test
+    @WithMockUser(roles = "USER")
     public void hello() throws Exception {
         String hello = "hello";
 
@@ -53,6 +61,7 @@ public class StudyHomeControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "USER")
     public void helloDto() throws Exception {
         String name = "hello";
         int amount = 1000;

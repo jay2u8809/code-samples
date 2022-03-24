@@ -7,6 +7,7 @@ import com.example.junitsamples.study.domain.posts.PostsRepository;
 import com.example.junitsamples.study.web.dto.PostsResponseDto;
 import com.example.junitsamples.study.web.dto.PostsSaveRequestDto;
 import com.example.junitsamples.study.web.dto.PostsUpdateRequestDto;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,13 +17,20 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.*;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
 /**
  * @SpringBootTest
@@ -45,6 +53,11 @@ public class PostsApiControllerTest extends CommonExtends {
     @Autowired
     private PostsRepository postsRepository;
 
+    @Autowired
+    private WebApplicationContext context;
+
+    private MockMvc mvc;
+
     private Posts beforeSaved;
 
     @Before
@@ -57,6 +70,11 @@ public class PostsApiControllerTest extends CommonExtends {
                 .author("author")
                 .build());
         log.info("Before Saved Id: {}", this.beforeSaved.getId());
+
+        this.mvc = MockMvcBuilders
+                .webAppContextSetup(context)
+                .apply(springSecurity())
+                .build();
     }
 
     @After
@@ -64,7 +82,16 @@ public class PostsApiControllerTest extends CommonExtends {
         this.postsRepository.deleteAll();
     }
 
+    /**
+     * @WithMockUser(roles = "USER")
+     *   인증된 가짜 사용자를 만들어 사용
+     *   roles 에  권한을 추가한다
+     *   ROLE_USER 권한을 가진 사용자가 API 를 요청하는 것과 동일한 효과를 가지게 된다.
+     *   MockMve 에서만 작동한다.
+     * @throws Exception
+     */
     @Test
+    @WithMockUser(roles = "USER")
     public void posts_save_test() throws Exception {
         // given
         String title = "title";
@@ -80,12 +107,19 @@ public class PostsApiControllerTest extends CommonExtends {
         log.debug("request url: {}", url);
 
         // when
-        ResponseEntity<Long> responseEntity
-                = restTemplate.postForEntity(url, requestDto, Long.class);
+//        ResponseEntity<Long> responseEntity
+//                = restTemplate.postForEntity(url, requestDto, Long.class);
+        /**
+         * ObjectMapper(): body 영역을 문자열로 표현하기 위해 사용, JSON 으로 변환한다.
+         */
+        this.mvc.perform(MockMvcRequestBuilders.post(url)
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(new ObjectMapper().writeValueAsString(requestDto)))
+                .andExpect(MockMvcResultMatchers.status().isOk());
 
         // then
-        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(responseEntity.getBody()).isGreaterThan(0L);
+//        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+//        assertThat(responseEntity.getBody()).isGreaterThan(0L);
 
         List<Posts> postsList = this.postsRepository.findAll();
         assertThat(postsList.get(0).getTitle()).isEqualTo(title);
@@ -94,6 +128,7 @@ public class PostsApiControllerTest extends CommonExtends {
     }
 
     @Test
+    @WithMockUser(roles = "USER")
     public void posts_update_test() throws Exception {
         // given
         assertThat(this.beforeSaved).isNotNull();
@@ -113,12 +148,16 @@ public class PostsApiControllerTest extends CommonExtends {
         HttpEntity<PostsUpdateRequestDto> requestEntity = new HttpEntity<>(requestDto);
 
         // when
-        ResponseEntity<Long> responseEntity
-                = this.restTemplate.exchange(url, HttpMethod.PUT, requestEntity, Long.class);
+//        ResponseEntity<Long> responseEntity
+//                = this.restTemplate.exchange(url, HttpMethod.PUT, requestEntity, Long.class);
+        this.mvc.perform(MockMvcRequestBuilders.put(url)
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(new ObjectMapper().writeValueAsString(requestDto)))
+                .andExpect(MockMvcResultMatchers.status().isOk());
 
         // then
-        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(responseEntity.getBody()).isGreaterThan(0L);
+//        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+//        assertThat(responseEntity.getBody()).isGreaterThan(0L);
 
         List<Posts> postsList = this.postsRepository.findAll();
         assertThat(postsList.get(0).getTitle()).isEqualTo(expectedTitle);
@@ -127,12 +166,15 @@ public class PostsApiControllerTest extends CommonExtends {
     }
 
     @Test
+    @WithMockUser(roles = "USER")
     public void posts_findById_test() throws Exception {
         // given
         assertThat(this.beforeSaved).isNotNull();
         log.info("Before Saved Id: {}", this.beforeSaved.getId());
 
-        String url = ApiEndPoint.ApiEnvRoot.LOCAL + this.port + ApiEndPoint.PostApiController.FIND_BY_ID;
+//        String url = ApiEndPoint.ApiEnvRoot.LOCAL + this.port + ApiEndPoint.PostApiController.FIND_BY_ID;
+//        log.info("request url: {}", url);
+        String url = ApiEndPoint.ApiEnvRoot.LOCAL + this.port + ApiEndPoint.PostApiController.BASIC + "/" + this.beforeSaved.getId();
         log.info("request url: {}", url);
 
         // when
@@ -144,13 +186,15 @@ public class PostsApiControllerTest extends CommonExtends {
          *     at [Source: (PushbackInputStream); line: 1, column: 2]
          *  resolved: PostsResponseDto에 @NoArgsConstructor 추가, 기본 생성자가 없어서 발생하는 에러
          */
-        ResponseEntity<PostsResponseDto> responseEntity
-                = this.restTemplate.getForEntity(url, PostsResponseDto.class, this.beforeSaved.getId());
-        log.info("response entity id: {}", responseEntity.getBody().getId());
+//        ResponseEntity<PostsResponseDto> responseEntity
+//                = this.restTemplate.getForEntity(url, PostsResponseDto.class, this.beforeSaved.getId());
+//        log.info("response entity id: {}", responseEntity.getBody().getId());
+        this.mvc.perform(MockMvcRequestBuilders.get(url))
+                .andExpect(MockMvcResultMatchers.status().isOk());
 
         // then
-        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(responseEntity.getBody().getId()).isGreaterThan(0L);
+//        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+//        assertThat(responseEntity.getBody().getId()).isGreaterThan(0L);
     }
 
     @Test
