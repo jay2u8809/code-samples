@@ -1,5 +1,6 @@
 package com.jay2u8809.codesamples.individual.study.junit;
 
+import com.jay2u8809.codesamples.common.CommonExtends;
 import com.jay2u8809.codesamples.individual.study.junit.member.JUnitMemberService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,7 +11,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.UUID;
 
-public class JUnitUseMockitoAnnotations {
+public class JUnitUseMockitoAnnotations extends CommonExtends {
 
     @Mock
     JUnitMemberService mockMemberService;

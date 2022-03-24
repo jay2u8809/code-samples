@@ -1,5 +1,6 @@
 package com.jay2u8809.codesamples.individual.study.junit.study;
 
+import com.jay2u8809.codesamples.common.CommonExtends;
 import com.jay2u8809.codesamples.individual.study.junit.domain.JUnitMember;
 import com.jay2u8809.codesamples.individual.study.junit.domain.JUnitStudy;
 import com.jay2u8809.codesamples.individual.study.junit.member.JUnitMemberService;
@@ -17,7 +18,7 @@ import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class JUnitStudyServiceTest {
+class JUnitStudyServiceTest extends CommonExtends {
 
     @Mock
     JUnitMemberService mockMemberService;
@@ -112,7 +113,7 @@ class JUnitStudyServiceTest {
         assertTrue(study.isOpen());
         // TODO stubbing: ↑ 의 study 객체의 openedDateTime 이 null 이 아닌지 체크
         assertNotNull(study.getOpenedDateTime());
-        System.out.println(study.getOpenedDateTime());
+        logger.info("{}", study.getOpenedDateTime());
         // TODO stubbing: memberService.notify() 가 호출되었는지 체크
         then(this.mockMemberService).should().notify(study);
     }

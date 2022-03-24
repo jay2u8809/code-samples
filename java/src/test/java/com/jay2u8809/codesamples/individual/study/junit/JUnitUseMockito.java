@@ -1,5 +1,6 @@
 package com.jay2u8809.codesamples.individual.study.junit;
 
+import com.jay2u8809.codesamples.common.CommonExtends;
 import com.jay2u8809.codesamples.common.code.MemberStatus;
 import com.jay2u8809.codesamples.individual.study.junit.domain.JUnitMember;
 import com.jay2u8809.codesamples.individual.study.junit.domain.JUnitStudy;
@@ -26,7 +27,7 @@ import static org.mockito.Mockito.*;
 /**
  * Docs: https://javadoc.io/doc/org.mockito
  */
-public class JUnitUseMockito {
+public class JUnitUseMockito extends CommonExtends {
 
     private JUnitMemberService mockMemberService;
 

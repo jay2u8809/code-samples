@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jay2u8809.codesamples.common.CommonControllerTest;
+import com.jay2u8809.codesamples.common.CommonExtends;
 import com.jay2u8809.codesamples.corp.uzjp.adakr.api.naverapi.map.dto.NaverGeoCodingResultDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class NaverMapApiTest extends CommonControllerTest {
+public class NaverMapApiTest extends CommonExtends {
 
     // Sample Data
     private final String sampleResultJson = "{\n" +

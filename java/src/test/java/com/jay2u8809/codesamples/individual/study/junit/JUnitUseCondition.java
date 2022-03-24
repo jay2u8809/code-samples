@@ -1,5 +1,6 @@
 package com.jay2u8809.codesamples.individual.study.junit;
 
+import com.jay2u8809.codesamples.common.CommonExtends;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.*;
@@ -11,7 +12,7 @@ import static org.junit.jupiter.api.Assumptions.*;
  * 조건에 따른 테스트 실행
  */
 
-class JUnitUseCondition {
+class JUnitUseCondition extends CommonExtends {
 
     /**
      * check env, properties
@@ -32,7 +33,7 @@ class JUnitUseCondition {
         String testProperty = System.getProperty("os.name");
         // pass
         assumeTrue("Mac OS X".equalsIgnoreCase(testProperty));
-        System.out.println("Pass case");
+        logger.info("Pass case");
         assertEquals(8, testProperty.length());
     }
 
@@ -45,7 +46,7 @@ class JUnitUseCondition {
         String testProperty = System.getProperty("os.name");
         // ignore
         assumeTrue("Android".equalsIgnoreCase(testProperty));
-        System.out.println("Ignore case");
+        logger.info("Ignore case");
         assertEquals(7, testProperty.length());
     }
 
@@ -59,7 +60,7 @@ class JUnitUseCondition {
         String testProperty = System.getProperty("os.name");
         // pass
         assumingThat("Mac OS X".equalsIgnoreCase(testProperty), () -> {
-            System.out.println("Pass case");
+            logger.info("Pass case");
             assertEquals(8, testProperty.length());
         });
     }
@@ -74,7 +75,7 @@ class JUnitUseCondition {
         String testProperty = System.getProperty("os.name");
         // ignore
         assumingThat("Android".equalsIgnoreCase(testProperty), () -> {
-            System.out.println("Ignore case");
+            logger.info("Ignore case");
             assertEquals(7, testProperty.length());
         });
     }
@@ -87,7 +88,7 @@ class JUnitUseCondition {
     @Test
     void condition_test_5() {
         String testProperty = System.getProperty("os.name");
-        System.out.println("Ignore case");
+        logger.info("Ignore case");
         assertEquals(8, testProperty.length());
     }
 
@@ -97,7 +98,7 @@ class JUnitUseCondition {
     @Test
     void condition_test_6() {
         String testProperty = System.getProperty("os.name");
-        System.out.println("Ignore case");
+        logger.info("Ignore case");
         assertEquals(7, testProperty.length());
     }
 
@@ -106,7 +107,7 @@ class JUnitUseCondition {
     @Test
     void condition_test_7() {
         String testProperty = System.getProperty("os.name");
-        System.out.println("Pass case");
+        logger.info("Pass case");
         assertEquals(8, testProperty.length());
     }
 }

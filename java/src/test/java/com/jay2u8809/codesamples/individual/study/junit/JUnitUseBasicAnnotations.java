@@ -1,6 +1,8 @@
 package com.jay2u8809.codesamples.individual.study.junit;
 
+import com.jay2u8809.codesamples.common.CommonExtends;
 import org.junit.jupiter.api.*;
+import org.slf4j.Logger;
 
 /**
  * test 케이스의 메소드 명은 CamelCase보다 언더바 형식으로 한다.
@@ -8,7 +10,7 @@ import org.junit.jupiter.api.*;
  */
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)   // Change Test Method Name : create_test => create test
-class JUnitUseBasicAnnotations {
+class JUnitUseBasicAnnotations extends CommonExtends {
 
     /**
      * 테스트 시작 전에 한번만 실행, @BeforeClass
@@ -33,7 +35,7 @@ class JUnitUseBasicAnnotations {
      */
     @BeforeEach
     void before_each() {
-        System.out.println("BEFORE EACH TEST");
+        logger.info("BEFORE EACH TEST");
     }
 
     /**
@@ -41,7 +43,7 @@ class JUnitUseBasicAnnotations {
      */
     @AfterEach
     void after_each() {
-        System.out.println("AFTER EACH TEST");
+        logger.info("AFTER EACH TEST");
     }
 
     /**
@@ -50,7 +52,7 @@ class JUnitUseBasicAnnotations {
     @DisplayName("Enabled Test")
     @Test
     void enabled_test() {
-        System.out.println("CREATE TEST");
+        logger.info("CREATE TEST");
     }
 
     /**
@@ -60,6 +62,6 @@ class JUnitUseBasicAnnotations {
     @Disabled
     @Test
     void disabled_test() {
-        System.out.println("PROCESS TEST (SKIP)");
+        logger.info("PROCESS TEST (SKIP)");
     }
 }
