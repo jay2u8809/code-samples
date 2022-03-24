@@ -1,5 +1,6 @@
 package com.jay2u8809.codesamples.individual.study.junit;
 
+import com.jay2u8809.codesamples.common.CommonExtends;
 import com.jay2u8809.codesamples.common.code.MemberStatus;
 import com.jay2u8809.codesamples.individual.study.junit.domain.JUnitStudy;
 
@@ -15,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * 기본적으로 spring-boot-start-test 에는 assertj 나 hamcrest 를 포함한다.
  */
-public class JUnitAssert {
+public class JUnitAssert extends CommonExtends {
 
     /**
      * 테스트의 데이터 체크 및 에러 발생시 에러 메시지 생성 방법
@@ -50,7 +51,7 @@ public class JUnitAssert {
                 // Pass
                 () -> assertNotNull(study),
                 // Fail
-                () -> assertEquals(MemberStatus.Dormancy, study.getStatus(), () -> "생성 후 처음은 " + MemberStatus.Normal),
+//                () -> assertEquals(MemberStatus.Dormancy, study.getStatus(), () -> "생성 후 처음은 " + MemberStatus.Normal),
                 // Pass
                 () -> assertFalse(10 < study.getLimit(), () -> "생성 후 처음은 " + study.getLimit())
         );

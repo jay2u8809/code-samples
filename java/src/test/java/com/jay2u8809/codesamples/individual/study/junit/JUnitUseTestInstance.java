@@ -1,5 +1,6 @@
 package com.jay2u8809.codesamples.individual.study.junit;
 
+import com.jay2u8809.codesamples.common.CommonExtends;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,7 @@ import org.junit.jupiter.api.TestInstance;
  *   여러 인스턴스에서 공통으로 사용되지 않아도 되기 때문에 static 메소드가 아니어도 된다.
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class JUnitUseTestInstance {
+public class JUnitUseTestInstance extends CommonExtends {
 
     int cnt = 0;
 
@@ -27,23 +28,23 @@ public class JUnitUseTestInstance {
      */
     @Test
     void test_instance_1() {
-        System.out.println(this);
-        System.out.println(this.hashCode());
-        System.out.println(cnt++);
+        logger.info("{}", this);
+        logger.info("{}", this.hashCode());
+        logger.info("{}", cnt++);
     }
 
     @Test
     void test_instance_2() {
-        System.out.println(this);
-        System.out.println(this.hashCode());
-        System.out.println(cnt++);
+        logger.info("{}", this);
+        logger.info("{}", this.hashCode());
+        logger.info("{}", cnt++);
     }
 
     @Test
     void test_instance_3() {
-        System.out.println(this);
-        System.out.println(this.hashCode());
-        System.out.println(cnt++);
+        logger.info("{}", this);
+        logger.info("{}", this.hashCode());
+        logger.info("{}", cnt++);
     }
 
     @BeforeAll

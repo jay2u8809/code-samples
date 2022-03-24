@@ -1,9 +1,8 @@
 package com.jay2u8809.codesamples.corp.uzjp.adakr.api.qrcode;
 
 import com.jay2u8809.codesamples.common.CommonConst;
-import com.jay2u8809.codesamples.common.CommonControllerTest;
+import com.jay2u8809.codesamples.common.CommonExtends;
 import org.junit.jupiter.api.Test;
-import org.springframework.util.Assert;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -15,7 +14,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class QrCodeApiTest extends CommonControllerTest {
+public class QrCodeApiTest extends CommonExtends {
 
     // API URI to generate QRCODE
     private final String qrCodeApiUri = "https://api.qrserver.com/v1/create-qr-code/";
