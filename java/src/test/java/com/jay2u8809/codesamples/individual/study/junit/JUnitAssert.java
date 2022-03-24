@@ -1,6 +1,8 @@
 package com.jay2u8809.codesamples.individual.study.junit;
 
 import com.jay2u8809.codesamples.common.code.MemberStatus;
+import com.jay2u8809.codesamples.individual.study.junit.domain.JUnitStudy;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -61,7 +63,7 @@ public class JUnitAssert {
     @Test
     void assertions_test_3() {
         // check exception
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new JUnitStudy(-10));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new JUnitStudy(-10, null));
         // check error msg
         assertEquals("limit >= 0", exception.getMessage());
     }
@@ -108,7 +110,7 @@ public class JUnitAssert {
     @DisplayName("AssertJ Test")
     @Test
     void assertions_test_6() {
-        JUnitStudy study = new JUnitStudy(10);
+        JUnitStudy study = new JUnitStudy(10, null);
         assertThat(study.getLimit()).isGreaterThan(5);
     }
 }
