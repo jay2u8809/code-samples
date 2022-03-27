@@ -79,7 +79,7 @@ open-api:
 
   # QR-Code : http://goqr.me/api/
   qrcode:
-    api-uri: https://api.qrserver.com/v1/create-qr-code/
+    api-uri: https://api.qrserver.com/v1/create-qr-code
   # NAVER API
   naver:
     #NAVER MAP API
