@@ -1,7 +1,7 @@
 package com.jay2u8809.codesamples.corp.uzjp.adakr.controller.qrcode;
 
 import com.jay2u8809.codesamples.common.CommonExtends;
-import com.jay2u8809.codesamples.corp.uzjp.adakr.api.qrcode.QrCodeApi;
+import com.jay2u8809.codesamples.corp.uzjp.adakr.api.qrcode.QrCodeService;
 import com.jay2u8809.codesamples.corp.uzjp.adakr.controller.qrcode.dto.QrCodeViewEntry;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,11 +16,11 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Controller
 @RequestMapping(value = "/corp/uzjp/adakr/qrcode")
-public class QrCodeController extends CommonExtends {
+public class QrCodeApi extends CommonExtends {
 
     private static final String BASE_PATH = CORP_UZJP_HOME_PATH + "/adakr/qrcode/";
 
-    private final QrCodeApi qrCodeApi;
+    private final QrCodeService qrCodeService;
 
     @GetMapping(value = "/entry/")
     public String moveGenerateQrCodeView (Model model) {
@@ -44,7 +44,7 @@ public class QrCodeController extends CommonExtends {
         logger.debug("Input Uri : {}", qrCodeViewEntry.getQrcodeUri());
 
         Map<String, Object> result = new HashMap<>();
-        String qrCode = qrCodeApi.generateQrCodeByImageUri(qrCodeViewEntry.getQrcodeUri(), qrCodeViewEntry.getQrcodeSize());
+        String qrCode = qrCodeService.generateQrCodeByImageUri(qrCodeViewEntry.getQrcodeUri(), qrCodeViewEntry.getQrcodeSize());
 //        String qrCode = "QRCODE TEST URI";
         result.put("qrCodeUrl", qrCode);
 
