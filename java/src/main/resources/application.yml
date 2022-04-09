@@ -82,10 +82,13 @@ open-api:
     api-uri: https://api.qrserver.com/v1/create-qr-code
   # NAVER API
   naver:
+    dummy: true
     #NAVER MAP API
     map:
       # NAVER MAP GEOCODING API
-      geocoding:
+      geo-coding:
         api-url: https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode
+        # Issued after registration on NaverCloud Platform
         client-id: ID_INFO
+        # Issued after registration on NaverCloud Platform
         client-secret: SECRET_INFO

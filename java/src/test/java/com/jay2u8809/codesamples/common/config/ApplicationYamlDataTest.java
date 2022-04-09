@@ -9,6 +9,13 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Spring Boot @ConfigurationProperties 테스트
+ *   https://recordsoflife.tistory.com/436
+ * [Spring] @TestConfiguration
+ *   https://csy7792.tistory.com/335
+ */
+
 @ExtendWith(SpringExtension.class)
 @EnableConfigurationProperties(value = ApplicationYamlData.class)
 //@TestPropertySource("classpath:application.yml")
