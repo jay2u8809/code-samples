@@ -2,7 +2,8 @@
 
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
-import isoweek from 'dayjs/plugin/isoweek';
+// import isoweek from 'dayjs/plugin/isoweek';
+const isoweek = require('dayjs/plugin/isoweek');
 import cumtomParseFormat from 'dayjs/plugin/customParseFormat';
 import { BadRequestException } from '@nestjs/common';
 

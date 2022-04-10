@@ -1,8 +1,8 @@
 import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 import { BaseEntity } from '../base.entity';
-import { YN } from '../../common/code/yn';
+import { YN } from '../../common/code/YN';
 import { MemberStatus } from '../../common/code/member-status';
-import { Gender } from '../../common/code/gender';
+import { Gender } from '../../common/code/Gender';
 
 @Index('member_pkey', ['memberSn'], { unique: true })
 @Entity('member', { schema: 'dev_schema' })
