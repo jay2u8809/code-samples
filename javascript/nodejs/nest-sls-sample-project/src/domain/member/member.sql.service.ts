@@ -14,7 +14,7 @@ import { MemberRepository } from './member.repository';
 import { getConnection, Connection, getManager, QueryRunner, Repository, getRepository } from 'typeorm';
 import { EntityManager } from 'typeorm/entity-manager/EntityManager';
 import { MemberInterface } from '../../db/common/domain/member/member.interface';
-import { plainToClass } from 'class-transformer';
+import { plainToInstance } from 'class-transformer';
 import { transferFromRaw } from '../../common/common.utils';
 
 const TAG = 'MEMBER_SQL_SERVICE';
@@ -141,7 +141,7 @@ export class MemberSqlService implements MemberInterface {
       .then((items) => {
         return items.map((item) => {
           const transferred = transferFromRaw(item);
-          return plainToClass(Member, transferred);
+          return plainToInstance(Member, transferred);
         });
       }).catch((err) => {
         console.error(TAG, `Fail to fetch member data by member email address`);

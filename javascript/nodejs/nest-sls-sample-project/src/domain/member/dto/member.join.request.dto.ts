@@ -11,7 +11,7 @@ import {
   setMemberDefaultFields,
 } from '../../../entities/member/member';
 import { setBaseDefaultFields } from '../../../entities/base.entity';
-import { plainToClass } from 'class-transformer';
+import { plainToInstance } from 'class-transformer';
 import { v4 as uuidv4 } from 'uuid';
 import configuration from '../../../config/configuration';
 import { generateHash } from '../../../common/common.utils';
@@ -138,7 +138,7 @@ export class MemberJoinRequestDto {
 export const saveMember = (joinRequestDto: MemberJoinRequestDto): Member => {
   // TODO password encryption
 
-  const member: Member = plainToClass(Member, {
+  const member: Member = plainToInstance(Member, {
     ...joinRequestDto,
     id: configuration().db.useSql ? null : uuidv4(),
     name_1: joinRequestDto.memberName1,

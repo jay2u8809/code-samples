@@ -11,7 +11,7 @@ import {
 } from './dto/member.join.request.dto';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { MemberInterface } from '../../db/common/domain/member/member.interface';
-import { plainToClass } from 'class-transformer';
+import { plainToInstance } from 'class-transformer';
 import { MemberStatus } from '../../common/code/member-status';
 
 const TAG = 'MEMBER_NOSQL_SERVICE';
@@ -51,7 +51,7 @@ export class MemberNosqlService implements MemberInterface {
     // 3. make query
     const putParam: QueryParam = {
       TableName: AwsDbTable.TEST_MEMBER,
-      Item: plainToClass(Member, {
+      Item: plainToInstance(Member, {
         ...saveMember(param),
       }),
     };
@@ -158,7 +158,7 @@ export class MemberNosqlService implements MemberInterface {
     if (!data) {
       return;
     }
-    return plainToClass(Member, data);
+    return plainToInstance(Member, data);
   }
 
   /**
@@ -183,7 +183,7 @@ export class MemberNosqlService implements MemberInterface {
       return;
     }
     return data.Items.map((item) => {
-      return plainToClass(Member, item);
+      return plainToInstance(Member, item);
     });
   }
 
@@ -216,7 +216,7 @@ export class MemberNosqlService implements MemberInterface {
     if (data.Count <= 0) {
       return;
     }
-    return plainToClass(Member, data.Items[0]);
+    return plainToInstance(Member, data.Items[0]);
   }
 
   async getByEmail(email: string): Promise<Member[]> {
@@ -245,7 +245,7 @@ export class MemberNosqlService implements MemberInterface {
       return;
     }
     return data.Items.map((item) => {
-      return plainToClass(Member, item);
+      return plainToInstance(Member, item);
     });
   }
 
@@ -275,7 +275,7 @@ export class MemberNosqlService implements MemberInterface {
       return;
     }
     return data.Items.map((d) => {
-      return plainToClass(Member, d);
+      return plainToInstance(Member, d);
     });
   }
 
@@ -301,7 +301,7 @@ export class MemberNosqlService implements MemberInterface {
       return;
     }
     return data.Items.map((d) => {
-      return plainToClass(Member, d);
+      return plainToInstance(Member, d);
     });
   }
 
