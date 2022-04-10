@@ -7,7 +7,7 @@ const TAG = 'MAIN';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.setGlobalPrefix('api')
+  app.setGlobalPrefix('api');
 
   // class-validator setting
   // app.useGlobalPipes(new ValidationPipe());
@@ -19,13 +19,13 @@ async function bootstrap() {
   .setDescription('Todo API documentation')
   .setVersion('1.0')
   .addTag('Todo')
-  .build()
+  .build();
   
-  const document = SwaggerModule.createDocument(app, options)
-  SwaggerModule.setup('api', app, document)
+  const document = SwaggerModule.createDocument(app, options);
+  SwaggerModule.setup('api', app, document);
   
-  const port = +process.env.APP_PORT || 3000
-  console.log('Port running on: ', port)
+  const port = +process.env.APP_PORT || 3000;
+  console.log(TAG, 'Port running on: ', port);
   await app.listen(port);
 }
 bootstrap();

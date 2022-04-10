@@ -1,4 +1,4 @@
-import { TypeOrmModuleOptions } from "@nestjs/typeorm";
+import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 const typeOrmConfig: TypeOrmModuleOptions = {
     type: 'postgres',
@@ -11,12 +11,12 @@ const typeOrmConfig: TypeOrmModuleOptions = {
     entities: [__dirname + '/**/*.entity{.ts,.js}'],
     migrationsRun: false,
     logging: true,
-    migrationsTableName: "migration",
+    migrationsTableName: 'migration',
     migrations: [__dirname + '/migration/**/*.ts', __dirname + '/migration/**/*.js'],
     synchronize: false,
     cli: {
         migrationsDir: 'src/migration'
-    }
-}
+    },
+};
 
-export = typeOrmConfig
+export = typeOrmConfig;
