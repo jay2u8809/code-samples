@@ -1,31 +1,68 @@
 import { Injectable } from '@nestjs/common';
 import { createWorker } from 'tesseract.js';
-import { isEmpty } from '../../../common/common.utils';
+import fs from 'fs';
+import { LangType } from '../../../common/code/lang-type';
+
+const TAG = 'TesseractService';
 
 @Injectable()
 export class TesseractService {
-  /**
-   *
-   * @private
-   */
-  async detectTextFromImageProcess(file: Buffer): Promise<string> {
-    let result = null;
+  async detectTextFromUrl(url: string, lang?: LangType): Promise<string> {
+    const raw = await this.detect(url, lang);
+    // const result = raw.replace(/\s/g, '');
+    console.log(TAG, 'detect-by-url-result', raw);
+    return raw;
+  }
 
-    const worker = createWorker({
-      logger: (m) => console.log(m),
+  async detectTextFromFilePath(path: string, lang?: LangType): Promise<string> {
+    const isExist = fs.existsSync(path);
+    if (!isExist) {
+      throw new Error(`${path} is not exist`);
+    }
+    const result: string = await new Promise((resolve, reject) => {
+      fs.createReadStream(path)
+        .on('error', (err) => {
+          console.error(TAG, 'read-file-error', JSON.stringify(err));
+          reject(err);
+        })
+        .on('data', async (file: Buffer) => {
+          const raw = await this.detect(file, lang);
+          // const result = raw.replace(/\s/g, '');
+          resolve(raw);
+        });
     });
+    console.log(TAG, 'detect-by-file-path-result', result);
+    return result;
+  }
 
-    await (async () => {
-      await worker.load();
-      await worker.loadLanguage('eng');
-      await worker.initialize('eng');
-      const {
-        data: { text },
-      } = await worker.recognize(file);
-      result = text;
-      await worker.terminate();
-    })();
+  async detectTextFromFile(data: Buffer, lang?: LangType): Promise<string> {
+    if (!data) {
+      throw new Error(`file is not exist`);
+    }
+    const raw = await this.detect(data, lang);
+    console.log(TAG, 'detect-by-file-result', raw);
+    return raw;
+  }
 
-    return isEmpty(result) ? null : result;
+  // === private ===
+  private async detect(
+    file: Buffer | string,
+    lang: LangType = LangType.ENG,
+  ): Promise<string> {
+    // init
+    const worker = createWorker({
+      // logger: (m) => console.log(m),
+    });
+    // read image
+    await worker.load();
+    await worker.loadLanguage(lang);
+    await worker.initialize(lang);
+    const {
+      data: { text },
+    } = await worker.recognize(file);
+    console.log(TAG, 'tesseract-result-text', JSON.stringify(text, null, 2));
+    await worker.terminate();
+
+    return text;
   }
 }
