@@ -5,11 +5,13 @@ import {
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
-import { TesseractService } from './tesseract/tesseract.service';
+import { ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { LangType } from '../../common/code/lang-type';
+import { TesseractService } from './tesseract/tesseract.service';
+import { LangType } from '../../../common/code/lang-type';
 
-@Controller('/api/v1/ocr')
+@ApiTags('open/ocr')
+@Controller('/v1/ocr')
 export class OcrController {
   constructor(private readonly tesseractService: TesseractService) {}
 

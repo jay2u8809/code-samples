@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { createWorker } from 'tesseract.js';
+import { LangType } from '../../../../common/code/lang-type';
 import fs from 'fs';
-import { LangType } from '../../../common/code/lang-type';
 
 const TAG = 'TesseractService';
 
