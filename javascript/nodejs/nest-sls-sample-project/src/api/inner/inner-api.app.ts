@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { ApiModule } from '../api.module';
-import { CommonUtils } from 'src/common/common.utils';
+import { CommonUtils } from 'src/utils/common.utils';
 
 const TAG = 'InnerApi';
 

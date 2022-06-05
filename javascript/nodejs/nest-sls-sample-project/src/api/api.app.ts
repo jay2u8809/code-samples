@@ -6,7 +6,7 @@ import express from 'express';
 import { Context, Handler } from 'aws-lambda';
 import * as serverless from 'aws-serverless-express';
 import { ApiModule } from './api.module';
-import { CommonUtils } from 'src/common/common.utils';
+import { CommonUtils } from 'src/utils/common.utils';
 
 const TAG = 'ApiMain';
 
