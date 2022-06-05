@@ -3,12 +3,11 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 // import isoweek from 'dayjs/plugin/isoweek';
-const isoweek = require('dayjs/plugin/isoweek');
 import cumtomParseFormat from 'dayjs/plugin/customParseFormat';
 import { BadRequestException } from '@nestjs/common';
 
 dayjs.extend(utc);
-dayjs.extend(isoweek);
+// dayjs.extend(isoweek);
 dayjs.extend(cumtomParseFormat);
 
 export class DayjsUtil {

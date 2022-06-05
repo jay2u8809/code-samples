@@ -1,31 +1,22 @@
-import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
+import { CommonUtils } from './utils/common.utils';
 
-const TAG = 'MAIN';
+const TAG = 'Main';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.setGlobalPrefix('api');
 
   // class-validator setting
-  // app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(new ValidationPipe());
   // await app.init();
 
-  const options = new DocumentBuilder()
-  .addBearerAuth()
-  .setTitle('Todo APP')
-  .setDescription('Todo API documentation')
-  .setVersion('1.0')
-  .addTag('Todo')
-  .build();
-  
-  const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('api', app, document);
-  
-  const port = +process.env.APP_PORT || 3000;
-  console.log(TAG, 'Port running on: ', port);
+  //
+  const config: Record<string, any> =  await CommonUtils.loadConfigByYaml('config.yaml', TAG);
+  // port setting
+  const port = +config?.default?.port || 3000;
+  console.log(TAG, 'port-running', port);
   await app.listen(port);
 }
 bootstrap();

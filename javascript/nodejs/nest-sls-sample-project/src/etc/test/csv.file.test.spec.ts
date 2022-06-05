@@ -1,13 +1,13 @@
 import csv from 'csv-parser';
 import fs from 'fs';
-import { DayjsUtil } from '../../common/Dayjs.util';
+import { DayjsUtil } from '../../utils/dayjs.utils';
 import dayjs from 'dayjs';
 import { createObjectCsvWriter as createCsvWriter } from 'csv-writer';
 
-const TAG = 'CSV_FILE_TEST';
+const TAG = 'CsvFileSpec';
 
-const csvFilePath = __dirname + '/files/csv/';
-const jsonFilePath = __dirname + '/files/json/';
+const csvFilePath = __dirname + '/exports/csv/';
+const jsonFilePath = __dirname + '/exports/json/';
 
 enum Separator {
   LF = '\n',
@@ -17,7 +17,7 @@ enum Separator {
   VERTICAL = '|',
 }
 
-describe('Csv File Test', () => {
+describe(TAG, () => {
   let date;
   let tail;
   let fileName;
