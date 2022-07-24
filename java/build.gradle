@@ -1,7 +1,7 @@
 buildscript {
 	ext {
 		springBootVersion = '2.4.2'
-		set('vaadinVersion', "14.4.6")
+//		set('vaadinVersion', "14.4.6")
 	}
 
 	repositories {
@@ -17,7 +17,7 @@ buildscript {
 plugins {
 	id 'org.springframework.boot' version '2.4.2'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-	id 'com.vaadin' version '0.14.3.7'
+//	id 'com.vaadin' version '0.14.3.7'
 	id 'java'
 	id 'war'
 }
@@ -48,7 +48,7 @@ dependencies {
 	implementation 'com.graphql-java:graphql-spring-boot-starter:5.0.2'						// https://mvnrepository.com/artifact/com.graphql-java/graphql-spring-boot-starter
 	implementation 'com.graphql-java:graphql-java-tools:5.2.4'								// https://mvnrepository.com/artifact/com.graphql-java/graphql-java-tools
 	// Vaadin
-	implementation 'com.vaadin:vaadin-spring-boot-starter'
+//	implementation 'com.vaadin:vaadin-spring-boot-starter'
 	// Lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
@@ -66,7 +66,7 @@ dependencies {
 
 dependencyManagement {
 	imports {
-		mavenBom "com.vaadin:vaadin-bom:${vaadinVersion}"
+//		mavenBom "com.vaadin:vaadin-bom:${vaadinVersion}"
 	}
 }
 
