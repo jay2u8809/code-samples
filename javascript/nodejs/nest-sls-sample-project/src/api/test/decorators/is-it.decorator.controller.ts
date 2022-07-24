@@ -4,7 +4,7 @@ import { IsOptionalRequestDto } from './dto/is-it/is-optional.request.dto';
 import { IsDefinedRequestDto } from './dto/is-it/is-defined.request.dto';
 import { ApiTags } from '@nestjs/swagger';
 
-const TAG = 'IS-IT_DECORATORS_CONTROLLER';
+const TAG = 'IS-IT-DECORATORS_TEST_CONTROLLER';
 
 @ApiTags('open/decorators')
 @Controller('/v1/is-it-decorators')

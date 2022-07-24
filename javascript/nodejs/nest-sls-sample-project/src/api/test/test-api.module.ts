@@ -1,16 +1,16 @@
 import { Module } from '@nestjs/common';
-import { TestController } from './test.controller';
-import { TestService } from './test.service';
+import { RestApiController } from './rest-api/rest-api.controller';
+import { RestApiService } from './rest-api/rest-api.service';
 import { IsItDecoratorController } from './decorators/is-it.decorator.controller';
 import { StringDecoratorsController } from './decorators/string-decorators.controller';
 
 @Module({
   imports: [],
   controllers: [
-    TestController,
+    RestApiController,
     IsItDecoratorController,
     StringDecoratorsController,
   ],
-  providers: [TestService],
+  providers: [RestApiService],
 })
 export class TestApiModule {}

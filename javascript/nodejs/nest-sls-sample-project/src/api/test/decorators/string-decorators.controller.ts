@@ -2,7 +2,7 @@ import { Body, Controller, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { ContainRequestDto } from './dto/string-decorator/contain.request.dto';
 
-const TAG = 'STRING-DECORATORS_CONTROLLER';
+const TAG = 'STRING-DECORATORS_TEST_CONTROLLER';
 
 @ApiTags('open/decorators')
 @Controller('/v1/string-decorators')

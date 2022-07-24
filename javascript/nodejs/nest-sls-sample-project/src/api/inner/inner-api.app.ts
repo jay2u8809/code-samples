@@ -14,7 +14,10 @@ async function bootstrapServer(): Promise<void> {
   app.useGlobalPipes(new ValidationPipe());
 
   // config
-  const config: Record<string, any> = await CommonUtils.loadConfigByYaml('src/api/api-config.yaml', TAG);
+  const config: Record<string, any> = await CommonUtils.loadConfigByYaml(
+    'src/api/api-config.yaml',
+    TAG,
+  );
   // port setting
   const port = +config?.inner?.port || 3000;
   console.log(TAG, 'port-running', port);
@@ -22,7 +25,7 @@ async function bootstrapServer(): Promise<void> {
   await app.init();
 }
 
-if (process.argv.length > 0 && process.argv[2] === 'inner-api'){
+if (process.argv.length > 0 && process.argv[2] === 'inner-api') {
   console.log(TAG, 'local-running');
   bootstrapServer();
 }
