@@ -1,4 +1,4 @@
-import { DayjsUtil } from '../../common/Dayjs.util';
+import { DayjsUtil } from '../../utils/dayjs.utils';
 
 const TAG = 'REGEXP_TEST';
 

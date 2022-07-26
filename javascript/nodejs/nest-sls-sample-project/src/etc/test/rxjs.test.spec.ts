@@ -1,4 +1,4 @@
-import { DayjsUtil } from '../../common/Dayjs.util';
+import { DayjsUtil } from '../../utils/dayjs.utils';
 import { Observable, from, of } from 'rxjs';
 
 const TAG = 'RXJS_TEST';

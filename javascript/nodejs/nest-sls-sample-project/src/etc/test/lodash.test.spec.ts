@@ -1,15 +1,15 @@
 import _ from 'lodash';
-import { DayjsUtil } from '../../common/Dayjs.util';
+import { DayjsUtil } from '../../utils/dayjs.utils';
 
-const TAG = 'LODASH_TEST';
+const TAG = 'LodashSpec';
 
-describe('lodash Test', () => {
+describe(TAG, () => {
   beforeEach(() => {
     console.log(TAG, DayjsUtil.koreaDate().toISOString());
   });
 
   // Find Index
-  it('findIndex test', async () => {
+  it.skip('findIndex test', async () => {
     // sample data
     const myFriends: any[] = [
       { name: 'mike', job: 'pd', age: 40 },
@@ -46,7 +46,7 @@ describe('lodash Test', () => {
   });
 
   // Remove
-  it('remove test', async () => {
+  it.skip('remove test', async () => {
     // sample data
     const arr: number[] = [1, 2, 3, 4, 5];
     const result: number[] = _.remove(arr, (num: number): boolean => {
@@ -59,7 +59,7 @@ describe('lodash Test', () => {
   });
 
   // Find
-  it('find test', async () => {
+  it.skip('find test', async () => {
     // sample data
     const myFriends: any[] = [
       { name: 'mike', job: 'pd', age: 40 },
@@ -87,7 +87,7 @@ describe('lodash Test', () => {
     // [===== RESULT =====] undefined
   });
 
-  it('filter test', async () => {
+  it.skip('filter test', async () => {
     // sample data
     const myFriends: any[] = [
       { name: 'mike', job: 'pd', age: 40 },
@@ -121,7 +121,7 @@ describe('lodash Test', () => {
     // [===== RESULT =====] []
   });
 
-  it('map test', async () => {
+  it.skip('map test', async () => {
     // sample data
     const myFriends: any[] = [
       { name: 'mike', job: 'pd', age: 40 },
@@ -177,7 +177,7 @@ describe('lodash Test', () => {
     */
   });
 
-  it('include test', async () => {
+  it.skip('include test', async () => {
     // sample data
     const myFriend: any = { name: 'leo', job: 'chef', age: 46 };
     let result: any;
@@ -199,14 +199,14 @@ describe('lodash Test', () => {
     // [===== RESULT =====] true
   });
 
-  it('fill test', async () => {
+  it.skip('fill test', async () => {
     // sample data
     const result = _.fill(Array(3), 'leo');
     console.log(TAG, `FILL METHOD: `, result);
     // [===== RESULT =====] [ 'leo', 'leo', 'leo' ]
   });
 
-  it('omit and remove test', async () => {
+  it.skip('omit and remove test', async () => {
     // sample data
     const myFriends: any[] = [
       { name: 'mike', job: 'pd', age: 40 },
@@ -246,13 +246,13 @@ describe('lodash Test', () => {
     */
   });
 
-  it('join test', async () => {
+  it.skip('join test', async () => {
     const result: any = _.join([1, 2, 4, 6, 5], ':');
     console.log(TAG, 'SAMPLE TEST: ', result, typeof result);
     // [===== RESULT =====] 1:2:4:6:5 string
   });
 
-  it('get test', async () => {
+  it.skip('get test', async () => {
     // sample data
     const sample: any = {
       a: [
@@ -275,7 +275,7 @@ describe('lodash Test', () => {
   });
 
   // remove dup
-  it('uniqBy test', async () => {
+  it.skip('uniqBy test', async () => {
     // sample data
     const myFriends: any[] = [
       { name: 'mike', job: 'pd', age: 40 },
@@ -342,7 +342,7 @@ describe('lodash Test', () => {
     */
   });
 
-  it('groupBy test', async () => {
+  it.skip('groupBy test', async () => {
     // sample data
     const myFriends: any[] = [
       { name: 'mike', job: 'pd', age: 40 },

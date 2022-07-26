@@ -48,7 +48,14 @@ out/
 **/node_modules/**
 **/dist/**
 .dynamodb
-package-lock.json
+**/package-lock.json
+**/pgadmin-data/**
+**/pgdata/**
+**/.env
+**/yarn.lock
+
+### Docker ###
+**/.dockerignore
 
 ### Tesseract.js ###
 *.traineddata
@@ -61,3 +68,6 @@ package-lock.json
 ### Scala ###
 **/target/**
 **/.bsp/**
+
+### File ###
+**/samples/**
