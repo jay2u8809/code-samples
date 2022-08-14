@@ -1,4 +1,4 @@
-package com.jay2u8809.codesamples.corp.uzjp.adakr.api.naverapi.map.dto;
+package com.jay2u8809.codesamples.corp.uzjp.adakr.service.naverapi.map.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Builder;

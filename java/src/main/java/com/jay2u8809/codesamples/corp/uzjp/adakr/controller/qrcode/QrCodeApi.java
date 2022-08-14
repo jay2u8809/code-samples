@@ -1,7 +1,7 @@
 package com.jay2u8809.codesamples.corp.uzjp.adakr.controller.qrcode;
 
 import com.jay2u8809.codesamples.common.CommonExtends;
-import com.jay2u8809.codesamples.corp.uzjp.adakr.api.qrcode.QrCodeService;
+import com.jay2u8809.codesamples.corp.uzjp.adakr.service.qrcode.QrCodeService;
 import com.jay2u8809.codesamples.corp.uzjp.adakr.controller.qrcode.dto.QrCodeViewEntry;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

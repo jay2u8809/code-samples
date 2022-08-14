@@ -1,19 +1,16 @@
-package com.jay2u8809.codesamples.corp.uzjp.adakr.api.qrcode;
+package com.jay2u8809.codesamples.corp.uzjp.adakr.service.qrcode;
 
 import com.jay2u8809.codesamples.common.CommonConst;
 import com.jay2u8809.codesamples.common.CommonExtends;
-import com.jay2u8809.codesamples.corp.uzjp.adakr.api.qrcode.config.QrCodeConfig;
+import com.jay2u8809.codesamples.corp.uzjp.adakr.service.qrcode.config.QrCodeConfig;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
-import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.regex.Pattern;
 
@@ -34,48 +31,48 @@ public class QrCodeService extends CommonExtends {
 
     /**
      * QRCODE generation
-     * @param inputUri  URi information to generate QRCODE
-     * @param inputSize QRCODE image size setting
+     * @param uri  URi information to generate QRCODE
+     * @param size QRCODE image size setting
      * @return String
      */
-    public String generateQrCodeByImageUri (String inputUri, Integer inputSize) {
+    public String generateQrCodeByImageUri (String uri, Integer size) {
 
-        logger.debug("INPUT URI : {} , INPUT SIZE : {}", inputUri, inputSize);
+        logger.debug("INPUT URI : {} , INPUT SIZE : {}", uri, size);
 
-        // 1) input uri is null: throw exception
-        if (inputUri == null || inputUri.length() == 0) {
-            throw new IllegalArgumentException("URI cannot be null, " + inputUri);
+        // 1-1) check input uri
+        if (ObjectUtils.isEmpty(uri)) {
+            throw new IllegalArgumentException("URI cannot be null, " + uri);
         }
-        // 1-2) uri regex
-        boolean isMatches = Pattern.matches(CommonConst.REGEX_URL, inputUri);
+        // 1-2) check uri regex
+        boolean isMatches = Pattern.matches(CommonConst.REGEX_URL, uri);
         if (!isMatches) {
-            throw new IllegalArgumentException("URI cannot be uri, " + inputUri);
+            throw new IllegalArgumentException("URI cannot be uri, " + uri);
         }
 
-        // 2) input size is null: replace default value, min-max value
-        int size = (inputSize == null || inputSize == 0)
+        // 2) check input size
+        int qrCodeSize = (size == null || size == 0)
                 ? this.defaultSize
-                : (inputSize < this.minSize || this.maxSize < inputSize)
+                : (size < this.minSize || this.maxSize < size)
                     ? this.defaultSize
-                    : inputSize;
-        String sizeQuery = size + "x" + size;
+                    : size;
+        String sizeQuery = qrCodeSize + "x" + qrCodeSize;
 
-        // 3) build uri: use uri component
-        URI uri = UriComponentsBuilder
+        // 3) build uri
+        URI qrCodeUri = UriComponentsBuilder
                 .fromUriString(this.qrCodeConfig.getApiUri())
                 .path("/")
                 .queryParam("size", sizeQuery)
-                .queryParam("data", inputUri)
+                .queryParam("data", uri)
                 .encode(StandardCharsets.UTF_8)
                 .build()
                 .toUri();
-        logger.info("Generate Qr Code Request URL: {}", uri);
+        logger.info("Generate Qr Code Request URL: {}", qrCodeUri);
 
-        // 4) request: use restTemplate
+        // 4) request
         String result = null;
         try {
             RestTemplate restTemplate = new RestTemplate();
-            result =restTemplate.getForObject(uri, String.class);
+            result = restTemplate.getForObject(uri, String.class);
             logger.debug("Generate Qr Code Result: {}", result);
         } catch (RestClientException e) {
             logger.error("ERROR: Qr code generation failed, {}", e.getMessage());
@@ -83,4 +80,5 @@ public class QrCodeService extends CommonExtends {
 
         return result;
     }
+
 }

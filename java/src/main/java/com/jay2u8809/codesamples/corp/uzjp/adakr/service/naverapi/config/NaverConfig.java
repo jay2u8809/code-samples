@@ -1,7 +1,7 @@
-package com.jay2u8809.codesamples.corp.uzjp.adakr.api.naverapi.config;
+package com.jay2u8809.codesamples.corp.uzjp.adakr.service.naverapi.config;
 
 import com.jay2u8809.codesamples.common.config.YamlPropertySourceFactory;
-import com.jay2u8809.codesamples.corp.uzjp.adakr.api.naverapi.map.config.MapConfigDto;
+import com.jay2u8809.codesamples.corp.uzjp.adakr.service.naverapi.map.config.MapConfigDto;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;

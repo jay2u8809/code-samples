@@ -1,4 +1,4 @@
-package com.jay2u8809.codesamples.corp.uzjp.adakr.api.qrcode.config;
+package com.jay2u8809.codesamples.corp.uzjp.adakr.service.qrcode.config;
 
 import com.jay2u8809.codesamples.common.config.YamlPropertySourceFactory;
 import lombok.Getter;
