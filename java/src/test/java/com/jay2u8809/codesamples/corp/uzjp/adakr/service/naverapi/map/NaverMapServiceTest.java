@@ -1,4 +1,4 @@
-package com.jay2u8809.codesamples.corp.uzjp.adakr.api.naverapi.map;
+package com.jay2u8809.codesamples.corp.uzjp.adakr.service.naverapi.map;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -6,9 +6,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jay2u8809.codesamples.common.CommonExtends;
-import com.jay2u8809.codesamples.corp.uzjp.adakr.api.naverapi.config.NaverConfig;
-import com.jay2u8809.codesamples.corp.uzjp.adakr.api.naverapi.map.config.MapConfigDto;
-import com.jay2u8809.codesamples.corp.uzjp.adakr.api.naverapi.map.dto.GeoCodingResponseDto;
+import com.jay2u8809.codesamples.corp.uzjp.adakr.service.naverapi.config.NaverConfig;
+import com.jay2u8809.codesamples.corp.uzjp.adakr.service.naverapi.map.config.MapConfigDto;
+import com.jay2u8809.codesamples.corp.uzjp.adakr.service.naverapi.map.dto.GeoCodingResponseDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

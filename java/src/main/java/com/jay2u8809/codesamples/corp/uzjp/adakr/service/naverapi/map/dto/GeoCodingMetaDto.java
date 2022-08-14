@@ -1,4 +1,4 @@
-package com.jay2u8809.codesamples.corp.uzjp.adakr.api.naverapi.map.dto;
+package com.jay2u8809.codesamples.corp.uzjp.adakr.service.naverapi.map.dto;
 
 import lombok.Builder;
 import lombok.Getter;

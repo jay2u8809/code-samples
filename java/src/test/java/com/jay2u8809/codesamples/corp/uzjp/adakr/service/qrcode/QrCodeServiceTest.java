@@ -1,8 +1,8 @@
-package com.jay2u8809.codesamples.corp.uzjp.adakr.api.qrcode;
+package com.jay2u8809.codesamples.corp.uzjp.adakr.service.qrcode;
 
 import com.jay2u8809.codesamples.common.CommonConst;
 import com.jay2u8809.codesamples.common.CommonExtends;
-import com.jay2u8809.codesamples.corp.uzjp.adakr.api.qrcode.config.QrCodeConfig;
+import com.jay2u8809.codesamples.corp.uzjp.adakr.service.qrcode.config.QrCodeConfig;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,8 +17,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.regex.Pattern;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @EnableConfigurationProperties(value = QrCodeConfig.class)

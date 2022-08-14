@@ -1,9 +1,9 @@
-package com.jay2u8809.codesamples.corp.uzjp.adakr.api.naverapi.map;
+package com.jay2u8809.codesamples.corp.uzjp.adakr.service.naverapi.map;
 
 import com.jay2u8809.codesamples.common.CommonExtends;
-import com.jay2u8809.codesamples.corp.uzjp.adakr.api.naverapi.config.NaverConfig;
-import com.jay2u8809.codesamples.corp.uzjp.adakr.api.naverapi.map.config.MapConfigDto;
-import com.jay2u8809.codesamples.corp.uzjp.adakr.api.naverapi.map.dto.GeoCodingResponseDto;
+import com.jay2u8809.codesamples.corp.uzjp.adakr.service.naverapi.config.NaverConfig;
+import com.jay2u8809.codesamples.corp.uzjp.adakr.service.naverapi.map.config.MapConfigDto;
+import com.jay2u8809.codesamples.corp.uzjp.adakr.service.naverapi.map.dto.GeoCodingResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
